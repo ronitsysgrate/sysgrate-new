@@ -99,7 +99,7 @@ const DIFFERENTIATORS: Differentiator[] = [
 ];
 
 export default function WhySysgrate() {
-  const [showDrawbacks, setShowDrawbacks] = useState(true);
+  const [showDrawbacks, setShowDrawbacks] = useState(false);
 
   return (
     <section id="why-sysgrate" className="sg-container pt-[clamp(64px,10vw,120px)] relative">

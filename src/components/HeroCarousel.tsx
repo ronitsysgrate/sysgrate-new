@@ -8,6 +8,13 @@ interface SlideOption {
     tag: string;
     title: React.ReactNode;
     description: string;
+    card: {
+        heading: string;
+        body: string;
+        metric: string;
+        metricLabel: string;
+        tint: string; // gradient used on the card face
+    };
 }
 
 const SLIDES: SlideOption[] = [
@@ -16,14 +23,20 @@ const SLIDES: SlideOption[] = [
         tag: "01",
         title: (
             <>
-                What if your cloud contact centre, collaboration platform, and workspaces
-                technology all worked in{" "}
-                <span className="sg-highlight font-medium">sync</span> — powered by{" "}
-                <span className="sg-highlight font-medium">AI</span>?
+                We are the AI and experience{" "}
+                <span className="sg-highlight font-medium">technology backbone</span>{" "}
+                behind the best-run enterprises.
             </>
         ),
         description:
-            "We design, integrate, and manage AI-native solutions across CX, unified communications, and modern workplace — for enterprises worldwide.",
+            "Specialist system integrator for cloud contact centre, unified communications, and modern workplace technology.",
+        card: {
+            heading: "Cloud contact centre",
+            body: "Migration, routing design, and day-two operations across Genesys, NICE, and Amazon Connect.",
+            metric: "40+",
+            metricLabel: "enterprise migrations delivered",
+            tint: "linear-gradient(145deg, #F7F2FD 0%, #E7DDF7 100%)",
+        },
     },
     {
         id: 2,
@@ -37,19 +50,34 @@ const SLIDES: SlideOption[] = [
         ),
         description:
             "We design, deploy, and manage cloud contact centres, enterprise collaboration platforms, and intelligent workplace solutions for businesses.",
+        card: {
+            heading: "Unified communications",
+            body: "Voice, meetings, and messaging consolidated onto one platform your people actually use.",
+            metric: "99.98%",
+            metricLabel: "managed platform availability",
+            tint: "linear-gradient(145deg, #FDF2F8 0%, #EDD9EC 100%)",
+        },
     },
     {
         id: 3,
         tag: "03",
         title: (
             <>
-                We are the AI and experience{" "}
-                <span className="sg-highlight font-medium">technology backbone</span>{" "}
-                behind the best-run enterprises.
+                What if your cloud contact centre, collaboration platform, and workspaces
+                technology all worked in{" "}
+                <span className="sg-highlight font-medium">sync</span> — powered by{" "}
+                <span className="sg-highlight font-medium">AI</span>?
             </>
         ),
         description:
-            "Specialist system integrator for cloud contact centre, unified communications, and modern workplace technology.",
+            "We design, integrate, and manage AI-native solutions across CX, unified communications, and modern workplace — for enterprises worldwide.",
+        card: {
+            heading: "Applied AI",
+            body: "Agent assist, summarisation, and quality scoring wired into the systems you already run.",
+            metric: "6 weeks",
+            metricLabel: "from pilot to production",
+            tint: "linear-gradient(145deg, #F2F4FE 0%, #DAD9F7 100%)",
+        },
     },
     {
         id: 4,
@@ -61,12 +89,40 @@ const SLIDES: SlideOption[] = [
                 <span className="sg-highlight font-medium">competitive edge</span>.
             </>
         ),
-        description:
-            "Designed, integrated, and managed for enterprises worldwide.",
+        description: "Designed, integrated, and managed for enterprises worldwide.",
+        card: {
+            heading: "Modern workplace",
+            body: "Meeting rooms, endpoints, and identity managed as one estate, not a pile of tickets.",
+            metric: "24/7",
+            metricLabel: "follow-the-sun support desk",
+            tint: "linear-gradient(145deg, #F4F7FC 0%, #DFE6F5 100%)",
+        },
     },
 ];
 
 const AUTOPLAY_INTERVAL = 7000;
+
+/** Where a card sits in the deck, based on how far it is behind the front card. */
+function deckStyle(offset: number, total: number): React.CSSProperties {
+    const isLeaving = offset === total - 1;
+
+    if (isLeaving) {
+        // The card that just left the front: drops downward and fades,
+        // then re-enters at the back of the stack on the next advance.
+        return {
+            transform: "translate3d(0, 90px, 0) scale(0.86) rotate(4deg)",
+            opacity: 0,
+            zIndex: 10,
+        };
+    }
+
+    return {
+        transform: `translate3d(${offset * 10}px, ${offset * 22}px, 0) scale(${1 - offset * 0.05
+            }) rotate(${offset % 2 === 0 ? -offset * 1.5 : offset * 1.5}deg)`,
+        opacity: offset === 0 ? 1 : 1 - offset * 0.25,
+        zIndex: 40 - offset * 10,
+    };
+}
 
 export default function HeroCarousel() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -138,35 +194,49 @@ export default function HeroCarousel() {
     return (
         <section
             className="relative h-screen min-h-dvh flex flex-col isolate overflow-hidden pt-[clamp(76px,10vh,96px)] bg-paper"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
             aria-roledescription="carousel"
             aria-label="Sysgrate Value Propositions"
         >
-            {/* Video stage & ambient overlay */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+            {/* Video stage */}
+            <div
+                className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+                aria-hidden="true"
+            >
                 <video
                     autoPlay
                     muted
                     loop
                     playsInline
+                    preload="auto"
                     src="/hero-bars.mp4"
-                    className="w-full h-full object-cover opacity-35 saturate-115 contrast-105 scale-105 transition-opacity duration-500"
+                    className="w-full h-full object-cover opacity-90 scale-105"
                 />
+
+                {/* Readability wash: strong under the copy, clear over the video */}
                 <div
-                    className="absolute inset-0 backdrop-blur-[18px]"
+                    className="absolute inset-0"
                     style={{
                         background:
-                            "radial-gradient(ellipse 95% 65% at 50% -10%, rgba(228, 216, 243, 0.42) 0%, transparent 70%), radial-gradient(circle 540px at 85% 30%, rgba(242, 222, 238, 0.35) 0%, transparent 80%), linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.84) 50%, rgba(246, 243, 251, 0.95) 100%)",
+                            "linear-gradient(100deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.80) 32%, rgba(255,255,255,0.30) 58%, rgba(255,255,255,0.06) 100%)",
+                    }}
+                />
+                {/* Soft top/bottom blend into the page */}
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background:
+                            "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, transparent 22%, transparent 70%, rgba(246,243,251,0.90) 100%)",
+                    }}
+                />
+                {/* Faint brand tint — kept low so the video reads through */}
+                <div
+                    className="absolute inset-0 mix-blend-soft-light"
+                    style={{
+                        background:
+                            "radial-gradient(ellipse 90% 60% at 50% -10%, rgba(228,216,243,0.55) 0%, transparent 70%)",
                     }}
                 />
             </div>
-
-            {/* Ambient colorful glow */}
-            <div
-                aria-hidden="true"
-                className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-[#E79AC0]/20 via-[#9A6EAC]/15 to-[#3E3A97]/10 blur-[100px] rounded-full pointer-events-none z-1"
-            />
 
             <div className="sg-container flex-1 min-h-0 flex flex-col justify-between pb-[clamp(16px,2.5vh,28px)] relative z-10">
                 <div className="flex-1 min-h-0 flex items-center justify-center">
@@ -180,20 +250,20 @@ export default function HeroCarousel() {
 
                             <p
                                 key={`desc-${currentSlide}`}
-                                className="text-[18px] leading-[1.55] text-text-secondary max-w-[580px] sg-animate-rise"
+                                className="text-[18px] leading-[1.55] text-text-secondary max-w-145 sg-animate-rise"
                                 style={{ animationDelay: "100ms" }}
                             >
                                 {active.description}
                             </p>
 
                             <div
-                                className="w-full max-w-[520px] sg-animate-rise"
+                                className="w-full max-w-130 sg-animate-rise"
                                 style={{ animationDelay: "180ms" }}
                             >
                                 {submittedEmail ? (
-                                    <div className="p-3.5 px-5 rounded-full bg-[#E4D8F3]/60 border border-[#7B5AA6]/40 text-surface-inverse flex items-center justify-between gap-3 shadow-sm">
+                                    <div className="p-3.5 px-5 rounded-full bg-[#E4D8F3]/60 border border-link-hover/40 text-surface-inverse flex items-center justify-between gap-3 shadow-sm">
                                         <div className="flex items-center gap-2.5 min-w-0">
-                                            <span className="shrink-0 w-6 h-6 rounded-full bg-[#7B5AA6] text-white flex items-center justify-center text-xs font-bold">
+                                            <span className="shrink-0 w-6 h-6 rounded-full bg-link-hover text-white flex items-center justify-center text-xs font-bold">
                                                 ✓
                                             </span>
                                             <span className="text-sm font-medium truncate">
@@ -211,9 +281,9 @@ export default function HeroCarousel() {
                                 ) : (
                                     <form
                                         onSubmit={handleSubmit}
-                                        className="flex items-center gap-2 p-1.5 pl-5 bg-white/95 backdrop-blur-md border border-white/85 rounded-full shadow-[0_14px_40px_rgba(38,32,90,0.12),0_2px_8px_rgba(0,0,0,0.04)] focus-within:shadow-[0_18px_48px_rgba(123,90,166,0.20)] focus-within:border-[#7B5AA6]/40 max-w-[580px] w-full transition-all relative mx-auto"
+                                        className="flex items-center gap-2 p-1.5 pl-5 bg-white/95 backdrop-blur-md border border-white/85 rounded-full shadow-[0_14px_40px_rgba(38,32,90,0.12),0_2px_8px_rgba(0,0,0,0.04)] focus-within:shadow-[0_18px_48px_rgba(123,90,166,0.20)] focus-within:border-link-hover/40 max-w-145 w-full transition-all relative mx-auto"
                                     >
-                                        <div className="pl-1 text-[#7B5AA6]">
+                                        <div className="pl-1 text-link-hover">
                                             <svg
                                                 className="w-5 h-5 opacity-75"
                                                 fill="none"
@@ -252,12 +322,56 @@ export default function HeroCarousel() {
                             </div>
                         </div>
 
-                        <div
-                            className="flex justify-center w-full sg-animate-rise"
-                            style={{ animationDelay: "260ms" }}
-                        >
-                            <div className="bg-white/85 backdrop-blur-xl border border-white/90 rounded-panel shadow-float overflow-hidden w-full max-w-[420px] h-[400px] p-8 md:p-10 flex flex-col gap-8">
-                                {/* Glass preview card inner placeholder */}
+                        {/* Card deck — shuffles in step with the copy */}
+                        <div className="flex justify-center w-full">
+                            <div
+                                className="relative w-full max-w-105 h-100 sg-deck"
+                                aria-live="polite"
+                            >
+                                {SLIDES.map((slide, i) => {
+                                    const offset =
+                                        (i - currentSlide + SLIDES.length) % SLIDES.length;
+                                    const isFront = offset === 0;
+
+                                    return (
+                                        <article
+                                            key={slide.id}
+                                            className="sg-deck-card absolute inset-0 rounded-panel border border-white/90 shadow-float overflow-hidden p-8 md:p-10 flex flex-col justify-between"
+                                            style={{
+                                                ...deckStyle(offset, SLIDES.length),
+                                                backgroundImage: slide.card.tint,
+                                            }}
+                                            aria-hidden={!isFront}
+                                            {...(!isFront ? { inert: "" as unknown as boolean } : {})}
+                                        >
+                                            <div className="flex flex-col gap-3">
+                                                <span className="text-xs font-medium text-link tracking-wide">
+                                                    {slide.tag} / {SLIDES.length.toString().padStart(2, "0")}
+                                                </span>
+                                                <h2 className="text-2xl font-medium text-ink-800 leading-snug m-0">
+                                                    {slide.card.heading}
+                                                </h2>
+                                                <p className="text-[15px] leading-relaxed text-text-secondary m-0">
+                                                    {slide.card.body}
+                                                </p>
+                                            </div>
+
+                                            <div className="flex items-end justify-between gap-4 pt-6 border-t border-white/70">
+                                                <div>
+                                                    <div className="text-[34px] leading-none font-medium text-surface-inverse">
+                                                        {slide.card.metric}
+                                                    </div>
+                                                    <div className="text-[13px] text-text-secondary mt-2 max-w-45">
+                                                        {slide.card.metricLabel}
+                                                    </div>
+                                                </div>
+                                                <span className="w-10 h-10 rounded-full bg-white/80 text-ink-800 grid place-items-center text-sm shadow-pill">
+                                                    ↗
+                                                </span>
+                                            </div>
+                                        </article>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -265,8 +379,7 @@ export default function HeroCarousel() {
 
                 <div className="flex justify-end">
                     <div
-                        className="flex items-center gap-2 p-2 sg-animate-rise"
-                        style={{ animationDelay: "320ms" }}
+                        className="flex items-center gap-2 p-2"
                         role="group"
                         aria-label="Carousel controls"
                     >
