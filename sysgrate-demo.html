@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sysgrate UI Design System — Standalone Component Demo</title>
+  
+  <!-- 1. The Sysgrate UI Stylesheet -->
+  <link rel="stylesheet" href="sysgrate-ui.css">
+  
+  <style>
+    /* Demo-specific layout helpers */
+    .hero-section {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-12);
+      padding: clamp(100px, 13vh, 140px) var(--gutter-page) var(--sp-12);
+      background: var(--paper);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--sp-6);
+      margin-top: var(--sp-10);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--sp-6);
+      margin-top: var(--sp-10);
+    }
+    .demo-snippet-card {
+      background: #141126;
+      color: #E4D8F3;
+      border-radius: var(--r-card);
+      padding: var(--sp-6);
+      font-family: var(--font-mono);
+      font-size: var(--fs-caption);
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-top: var(--sp-4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. FLOATING FROSTED-GLASS PILL NAVBAR (MATCHES ORIGINAL EXACTLY)
+       ========================================================================= -->
+  <header class="sg-nav-header">
+    <a href="#" class="sg-nav-brand">
+      <img src="assets/sysgrate-mark.png" alt="Sysgrate Logo" style="height: 32px; width: auto;" />
+      <span>Sysgrate</span>
+    </a>
+
+    <nav class="sg-nav-pill-bar" aria-label="Main Navigation">
+      <a href="#features" class="sg-nav-link active">Solutions</a>
+      <a href="#practices" class="sg-nav-link">Operations</a>
+      <a href="#ai-demo" class="sg-nav-link">AI</a>
+      <a href="#metrics" class="sg-nav-link">Global</a>
+    </nav>
+
+    <div>
+      <a href="#contact" class="sg-btn sg-btn-ghost sg-btn-sm" style="height: 42px; padding: 0 6px 0 18px; border-radius: var(--r-pill);">
+        <span>Get Started</span>
+        <span style="width: 28px; height: 28px; border-radius: var(--r-pill); background: var(--paper-muted); display: inline-grid; place-items: center; margin-left: 8px; font-size: 14px;">↗</span>
+      </a>
+    </div>
+  </header>
+
+
+  <!-- =========================================================================
+       2. HERO SECTION (MATCHES ORIGINAL 1:1 PROPORTIONS & FIT)
+       ========================================================================= -->
+  <section class="sg-container hero-section">
+    <!-- Left Column: Typography & CTAs -->
+    <div data-reveal="rise" style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-6); max-width: 620px; flex: 1 1 520px;">
+      <h1 class="sg-hero-title">
+        Connect Every System, Serve <span class="sg-highlight">Every Customer</span>
+      </h1>
+
+      <p class="sg-body" style="margin: 0; max-width: 500px; line-height: 1.55; color: var(--text-secondary);">
+        Sysgrate means system + integrate — contact center, unified communications and automation as one layer your operators can actually run.
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: var(--inline-gap); margin-top: var(--sp-2);">
+        <a href="#contact" class="sg-btn sg-btn-primary" style="height: 60px;">
+          <span>Talk To An Architect</span>
+          <span class="sg-btn-badge">↗</span>
+        </a>
+        <a href="#features" class="sg-btn sg-btn-secondary" style="height: 60px;">Explore Solutions</a>
+      </div>
+
+      <!-- Social Proof / Locations -->
+      <div style="display: flex; align-items: center; gap: 14px; padding-top: var(--sp-4);">
+        <div class="sg-avatar-group">
+          <img class="sg-avatar" src="assets/photo-headset-agent.jpg" alt="Agent" />
+          <img class="sg-avatar" src="assets/photo-customer-smile.jpg" alt="Client" />
+          <img class="sg-avatar" src="assets/photo-woman-laptop.jpg" alt="Partner" />
+        </div>
+        <span class="sg-body-sm" style="font-weight: var(--fw-medium); color: var(--text-secondary);">Singapore · Bangalore · Kuala Lumpur · Dubai</span>
+      </div>
+    </div>
+
+    <!-- Right Column: Video Box (Matches original 4:3 rounded panel) -->
+    <div data-reveal="zoom" style="position: relative; flex: 1 1 480px; min-width: 340px; max-width: 620px; border-radius: var(--r-panel); overflow: hidden; background: #e9e9ec; box-shadow: var(--shadow-float); aspect-ratio: 4 / 3;">
+      <video aria-hidden="true" autoPlay muted loop playsInline src="assets/hero-bars.mp4" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       3. INFINITE HORIZONTAL MARQUEE / TICKER
+       ========================================================================= -->
+  <div class="sg-marquee" style="border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); background: var(--paper-muted);">
+    <div class="sg-marquee-track">
+      <div class="sg-marquee-item">AWS CONNECT <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">ZOOM PHONE <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">AI AUTOMATION <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">OMNICHANNEL CC <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">CRM UNIFICATION <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">VOICEBOT &amp; LEX <span class="sg-marquee-dot"></span></div>
+      <!-- Loop duplicate for seamless infinite flow -->
+      <div class="sg-marquee-item">AWS CONNECT <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">ZOOM PHONE <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">AI AUTOMATION <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">OMNICHANNEL CC <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">CRM UNIFICATION <span class="sg-marquee-dot"></span></div>
+      <div class="sg-marquee-item">VOICEBOT &amp; LEX <span class="sg-marquee-dot"></span></div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       4. FEATURE & BENEFIT CARDS
+       ========================================================================= -->
+  <section id="features" class="sg-container sg-section">
+    <div data-reveal="rise" style="max-width: 680px; display: flex; flex-direction: column; gap: var(--sp-4);">
+      <div>
+        <span class="sg-label-eyebrow">Unlocking Value</span>
+      </div>
+      <h2 class="sg-section-title">Engineered For Performance</h2>
+      <p class="sg-body-lg">Replace fragmented islands of legacy software with one coherent architecture.</p>
+    </div>
+
+    <!-- Media preview with floating stat card (matches index.html) -->
+    <div style="position: relative; margin-top: var(--sp-10);" data-reveal="rise">
+      <div style="border-radius: var(--r-panel); overflow: hidden; box-shadow: var(--shadow-card); aspect-ratio: 21 / 8; max-height: 380px; background: #e9e9ec;">
+        <img src="assets/photo-call-center.jpg" alt="Contact center specialists" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+      </div>
+      <div class="sg-stat-card" style="position: absolute; right: 24px; bottom: -24px;">
+        <span class="sg-stat-value" data-counter="38" data-suffix="%">38%</span>
+        <span class="sg-stat-caption">Increase in resolved-first-contact rate</span>
+      </div>
+    </div>
+
+    <div class="feature-grid" data-reveal="stagger" style="margin-top: var(--sp-12);">
+      <!-- Card 1 -->
+      <div class="sg-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-5);">
+          <span class="sg-chip">Client Engagement</span>
+          <span style="font-size: 24px;">✨</span>
+        </div>
+        <h3 class="sg-h4" style="margin-bottom: var(--sp-3);">Elevate Engagement</h3>
+        <p class="sg-body-sm" style="margin: 0;">One continuous history across voice, chat, email and WhatsApp. Your customers never have to repeat themselves.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="sg-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-5);">
+          <span class="sg-chip">Operational Clarity</span>
+          <span style="font-size: 24px;">📊</span>
+        </div>
+        <h3 class="sg-h4" style="margin-bottom: var(--sp-3);">Retire The Workarounds</h3>
+        <p class="sg-body-sm" style="margin: 0;">One routing model, one unified identity, and one reporting dashboard that leadership can actually trust.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="sg-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-5);">
+          <span class="sg-chip">AI Assistance</span>
+          <span style="font-size: 24px;">⚡</span>
+        </div>
+        <h3 class="sg-h4" style="margin-bottom: var(--sp-3);">Intelligent Handoffs</h3>
+        <p class="sg-body-sm" style="margin: 0;">Automate up to 80% of routine questions with AI, and pass context seamlessly to human agents when needed.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       5. HORIZONTAL PRACTICE RAIL (SMOOTH INFINITE CARDS WITH PASTEL TONES)
+       ========================================================================= -->
+  <section id="practices" class="sg-container sg-section">
+    <div data-reveal="rise" style="display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-6); flex-wrap: wrap;">
+      <div style="max-width: 600px; display: flex; flex-direction: column; gap: var(--sp-3);">
+        <span class="sg-label-eyebrow">What We Deliver</span>
+        <h2 class="sg-section-title">Six Practices, One System</h2>
+        <p class="sg-body">Same architects. Same reference build. Hover over any card to pause.</p>
+      </div>
+      
+      <div style="display: flex; gap: 10px;">
+        <button class="sg-icon-btn" data-rail-prev aria-label="Previous">‹</button>
+        <button class="sg-icon-btn" data-rail-next aria-label="Next">›</button>
+      </div>
+    </div>
+
+    <!-- The Infinite Rail -->
+    <div class="sg-practice-rail" data-reveal="rise">
+      <div class="sg-practice-track">
+        <!-- Card 1: Mist -->
+        <article class="sg-practice-card" data-tone="mist">
+          <span class="sg-micro">01 · Contact Center</span>
+          <h3 class="sg-h4">Omnichannel Floor</h3>
+          <p class="sg-body-sm" style="flex: 1;">Routing, outbound dialing, WFM, IVR, speech analytics and QA across every customer touchpoint.</p>
+          <span class="sg-label" style="color: var(--link); font-weight: var(--fw-medium);">Voice · Chat · Email · Social →</span>
+        </article>
+
+        <!-- Card 2: Blush -->
+        <article class="sg-practice-card" data-tone="blush">
+          <span class="sg-micro">02 · AI &amp; Automation</span>
+          <h3 class="sg-h4">Bots That Hand Off</h3>
+          <p class="sg-body-sm" style="flex: 1;">Conversational voicebots and intelligent copilot assistance that resolve routine contacts cleanly.</p>
+          <span class="sg-label" style="color: var(--link); font-weight: var(--fw-medium);">Up to 80% containment →</span>
+        </article>
+
+        <!-- Card 3: Sand -->
+        <article class="sg-practice-card" data-tone="sand">
+          <span class="sg-micro">03 · Amazon Connect</span>
+          <h3 class="sg-h4">AWS Contact Center</h3>
+          <p class="sg-body-sm" style="flex: 1;">Greenfield implementations, telephony migrations, Amazon Lex, Lambda flows and data lake analytics.</p>
+          <span class="sg-label" style="color: var(--link); font-weight: var(--fw-medium);">Named AWS Practice →</span>
+        </article>
+
+        <!-- Card 4: Sky -->
+        <article class="sg-practice-card" data-tone="sky">
+          <span class="sg-micro">04 · Zoom Phone</span>
+          <h3 class="sg-h4">Zoom Phone &amp; CX</h3>
+          <p class="sg-body-sm" style="flex: 1;">Zoom Phone PBX, Contact Center, Meeting Rooms and Direct Routing voice for modern hybrid workplaces.</p>
+          <span class="sg-label" style="color: var(--link); font-weight: var(--fw-medium);">Certified Zoom Practice →</span>
+        </article>
+
+        <!-- Card 5: Sage -->
+        <article class="sg-practice-card" data-tone="sage">
+          <span class="sg-micro">05 · Custom Software</span>
+          <h3 class="sg-h4">CRM &amp; ERP Links</h3>
+          <p class="sg-body-sm" style="flex: 1;">Screen-pop integrations for Salesforce, Zendesk and HubSpot with instant activity logging on disconnect.</p>
+          <span class="sg-label" style="color: var(--link); font-weight: var(--fw-medium);">Integrations That Stick →</span>
+        </article>
+
+        <!-- Card 6: Slate -->
+        <article class="sg-practice-card" data-tone="slate">
+          <span class="sg-micro">06 · Digital Cloud</span>
+          <h3 class="sg-h4">Legacy To Cloud</h3>
+          <p class="sg-body-sm" style="flex: 1;">Phased cutovers, hybrid bridges, and cloud resilience against strict enterprise SLAs.</p>
+          <span class="sg-label" style="color: var(--link); font-weight: var(--fw-medium);">Rollback at Every Wave →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       6. INTERACTIVE AI DEMO & AUDIO EQUALIZER
+       ========================================================================= -->
+  <section id="ai-demo" class="sg-container sg-section">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--sp-8); align-items: start;">
+      
+      <!-- Voicebot Console Card -->
+      <div class="sg-card" data-reveal="rise">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-4);">
+          <span class="sg-label" style="font-weight: var(--fw-semibold);">Voicebot Live Transcript</span>
+          <span class="sg-chip sg-chip-outline">Active Call</span>
+        </div>
+
+        <!-- Animated Audio Waveform -->
+        <div class="sg-audio-bars" style="margin-bottom: var(--sp-6);">
+          <span class="sg-audio-bar" style="animation-delay: 0.1s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.3s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.15s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.4s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.25s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.35s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.1s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.5s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.2s;"></span>
+          <span class="sg-audio-bar" style="animation-delay: 0.3s;"></span>
+        </div>
+
+        <!-- Chat Transcript Bubbles -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="sg-chat-bubble sg-chat-bubble-user">
+            <span class="sg-micro" style="display: block; opacity: 0.6; margin-bottom: 4px;">CUSTOMER</span>
+            I need to reschedule my delivery to Thursday afternoon.
+          </div>
+          <div class="sg-chat-bubble sg-chat-bubble-bot">
+            <span class="sg-micro" style="display: block; opacity: 0.6; margin-bottom: 4px;">AI ASSISTANT</span>
+            Order #48812 is set for Tuesday. I have shifted it to Thursday the 6th between 2 PM and 5 PM.
+          </div>
+          <div class="sg-chat-bubble sg-chat-bubble-agent">
+            <span class="sg-micro" style="display: block; opacity: 0.7; margin-bottom: 4px;">PRIYA · SPECIALIST</span>
+            I see your updated delivery time. Can I also help confirm your warranty status?
+          </div>
+        </div>
+      </div>
+
+      <!-- Realtime Operations Metric Card -->
+      <div class="sg-card-inverse" data-reveal="rise">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-6);">
+          <span class="sg-label" style="font-weight: var(--fw-semibold); color: #fff;">Real-Time Operations</span>
+          <span class="sg-chip" style="background: rgba(255,255,255,0.15); color: #fff;">Live</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+          <div style="background: rgba(255,255,255,0.06); padding: var(--sp-4); border-radius: var(--r-sm);">
+            <span class="sg-caption" style="color: rgba(255,255,255,0.7);">In Queue</span>
+            <div class="sg-h3" style="color: #fff; margin-top: 6px;">4</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: var(--sp-4); border-radius: var(--r-sm);">
+            <span class="sg-caption" style="color: rgba(255,255,255,0.7);">Avg Wait</span>
+            <div class="sg-h3" style="color: #fff; margin-top: 6px;">18s</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: var(--sp-4); border-radius: var(--r-sm);">
+            <span class="sg-caption" style="color: rgba(255,255,255,0.7);">CSAT Score</span>
+            <div class="sg-h3" style="color: #fff; margin-top: 6px;">4.9 / 5</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: var(--sp-4); border-radius: var(--r-sm);">
+            <span class="sg-caption" style="color: rgba(255,255,255,0.7);">AI Contained</span>
+            <div class="sg-h3" style="color: #CBF382; margin-top: 6px;">78%</div>
+          </div>
+        </div>
+
+        <p class="sg-body-sm" style="color: rgba(255,255,255,0.7); margin-top: var(--sp-6);">
+          Sub-second routing, auto-transcriptions, and CRM activity logging synchronized simultaneously.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       7. ANIMATED NUMERIC STATS / METRICS
+       ========================================================================= -->
+  <section id="metrics" class="sg-container sg-section">
+    <div data-reveal="rise" style="text-align: center; max-width: 640px; margin: 0 auto;">
+      <span class="sg-label-eyebrow">Proven Results</span>
+      <h2 class="sg-section-title" style="margin-top: var(--sp-3);">Measured In Production</h2>
+    </div>
+
+    <div class="stats-grid" data-reveal="stagger">
+      <div class="sg-card" style="text-align: center;">
+        <span class="sg-stat-value" data-counter="480" data-suffix="+">480+</span>
+        <p class="sg-stat-caption" style="margin-top: 8px;">Projects delivered end to end</p>
+      </div>
+      <div class="sg-card" style="text-align: center;">
+        <span class="sg-stat-value" data-counter="24" data-suffix="k+">24k+</span>
+        <p class="sg-stat-caption" style="margin-top: 8px;">Agent seats supported</p>
+      </div>
+      <div class="sg-card" style="text-align: center;">
+        <span class="sg-stat-value" data-counter="99.98" data-suffix="%" data-decimals="2">99.98%</span>
+        <p class="sg-stat-caption" style="margin-top: 8px;">Platform availability uptime</p>
+      </div>
+      <div class="sg-card" style="text-align: center;">
+        <span class="sg-stat-value" data-counter="260" data-suffix="k+">260k+</span>
+        <p class="sg-stat-caption" style="margin-top: 8px;">Engineering hours logged</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       8. CONTACT & GET STARTED CARD
+       ========================================================================= -->
+  <section id="contact" class="sg-container sg-section" style="padding-bottom: var(--sp-20);">
+    <div class="sg-card-panel" data-reveal="rise" style="position: relative; overflow: hidden; background: var(--panel-gradient);">
+      
+      <div style="max-width: 640px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: var(--sp-4);">
+        <h2 class="sg-section-title">Bring Us The Estate You <span class="sg-highlight">Inherited</span></h2>
+        <p class="sg-body-lg">Tell us what is connected, what is not, and what your customers feel. An architect replies within one business day.</p>
+      </div>
+
+      <div class="sg-card" style="max-width: 580px; margin: var(--sp-8) auto 0; box-shadow: var(--shadow-float);">
+        <form onsubmit="event.preventDefault(); alert('Demo submitted! The design system form is working perfectly.');">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);">
+            <div class="sg-form-group">
+              <label class="sg-form-label">Your Name</label>
+              <input class="sg-input" type="text" placeholder="Priya Raman" required />
+            </div>
+            <div class="sg-form-group">
+              <label class="sg-form-label">Work Email</label>
+              <input class="sg-input" type="email" placeholder="priya@company.com" required />
+            </div>
+          </div>
+
+          <div class="sg-form-group">
+            <label class="sg-form-label">What are you looking to integrate?</label>
+            <textarea class="sg-textarea" placeholder="Amazon Connect, Zoom Phone, CRM sync, migration from legacy Avaya..."></textarea>
+          </div>
+
+          <button type="submit" class="sg-btn sg-btn-inverse" style="width: 100%; height: 56px; font-size: var(--fs-body); margin-top: var(--sp-2);">
+            Say Hello
+          </button>
+        </form>
+      </div>
+
+      <!-- Quick Copy-Paste Guide -->
+      <div style="max-width: 680px; margin: var(--sp-12) auto 0; text-align: left;">
+        <h3 class="sg-h4" style="text-align: center;">How to use in other websites:</h3>
+        <div class="demo-snippet-card">
+&lt;!-- 1. Include this in your &lt;head&gt; --&gt;<br>
+&lt;link rel="stylesheet" href="sysgrate-ui.css"&gt;<br><br>
+&lt;!-- 2. (Optional) Include before &lt;/body&gt; for smooth scroll reveals &amp; counters --&gt;<br>
+&lt;script src="sysgrate-ui.js"&gt;&lt;/script&gt;<br><br>
+&lt;!-- 3. Use any classes like .sg-hero-title, .sg-highlight, .sg-card, .sg-btn-primary --&gt;<br>
+&lt;h1 class="sg-hero-title"&gt;Hello &lt;span class="sg-highlight"&gt;World&lt;/span&gt;&lt;/h1&gt;<br>
+&lt;button class="sg-btn sg-btn-primary"&gt;Get Started&lt;/button&gt;
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Companion Runtime Helper for Animations, Counters & Reveals -->
+  <script src="sysgrate-ui.js"></script>
+
+</body>
+</html>

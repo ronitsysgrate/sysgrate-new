@@ -1,0 +1,73 @@
+.strip {
+    position: relative;
+    overflow: hidden;
+    padding: 28px 0;
+    border-top: 1px solid #E7E2F3;
+    border-bottom: 1px solid #E7E2F3;
+    background: #F6F3FB;
+}
+
+.strip::before,
+.strip::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(24px, 8vw, 88px);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.strip::before {
+    left: 0;
+    background: linear-gradient(90deg, #F6F3FB, transparent);
+}
+
+.strip::after {
+    right: 0;
+    background: linear-gradient(270deg, #F6F3FB, transparent);
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    gap: clamp(40px, 6vw, 72px);
+    width: max-content;
+    animation: hscroll 30s linear infinite;
+    will-change: transform;
+}
+
+.strip:hover .track {
+    animation-play-state: paused;
+}
+
+.logo {
+    flex: 0 0 auto;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    opacity: 0.55;
+    filter: grayscale(1);
+    transition: opacity 240ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                filter 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.logo:hover {
+    opacity: 1;
+    filter: grayscale(0);
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+@keyframes hscroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
