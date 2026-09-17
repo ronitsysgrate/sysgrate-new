@@ -143,7 +143,7 @@ export default function HowWeEngage() {
     <section id="engage" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
       {/* Section Header with Option Toggle */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
-        <div className="max-w-[720px] flex flex-col gap-4">
+        <div className="max-w-180 flex flex-col gap-4">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
               How We Engage
@@ -158,7 +158,7 @@ export default function HowWeEngage() {
 
           <p
             key={`desc-${selectedOption}`}
-            className="text-[18px] leading-[1.55] text-text-secondary m-0 max-w-[640px] sg-animate-rise"
+            className="text-[18px] leading-[1.55] text-text-secondary m-0 max-w-160 sg-animate-rise"
             style={{ animationDelay: "80ms" }}
           >
             {activeCopy.description}
@@ -203,7 +203,7 @@ export default function HowWeEngage() {
               style={{ animationDelay: `${idx * 60}ms` }}
             >
               {/* Subtle top ambient glow on hover */}
-              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-[#E4D8F3]/30 via-transparent to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute top-0 right-0 w-28 h-28 bg-linear-to-bl from-[#E4D8F3]/30 via-transparent to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div>
                 {/* Header: Number tag + Icon pill */}

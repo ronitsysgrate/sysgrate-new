@@ -6,9 +6,7 @@ import WhatWeSolve from "@/components/WhatWeSolve";
 import HowWeEngage from "@/components/HowWeEngage";
 import WhySysgrate from "@/components/WhySysgrate";
 import Credentials from "@/components/Credentials";
-// import ContactSection from "@/components/ContactSection";
 import CaseStudies from "@/components/CaseStudies";
-// import FAQSection from "@/components/FAQSection";
 import NewsAndInsights from "@/components/NewsAndInsights";
 
 export default function Home() {
@@ -26,6 +24,9 @@ export default function Home() {
             {/* What We Solve — Four Practice Areas, One Partner */}
             <WhatWeSolve />
 
+            {/* Case Studies — Outcome Metric + Client Testimonial Stripe */}
+            <CaseStudies />
+
             {/* How We Engage — Eight Engagement Models */}
             <HowWeEngage />
 
@@ -37,15 +38,6 @@ export default function Home() {
 
             {/* Credentials — Certified. Experienced. Proven. */}
             <Credentials />
-
-            {/* Let's Talk / Book a Call / Contact Form Section */}
-            {/* <ContactSection /> */}
-
-            {/* Case Studies — Outcome Metric + Client Testimonial Stripe */}
-            <CaseStudies />
-
-            {/* FAQ Section — Modern Accordion & Search */}
-            {/* <FAQSection /> */}
 
         </main>
     );

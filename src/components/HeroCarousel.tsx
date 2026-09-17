@@ -8,13 +8,7 @@ interface SlideOption {
     tag: string;
     title: React.ReactNode;
     description: string;
-    card: {
-        heading: string;
-        body: string;
-        metric: string;
-        metricLabel: string;
-        tint: string; // gradient used on the card face
-    };
+    tint: string;
 }
 
 const SLIDES: SlideOption[] = [
@@ -30,13 +24,7 @@ const SLIDES: SlideOption[] = [
         ),
         description:
             "Specialist system integrator for cloud contact centre, unified communications, and modern workplace technology.",
-        card: {
-            heading: "Cloud contact centre",
-            body: "Migration, routing design, and day-two operations across Genesys, NICE, and Amazon Connect.",
-            metric: "40+",
-            metricLabel: "enterprise migrations delivered",
-            tint: "linear-gradient(145deg, #F7F2FD 0%, #E7DDF7 100%)",
-        },
+        tint: "linear-gradient(145deg, #F7F2FD 0%, #E7DDF7 100%)",
     },
     {
         id: 2,
@@ -50,13 +38,7 @@ const SLIDES: SlideOption[] = [
         ),
         description:
             "We design, deploy, and manage cloud contact centres, enterprise collaboration platforms, and intelligent workplace solutions for businesses.",
-        card: {
-            heading: "Unified communications",
-            body: "Voice, meetings, and messaging consolidated onto one platform your people actually use.",
-            metric: "99.98%",
-            metricLabel: "managed platform availability",
-            tint: "linear-gradient(145deg, #FDF2F8 0%, #EDD9EC 100%)",
-        },
+        tint: "linear-gradient(145deg, #FDF2F8 0%, #EDD9EC 100%)",
     },
     {
         id: 3,
@@ -71,13 +53,7 @@ const SLIDES: SlideOption[] = [
         ),
         description:
             "We design, integrate, and manage AI-native solutions across CX, unified communications, and modern workplace — for enterprises worldwide.",
-        card: {
-            heading: "Applied AI",
-            body: "Agent assist, summarisation, and quality scoring wired into the systems you already run.",
-            metric: "6 weeks",
-            metricLabel: "from pilot to production",
-            tint: "linear-gradient(145deg, #F2F4FE 0%, #DAD9F7 100%)",
-        },
+        tint: "linear-gradient(145deg, #F2F4FE 0%, #DAD9F7 100%)",
     },
     {
         id: 4,
@@ -90,17 +66,11 @@ const SLIDES: SlideOption[] = [
             </>
         ),
         description: "Designed, integrated, and managed for enterprises worldwide.",
-        card: {
-            heading: "Modern workplace",
-            body: "Meeting rooms, endpoints, and identity managed as one estate, not a pile of tickets.",
-            metric: "24/7",
-            metricLabel: "follow-the-sun support desk",
-            tint: "linear-gradient(145deg, #F4F7FC 0%, #DFE6F5 100%)",
-        },
+        tint: "linear-gradient(145deg, #F4F7FC 0%, #DFE6F5 100%)",
     },
 ];
 
-const AUTOPLAY_INTERVAL = 7000;
+const AUTOPLAY_INTERVAL = 6000;
 
 /** Where a card sits in the deck, based on how far it is behind the front card. */
 function deckStyle(offset: number, total: number): React.CSSProperties {
@@ -339,36 +309,11 @@ export default function HeroCarousel() {
                                             className="sg-deck-card absolute inset-0 rounded-panel border border-white/90 shadow-float overflow-hidden p-8 md:p-10 flex flex-col justify-between"
                                             style={{
                                                 ...deckStyle(offset, SLIDES.length),
-                                                backgroundImage: slide.card.tint,
+                                                backgroundImage: slide.tint,
                                             }}
                                             aria-hidden={!isFront}
-                                            {...(!isFront ? { inert: "" as unknown as boolean } : {})}
+                                            inert={!isFront}
                                         >
-                                            <div className="flex flex-col gap-3">
-                                                <span className="text-xs font-medium text-link tracking-wide">
-                                                    {slide.tag} / {SLIDES.length.toString().padStart(2, "0")}
-                                                </span>
-                                                <h2 className="text-2xl font-medium text-ink-800 leading-snug m-0">
-                                                    {slide.card.heading}
-                                                </h2>
-                                                <p className="text-[15px] leading-relaxed text-text-secondary m-0">
-                                                    {slide.card.body}
-                                                </p>
-                                            </div>
-
-                                            <div className="flex items-end justify-between gap-4 pt-6 border-t border-white/70">
-                                                <div>
-                                                    <div className="text-[34px] leading-none font-medium text-surface-inverse">
-                                                        {slide.card.metric}
-                                                    </div>
-                                                    <div className="text-[13px] text-text-secondary mt-2 max-w-45">
-                                                        {slide.card.metricLabel}
-                                                    </div>
-                                                </div>
-                                                <span className="w-10 h-10 rounded-full bg-white/80 text-ink-800 grid place-items-center text-sm shadow-pill">
-                                                    ↗
-                                                </span>
-                                            </div>
                                         </article>
                                     );
                                 })}

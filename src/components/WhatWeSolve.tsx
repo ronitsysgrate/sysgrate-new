@@ -72,7 +72,7 @@ export default function WhatWeSolve() {
 
   return (
     <section id="solve" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
-      <div className="max-w-[680px] flex flex-col gap-4">
+      <div className="max-w-170 flex flex-col gap-4">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
           What We Solve
         </span>
@@ -112,7 +112,7 @@ export default function WhatWeSolve() {
           <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-paper-card text-text-secondary text-xs font-medium tracking-[0.06em]">
             {active.tag}
           </span>
-          <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-ink-800 m-0 leading-[1.25]">
+          <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-ink-800 m-0 leading-tight">
             {active.title}
           </h3>
           <p className="text-[18px] leading-[1.55] text-text-secondary m-0">
@@ -127,10 +127,10 @@ export default function WhatWeSolve() {
             </a>
             <a
               href={active.secondaryCta.href}
-              className="inline-flex items-center justify-center h-[52px] pl-6.5 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-[0_18px_40px_rgba(38,32,90,0.20)] hover:shadow-[0_22px_48px_rgba(38,32,90,0.28)] hover:-translate-y-0.5 transition-all group cursor-pointer"
+              className="inline-flex items-center justify-center h-13 pl-6.5 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-[0_18px_40px_rgba(38,32,90,0.20)] hover:shadow-[0_22px_48px_rgba(38,32,90,0.28)] hover:-translate-y-0.5 transition-all group cursor-pointer"
             >
               <span>{active.secondaryCta.label}</span>
-              <span className="w-[38px] h-[38px] rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-1.5 text-base font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+              <span className="w-9.5 h-9.5 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-1.5 text-base font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                 ↗
               </span>
             </a>
@@ -158,7 +158,7 @@ export default function WhatWeSolve() {
             <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/20 text-white text-xs font-medium tracking-[0.06em] uppercase">
               {AI_PRACTICE.tag}
             </span>
-            <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-white m-0 leading-[1.25]">
+            <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-white m-0 leading-tight">
               {AI_PRACTICE.title}
             </h3>
             <p className="text-[18px] leading-[1.55] text-white/90 m-0">
@@ -173,7 +173,7 @@ export default function WhatWeSolve() {
               </a>
               <a
                 href={AI_PRACTICE.secondaryCta.href}
-                className="inline-flex items-center justify-center h-[52px] px-6.5 rounded-full bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:-translate-y-0.5 transition-all font-medium text-sm cursor-pointer"
+                className="inline-flex items-center justify-center h-13 px-6.5 rounded-full bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:-translate-y-0.5 transition-all font-medium text-sm cursor-pointer"
               >
                 <span>{AI_PRACTICE.secondaryCta.label}</span>
               </a>
