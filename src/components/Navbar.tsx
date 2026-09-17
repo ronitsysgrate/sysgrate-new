@@ -32,7 +32,7 @@ export default function Navbar() {
                         alt="Sysgrate Logo Mark"
                         width={32}
                         height={32}
-                        className="w-8 h-auto object-contain"
+                        className="w-8 h-8 object-contain"
                         priority
                     />
                 </div>

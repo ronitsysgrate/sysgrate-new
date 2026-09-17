@@ -8,6 +8,8 @@ import WhySysgrate from "@/components/WhySysgrate";
 import Credentials from "@/components/Credentials";
 import CaseStudies from "@/components/CaseStudies";
 import NewsAndInsights from "@/components/NewsAndInsights";
+import TalkToUs from "@/components/TalkToUs";
+import Faq from "@/components/Faq";
 
 export default function Home() {
     return (
@@ -33,12 +35,19 @@ export default function Home() {
             {/* News & Insights — Whitepapers, Blogs, Stories, Webinars & News */}
             <NewsAndInsights />
 
-            {/* Why Sysgrate — Differentiator Cards over Large SIs */}
-            <WhySysgrate />
-
             {/* Credentials — Certified. Experienced. Proven. */}
             <Credentials />
 
+            {/* Talk to Us — Direct CTA: Book a Call or Fill Out a Form */}
+            <TalkToUs />
+
+            {/* Why Sysgrate — Differentiator Cards over Large SIs */}
+            <WhySysgrate />
+
+            {/* FAQ — Common Questions */}
+            <Faq />
+
         </main>
+
     );
 }

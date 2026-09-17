@@ -136,7 +136,7 @@ const ENGAGEMENT_MODELS: EngagementModel[] = [
 ];
 
 export default function HowWeEngage() {
-  const [selectedOption, setSelectedOption] = useState<"journey" | "outcomes">("outcomes");
+  const [selectedOption, setSelectedOption] = useState<"journey" | "outcomes">("journey");
   const activeCopy = COPY_OPTIONS[selectedOption];
 
   return (
@@ -151,7 +151,7 @@ export default function HowWeEngage() {
           </div>
 
           <div key={`title-${selectedOption}`} className="sg-animate-rise">
-            <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
+            <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.4] tracking-[-0.02em] text-ink-800 m-0">
               {activeCopy.title}
             </h2>
           </div>

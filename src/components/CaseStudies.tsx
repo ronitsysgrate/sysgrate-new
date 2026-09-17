@@ -108,7 +108,7 @@ export default function CaseStudies() {
   return (
     <section
       id="case-studies"
-      className="sg-container pt-[clamp(64px,10vw,120px)] relative pb-[clamp(64px,10vw,120px)]"
+      className="sg-container pt-[clamp(64px,10vw,120px)] relative"
     >
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div className="max-w-170 flex flex-col gap-4">
