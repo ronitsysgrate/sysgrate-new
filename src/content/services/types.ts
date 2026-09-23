@@ -54,6 +54,7 @@ export type Service = {
     icon: IconName;
     title: string;
     cardDescription: string;
+    eyebrow?: string;
     headline: string;
     highlight: string;
     summary: string;
