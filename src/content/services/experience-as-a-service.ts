@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, offerings, process, service, solve, stories, talk } from "./links";
+import { close, offerings, service, solve, stories, talk } from "./links";
 
 export const experienceAsAService: Service = {
     slug: "experience-as-a-service",

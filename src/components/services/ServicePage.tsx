@@ -11,7 +11,7 @@ import { ServiceNav } from "./ServiceNav";
 
 export function ServicePage({ service }: { service: Service }) {
     return (
-        <main className="min-h-screen overflow-x-hidden">
+        <main className="min-h-screen overflow-x-clip">
             <Navbar />
             <ServiceHero service={service} />
             <ServiceNav currentSlug={service.slug} />

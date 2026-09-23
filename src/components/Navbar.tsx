@@ -16,19 +16,69 @@ function isActive(pathname: string, href: string) {
     return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function MobileNav({ pathname }: { pathname: string }) {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <button
+                onClick={() => setOpen((current) => !current)}
+                className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-white/60 text-ink-800"
+                aria-label="Toggle Navigation Menu"
+                aria-expanded={open}
+            >
+                <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    {open ? (
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    ) : (
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 6h16M4 12h16M4 18h16"
+                        />
+                    )}
+                </svg>
+            </button>
+
+            {open && (
+                <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-5 bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl border border-white/80 flex flex-col gap-3 pointer-events-auto animate-in fade-in slide-in-from-top-3 duration-200">
+                    {NAV_LINKS.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setOpen(false)}
+                            className={`px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] ${
+                                isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
+                            }`}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </>
+    );
+}
+
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
 
     const navItem =
         "inline-flex items-center px-4.5 py-2 rounded-full text-sm font-medium transition-all";
     const navActive = `${navItem} bg-white text-ink-800 shadow-pill`;
     const navIdle = `${navItem} text-text-secondary hover:text-ink-800 hover:bg-white/80`;
-
-    useEffect(() => {
-        setMobileMenuOpen(false);
-    }, [pathname]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -91,54 +141,8 @@ export default function Navbar() {
                     </span>
                 </a>
 
-                {/* Mobile menu button */}
-                <button
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-white/60 text-ink-800"
-                    aria-label="Toggle Navigation Menu"
-                >
-                    <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        {mobileMenuOpen ? (
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        ) : (
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M4 6h16M4 12h16M4 18h16"
-                            />
-                        )}
-                    </svg>
-                </button>
+                <MobileNav key={pathname} pathname={pathname} />
             </div>
-
-            {/* Mobile dropdown menu */}
-            {mobileMenuOpen && (
-                <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-5 bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl border border-white/80 flex flex-col gap-3 pointer-events-auto animate-in fade-in slide-in-from-top-3 duration-200">
-                    {NAV_LINKS.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={`px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] ${
-                                isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
-                            }`}
-                        >
-                            {item.label}
-                        </Link>
-                    ))}
-                </div>
-            )}
         </header>
     );
 }

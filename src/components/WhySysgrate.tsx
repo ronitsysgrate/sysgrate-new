@@ -15,6 +15,7 @@ interface Differentiator {
   number: string;
   title: string;
   highlightWords?: string;
+  summary: string;
   sysgrateAdvantage: string;
   competitorLabel: string;
   competitorDrawback: string;
@@ -27,8 +28,9 @@ const DIFFERENTIATORS: Differentiator[] = [
   {
     number: "01",
     title: "Specialist depth — not account management dressed as delivery",
+    summary: "The engineers who scope your engagement are the engineers who deliver it.",
     sysgrateAdvantage:
-      "The engineers who scope your engagement at Sysgrate are the engineers who deliver it. Certified on Zoom, AWS, Avaya, Microsoft, and Zendesk — not generalists managed by a practice lead who was last on tools five years ago.",
+      "Certified on Zoom, AWS, Avaya, Microsoft, and Zendesk — not generalists managed by a practice lead who was last on tools five years ago.",
     competitorLabel: "Large SI Reality",
     competitorDrawback:
       "Senior consultants sell the work. Junior contractors deliver it. You meet the senior team once.",
@@ -39,6 +41,7 @@ const DIFFERENTIATORS: Differentiator[] = [
   {
     number: "02",
     title: "Platform-agnostic — we recommend what's right, not what we're incentivised to sell",
+    summary: "The recommendation follows your requirements, not a vendor incentive.",
     sysgrateAdvantage:
       "We hold certifications across every major platform we work with — which means we can genuinely recommend Amazon Connect over Zoom, or HubSpot over Salesforce, based entirely on your requirements. Not on which vendor is paying our margin this quarter.",
     competitorLabel: "OEM Professional Services",
@@ -51,6 +54,7 @@ const DIFFERENTIATORS: Differentiator[] = [
   {
     number: "03",
     title: "Accountable beyond go-live — not a project closed and an invoice sent",
+    summary: "Accountability does not end at the go-live milestone.",
     sysgrateAdvantage:
       "Our managed operations, XaaS, and embedded expertise models exist because we believe accountability should not end at the go-live milestone. We measure ourselves against the outcomes we committed to — CSAT, AHT, adoption, and platform performance — long after the project is formally closed.",
     competitorLabel: "Large SI Reality",
@@ -63,6 +67,7 @@ const DIFFERENTIATORS: Differentiator[] = [
   {
     number: "04",
     title: "30–50% faster delivery — built into how we work, not promised at bid",
+    summary: "We go live faster because the accelerators are already built.",
     sysgrateAdvantage:
       "Pre-built contact flow templates, IVR migration tooling, CRM integration accelerators, and a delivery methodology refined across 500+ projects. We go live faster not because we take shortcuts — but because we have done this enough times to know exactly where the time goes and how to recover it.",
     competitorLabel: "Large SI Reality",
@@ -75,8 +80,9 @@ const DIFFERENTIATORS: Differentiator[] = [
   {
     number: "05",
     title: "Regional presence — APAC and Middle East, not a global firm managing you from London",
+    summary: "Offices in Singapore, India, Malaysia, and the UAE.",
     sysgrateAdvantage:
-      "Offices in Singapore, India, Malaysia, and the UAE — with engineers, architects, and project managers who understand the compliance requirements, carrier environments, and operational realities of the markets your business operates in. We can be on-site when it matters, in the time zone that makes sense.",
+      "Engineers, architects, and project managers who understand the compliance requirements, carrier environments, and operational realities of the markets your business operates in. We can be on-site when it matters, in the time zone that makes sense.",
     competitorLabel: "Global SI Reality",
     competitorDrawback:
       "Your project is run from a delivery centre three time zones away by a team that has never set foot in your market.",
@@ -87,8 +93,9 @@ const DIFFERENTIATORS: Differentiator[] = [
   {
     number: "06",
     title: "One point of accountability — not five vendors and a systems integrator blaming each other",
+    summary: "One team. One SLA. One point of accountability.",
     sysgrateAdvantage:
-      "When we design, build, integrate, and manage a solution — we own every layer of it. There is no finger-pointing between the platform vendor, the integrator, and the managed services provider. One team. One SLA. One point of accountability for its performance.",
+      "When we design, build, integrate, and manage a solution — we own every layer of it. There is no finger-pointing between the platform vendor, the integrator, and the managed services provider.",
     competitorLabel: "Multi-Vendor Model",
     competitorDrawback:
       "The contact centre vendor blames the CRM partner. The CRM partner blames the network. Nobody owns the outcome.",
@@ -179,13 +186,17 @@ export default function WhySysgrate() {
                   {item.title}
                 </h3>
 
-                {/* Sysgrate Advantage */}
                 <p className="text-sm text-text-secondary leading-relaxed mt-3.5 mb-0">
-                  {item.sysgrateAdvantage}
+                  {item.summary}
                 </p>
+
+                {showDrawbacks && (
+                  <p className="text-sm text-ink-800 leading-relaxed mt-3 mb-0">
+                    {item.sysgrateAdvantage}
+                  </p>
+                )}
               </div>
 
-              {/* The Competitor Contrast Box */}
               {showDrawbacks && (
                 <div className="mt-6 pt-4 border-t border-hairline/80">
                   <div className="p-3.5 rounded-2xl bg-paper-card/90 border border-hairline/90 flex flex-col gap-1.5 transition-colors group-hover:bg-white group-hover:shadow-sm">

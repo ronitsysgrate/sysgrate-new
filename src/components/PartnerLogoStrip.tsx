@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./PartnerLogoStrip.module.css";
 
 interface Partner {
@@ -29,7 +30,13 @@ export default function PartnerLogoStrip() {
       <div className={styles.track}>
         {LOOP.map((partner, i) => (
           <div className={styles.logo} key={`${partner.name}-${i}`}>
-            <img src={partner.src} alt={partner.name} loading="lazy" height="30" width="auto" />
+            <Image
+              src={partner.src}
+              alt={partner.name}
+              width={160}
+              height={48}
+              style={{ width: "auto", height: "100%" }}
+            />
           </div>
         ))}
       </div>

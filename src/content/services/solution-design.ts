@@ -7,7 +7,6 @@ export const solutionDesign: Service = {
     icon: "layers",
     title: "Solution Design & Delivery",
     cardDescription: "From blueprint to live — built right the first time.",
-    eyebrow: "02 · Delivery",
     headline: "From blueprint to live — built right the first time.",
     highlight: "built right the first time",
     summary:

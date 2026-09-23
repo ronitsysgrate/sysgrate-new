@@ -20,7 +20,7 @@ export function ComparisonTable({
             </div>
 
             <div className="mt-10 overflow-x-auto rounded-panel border border-hairline">
-                <table className="w-full min-w-[720px] border-collapse text-left">
+                <table className="w-full min-w-180border-collapse text-left">
                     <thead>
                         <tr>
                             <th className="px-6 py-5 text-xs font-semibold tracking-[0.06em] uppercase text-text-secondary bg-paper-muted">

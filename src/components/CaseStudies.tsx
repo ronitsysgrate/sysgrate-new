@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 /**
  * NOTE: no case-study copy or testimonials were supplied yet — every value
@@ -189,10 +190,12 @@ export default function CaseStudies() {
                     &ldquo;{cs.quote}&rdquo;
                   </p>
                   <div className="flex items-center gap-3.5">
-                    <img
+                    <Image
                       className="w-12 h-12 rounded-full object-cover shadow-chip shrink-0"
                       src={cs.avatarSrc}
                       alt={cs.name}
+                      width={48}
+                      height={48}
                     />
                     <div>
                       <span className="block font-semibold text-ink-800 text-sm">

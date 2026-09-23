@@ -216,39 +216,95 @@ export default function ContactPage() {
     return (
         <>
             <section className="sg-container pt-[clamp(120px,16vw,168px)]">
-                <div className="max-w-190 flex flex-col items-start gap-5">
-                    <h1 className="text-[clamp(34px,4.4vw,64px)] font-normal leading-[1.08] tracking-[-0.03em] text-ink-800 m-0">
-                        Your challenge deserves the{" "}
-                        <span className="sg-highlight font-medium">right expert</span>.
-                    </h1>
-                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0 max-w-[640px]">
-                        Tell us what you&rsquo;re solving — our specialists across CX, Digital
-                        Workplace, Modern Workplace, and AI will get back to you within one
-                        business day.
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-1">
-                        <a
-                            href="#message"
-                            className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group"
-                        >
-                            <span>Send a message</span>
-                            <span className="w-8 h-8 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-2 text-sm font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                                ↗
-                            </span>
-                        </a>
-                        <a
-                            href="#book"
-                            className="inline-flex items-center justify-center h-12 px-6 rounded-full bg-paper border border-hairline text-ink-800 text-sm font-medium shadow-sm hover:shadow-chip hover:-translate-y-0.5 transition-all"
-                        >
-                            Book a call
-                        </a>
+                <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] items-center gap-[clamp(32px,5vw,72px)]">
+                    <div className="flex flex-col items-start gap-5">
+                        <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary">
+                            Contact
+                        </span>
+                        <h1 className="text-[clamp(34px,4.4vw,64px)] font-normal leading-[1.35] tracking-[-0.03em] text-ink-800 m-0">
+                            Your challenge deserves the{" "}
+                            <span className="sg-highlight font-medium">right expert</span>.
+                        </h1>
+                        <p className="text-[18px] leading-[1.6] text-text-secondary m-0 max-w-[560px]">
+                            Tell us what you&rsquo;re solving — our specialists across CX, Digital
+                            Workplace, Modern Workplace, and AI will get back to you within one
+                            business day.
+                        </p>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-1">
+                            <a
+                                href="#message"
+                                className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group"
+                            >
+                                <span>Send a message</span>
+                                <span className="w-8 h-8 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-2 text-sm font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                                    ↗
+                                </span>
+                            </a>
+                            <a
+                                href="#book"
+                                className="inline-flex items-center justify-center h-12 px-6 rounded-full bg-paper border border-hairline text-ink-800 text-sm font-medium shadow-sm hover:shadow-chip hover:-translate-y-0.5 transition-all"
+                            >
+                                Book a call
+                            </a>
+                        </div>
                     </div>
+
+                    <aside className="relative rounded-panel border border-hairline bg-paper-card p-7 sm:p-9 shadow-chip overflow-hidden">
+                        <div className="pointer-events-none absolute -top-16 -right-10 w-56 h-56 rounded-full bg-gradient-to-br from-[#E79AC0]/30 via-[#E4D8F3]/40 to-transparent blur-2xl" />
+                        <p className="relative text-xs font-medium tracking-[0.08em] uppercase text-text-secondary m-0">
+                            Talk to a specialist
+                        </p>
+                        <ul className="relative mt-5 m-0 p-0 list-none flex flex-col gap-5">
+                            <li className="flex items-start gap-4">
+                                <span className="w-11 h-11 rounded-2xl bg-[#F4EEF8] flex items-center justify-center shrink-0">
+                                    <Mail size={18} strokeWidth={2} className="text-[#7B5AA6]" />
+                                </span>
+                                <div>
+                                    <p className="text-xs font-semibold tracking-[0.06em] uppercase text-ink-300 m-0">
+                                        Email
+                                    </p>
+                                    <a
+                                        href={`mailto:${SALES_EMAIL}`}
+                                        className="text-[17px] font-medium text-ink-800 no-underline hover:text-link transition-colors"
+                                    >
+                                        {SALES_EMAIL}
+                                    </a>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-4">
+                                <span className="w-11 h-11 rounded-2xl bg-[#EEEDF8] flex items-center justify-center shrink-0">
+                                    <Clock size={18} strokeWidth={2} className="text-[#3E3A97]" />
+                                </span>
+                                <div>
+                                    <p className="text-xs font-semibold tracking-[0.06em] uppercase text-ink-300 m-0">
+                                        Response
+                                    </p>
+                                    <p className="text-[17px] font-medium text-ink-800 m-0">
+                                        Within one business day
+                                    </p>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-4">
+                                <span className="w-11 h-11 rounded-2xl bg-[#FAF0F5] flex items-center justify-center shrink-0">
+                                    <MapPin size={18} strokeWidth={2} className="text-[#9A6EAC]" />
+                                </span>
+                                <div>
+                                    <p className="text-xs font-semibold tracking-[0.06em] uppercase text-ink-300 m-0">
+                                        Offices
+                                    </p>
+                                    <p className="text-[17px] font-medium text-ink-800 m-0">
+                                        Singapore, India, Malaysia, UAE
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </aside>
                 </div>
             </section>
 
             <section className="sg-container pt-[clamp(64px,10vw,120px)]">
-                <div className="max-w-[760px] flex flex-col gap-4">
-                    <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
+                <div className="max-w-190 flex flex-col gap-4">
+                    <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.35] tracking-[-0.02em] text-ink-800 m-0">
                         Let&rsquo;s turn your technology goals into{" "}
                         <span className="sg-highlight font-medium">reality</span>.
                     </h2>

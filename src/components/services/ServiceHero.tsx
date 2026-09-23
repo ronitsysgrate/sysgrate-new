@@ -21,13 +21,10 @@ export function ServiceHero({ service }: { service: Service }) {
         <section className="sg-container pt-[clamp(120px,16vw,168px)]">
             <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] items-center gap-[clamp(28px,5vw,64px)]">
                 <div className="flex flex-col items-start gap-5">
-                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary">
-                        {service.eyebrow}
-                    </span>
-                    <h1 className="text-[clamp(34px,4.4vw,64px)] font-normal leading-[1.08] tracking-[-0.03em] text-ink-800 m-0">
+                    <h1 className="text-[clamp(34px,4.4vw,64px)] font-normal leading-[1.35] tracking-[-0.03em] text-ink-800 m-0">
                         <Headline text={service.headline} highlight={service.highlight} />
                     </h1>
-                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0 max-w-[560px]">
+                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0 max-w-140">
                         {service.summary}
                     </p>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-1">

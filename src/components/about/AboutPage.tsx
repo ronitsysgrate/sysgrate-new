@@ -225,7 +225,7 @@ export default function AboutPage() {
             <section className="sg-container pt-[clamp(120px,16vw,168px)]">
                 <div className="grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] items-center gap-[clamp(32px,5vw,72px)]">
                     <div className="flex flex-col items-start gap-5 sg-animate-rise">
-                        <h1 className="text-[clamp(34px,4.4vw,64px)] font-normal leading-[1.08] tracking-[-0.03em] text-ink-800 m-0">
+                        <h1 className="text-[clamp(34px,4.4vw,64px)] font-normal leading-[1.35] tracking-[-0.03em] text-ink-800 m-0">
                             We are Sysgrate — where systems meet{" "}
                             <span className="sg-highlight font-medium">intelligence</span>.
                         </h1>

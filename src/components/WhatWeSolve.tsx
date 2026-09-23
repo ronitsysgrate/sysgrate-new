@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface PracticeArea {
   id: string;
-  tag: string;
   tabLabel: string;
   title: string;
   description: string;
@@ -18,7 +18,6 @@ interface PracticeArea {
 const PRACTICE_AREAS: PracticeArea[] = [
   {
     id: "cx",
-    tag: "01 · Customer Experience",
     tabLabel: "Customer Experience",
     title: "Smarter contact centres. Happier customers. Powered by AI.",
     description:
@@ -30,7 +29,6 @@ const PRACTICE_AREAS: PracticeArea[] = [
   },
   {
     id: "employee-experience",
-    tag: "02 · Employee Experience",
     tabLabel: "Employee Experience",
     title: "Your teams connected. Every call, meeting, and message — seamless.",
     description:
@@ -42,7 +40,6 @@ const PRACTICE_AREAS: PracticeArea[] = [
   },
   {
     id: "workplace",
-    tag: "03 · Modern Workplace",
     tabLabel: "Modern Workplace",
     title: "Intelligent workplaces designed for the way people actually work.",
     description:
@@ -109,9 +106,6 @@ export default function WhatWeSolve() {
         key={active.id}
       >
         <div className="flex flex-col items-start gap-4">
-          <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-paper-card text-text-secondary text-xs font-medium tracking-[0.06em]">
-            {active.tag}
-          </span>
           <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-ink-800 m-0 leading-tight">
             {active.title}
           </h3>
@@ -138,12 +132,13 @@ export default function WhatWeSolve() {
         </div>
 
         {/* Image slot */}
-        <div className="w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip">
-          <img
+        <div className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip">
+          <Image
             src={active.imageSrc}
             alt={active.imageAlt}
-            loading="lazy"
-            className="w-full h-full object-cover"
+            fill
+            sizes="(min-width: 768px) 42vw, 100vw"
+            className="object-cover"
           />
         </div>
       </div>
@@ -180,12 +175,13 @@ export default function WhatWeSolve() {
             </div>
           </div>
 
-          <div className="w-full aspect-4/3 rounded-panel overflow-hidden bg-white/15 border border-white/25 backdrop-blur-md relative z-1">
-            <img
+          <div className="relative z-1 w-full aspect-4/3 rounded-panel overflow-hidden bg-white/15 border border-white/25 backdrop-blur-md">
+            <Image
               src={AI_PRACTICE.imageSrc}
               alt={AI_PRACTICE.imageAlt}
-              loading="lazy"
-              className="w-full h-full object-cover"
+              fill
+              sizes="(min-width: 768px) 42vw, 100vw"
+              className="object-cover"
             />
           </div>
         </div>

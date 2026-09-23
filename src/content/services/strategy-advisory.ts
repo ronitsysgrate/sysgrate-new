@@ -8,7 +8,6 @@ export const strategyAdvisory: Service = {
     title: "Strategy & Advisory",
     cardDescription:
         "Clarity before commitment. We help you make the right technology decisions.",
-    eyebrow: "01 · Advisory",
     headline: "Clarity before commitment.",
     highlight: "commitment",
     summary:
