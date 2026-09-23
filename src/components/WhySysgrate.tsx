@@ -222,7 +222,7 @@ export default function WhySysgrate() {
         </div>
 
         <a
-          href="#contact"
+          href="/contact"
           className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group shrink-0"
         >
           <span>Schedule an Architecture Review</span>

@@ -24,7 +24,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
     description:
       "We implement and manage cloud contact centre platforms — Amazon Connect, Avaya, and Zoom Contact Center — integrated with AI virtual agents, omnichannel engagement, and real-time analytics to reduce costs and raise CSAT.",
     primaryCta: { label: "See CX solutions", href: "#cx" },
-    secondaryCta: { label: "Book a CX consultation", href: "#contact" },
+    secondaryCta: { label: "Book a CX consultation", href: "/contact" },
     imageSrc: "/practice-areas/customer-experience.jpg",
     imageAlt: "Contact centre agents working across an AI-assisted platform",
   },
@@ -36,7 +36,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
     description:
       "We deploy and integrate enterprise collaboration technology — Zoom Phone, Microsoft Teams Direct Routing, and Ribbon SBC — so your workforce stays productive whether they're in the office, on-site, or working remotely.",
     primaryCta: { label: "See collaboration solutions", href: "#employee-experience" },
-    secondaryCta: { label: "Book a consultation", href: "#contact" },
+    secondaryCta: { label: "Book a consultation", href: "/contact" },
     imageSrc: "/practice-areas/employee-experience.jpg",
     imageAlt: "Team collaborating across voice, chat, and video in one workspace",
   },
@@ -48,7 +48,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
     description:
       "From AI-enabled boardrooms and hybrid meeting spaces to video walls and command centres — we integrate smart AV technology that transforms how your teams collaborate in the physical world.",
     primaryCta: { label: "Explore workplace solutions", href: "#workplace" },
-    secondaryCta: { label: "Book a consultation", href: "#contact" },
+    secondaryCta: { label: "Book a consultation", href: "/contact" },
     imageSrc: "/practice-areas/modern-workplace.jpg",
     imageAlt: "AI-enabled boardroom with a video wall and hybrid meeting setup",
   },
@@ -60,7 +60,7 @@ const AI_PRACTICE = {
   description:
     "From intelligent virtual assistants and AI chatbots to voice bots, conversational analytics, and agentic AI workflows — we design and deploy AI solutions that integrate with your existing platforms and deliver outcomes your business can measure from day one.",
   primaryCta: { label: "Explore AI solutions", href: "#ai" },
-  secondaryCta: { label: "Book an AI readiness assessment", href: "#contact" },
+  secondaryCta: { label: "Book an AI readiness assessment", href: "/contact" },
   imageSrc: "/practice-areas/artificial-intelligence.jpg",
   imageAlt: "Conversational AI assistant handling a customer interaction",
 };

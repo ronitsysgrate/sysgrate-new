@@ -107,6 +107,20 @@ body {
     animation: sg-rise 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
+@keyframes sg-pin {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.sg-pin-float {
+    animation: sg-pin 1.8s ease-in-out infinite;
+}
+
 /* Accessibility: respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
     html {
@@ -141,5 +155,97 @@ body {
 @media (prefers-reduced-motion: reduce) {
     .sg-deck-card {
         transition-duration: 0.001ms !important;
+    }
+}
+
+/* Load-in delays for the first screen */
+.sg-delay-1 {
+    animation-delay: 120ms;
+}
+.sg-delay-2 {
+    animation-delay: 220ms;
+}
+.sg-delay-3 {
+    animation-delay: 320ms;
+}
+.sg-delay-4 {
+    animation-delay: 420ms;
+}
+
+/* Reveals triggered when a section scrolls into view. */
+[data-reveal="rise"] {
+    transition:
+        opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+        translate 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+[data-reveal="rise"][data-delay="1"] {
+    transition-delay: 90ms, 90ms, 0s, 0s;
+}
+[data-reveal="rise"][data-delay="2"] {
+    transition-delay: 170ms, 170ms, 0s, 0s;
+}
+[data-reveal="rise"][data-delay="3"] {
+    transition-delay: 250ms, 250ms, 0s, 0s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-reveal="rise"]:not(.is-in) {
+        opacity: 0;
+        translate: 0 28px;
+    }
+}
+
+[data-reveal="line"] {
+    transform-origin: top center;
+    transition: transform 1.15s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-reveal="line"]:not(.is-in) {
+        transform: scaleY(0);
+    }
+}
+
+[data-reveal="line"].is-in {
+    transform: scaleY(1);
+}
+
+@keyframes sg-marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.sg-marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 12px;
+    animation: sg-marquee 52s linear infinite;
+}
+
+.sg-marquee:hover .sg-marquee-track {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-marquee-track {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .sg-marquee-track {
+        flex-wrap: wrap;
+        width: auto;
+    }
+
+    .sg-marquee-clone {
+        display: none !important;
     }
 }

@@ -1,0 +1,146 @@
+Strategy & Advisory
+Clarity before commitment.
+We help enterprises make the right technology decisions before they spend a dollar in the wrong direction — independent advisory, no vendor agenda, built around your outcomes.
+Book a free discovery call →    Download AI readiness guide
+
+Stop Technology Failures Before They Start
+The most common reasons enterprise technology projects fail have nothing to do with the technology itself. We resolve all — at the front end, before they become expensive problems.
+
+Vendor-led decisions with no independent view
+When the platform decision is made by the vendor selling it, the outcome is always the same — the wrong fit, too much license, and a project that tries to solve problems the platform wasn't designed for.
+
+Projects starting without a clear outcome definition
+Technology transformations without defined success metrics become moving targets. Scope creep, budget overruns, and post-launch disappointment are almost always the result of skipping the outcomes conversation at the start.
+
+No business case — no internal buy-in
+Technology leaders who can't quantify the return on their investment don't get the budget. We build the commercial and operational case that gets the right projects approved, funded, and started.
+
+Your email address. Get a call back 
+
+Build the Strategy Before You Choose the Technology
+From CX and UC roadmaps to AI readiness and vendor selection, we help organizations make informed technology decisions with confidence.
+
+CX & UC Technology Roadmaps
+A clear path from where you are to where your business needs to be.
+We build structured 12–36 month technology roadmaps for enterprise CX, UCaaS, and modern workplace environments — aligned to your business objectives, your budget cycle, and the platform capabilities available to you today and in the near term. A Sysgrate roadmap is not a wish list. It is a sequenced, prioritised plan with defined milestones, dependencies, and ownership — the kind that actually gets executed.
+What's included
+Current-state technology and process assessment across CX, UC, and the workplace
+Target architecture definition — where you need to be in 12, 24, and 36 months
+Prioritised initiative sequencing with dependencies mapped and risks identified
+Platform and vendor recommendations aligned to your target state
+Budget phasing and investment planning across the roadmap horizon
+Executive-ready roadmap presentation for board and leadership sign-off
+Ready to build your technology roadmap?
+Book a roadmap session → 	See how we work
+
+02 · Advisory
+AI Readiness Assessment
+Understand where AI will actually move the needle — before you invest in it.
+Most enterprises approaching AI for the first time have the same challenge — everyone is talking about it, but nobody can agree on where to start, what to automate, or how to measure success. Our AI Readiness Assessment gives you a structured, independent view of your current maturity, your highest-value AI use cases, and a realistic deployment path — without vendor bias, without hype, and with a business case your CFO can review.
+What's included
+AI maturity scoring across data, process, technology, and organisational readiness
+Use case identification and prioritisation — by ROI potential and implementation complexity
+Platform and tooling assessment — AWS Bedrock, Zoom AI, Azure OpenAI, and more
+Data readiness review — quality, availability, and governance assessment
+Risk and compliance assessment — regulatory requirements across the world
+AI deployment roadmap with quick wins, medium-term initiatives, and long-term vision
+Business case with ROI projections for the top three prioritised use cases
+Find out where AI can genuinely help your business.
+Book an AI readiness assessment →	Download the AI readiness guide
+03 · Advisory
+Vendor & Platform Selection
+The right platform for your business — recommended without a vendor agenda.
+We are certified across Zoom, AWS, Avaya, Microsoft, Zendesk, HubSpot, and more — which means we can make a genuinely informed recommendation across all of them, based on your specific requirements rather than which one we're most incentivised to sell. Our platform selection process is structured, evidence-based, and independent — designed to give you the confidence that the platform you choose is the right one for your organisation.
+What's included
+Requirements gathering — functional, technical, compliance, and commercial
+Platform long-listing and screening against defined criteria
+Weighted scoring matrix across all shortlisted platforms and vendors
+Proof-of-concept design and facilitation for final shortlist evaluation
+Commercial negotiation support and licence optimisation guidance
+Final recommendation report with rationale, risks, and implementation considerations
+Not sure which platform is right for your business?
+Talk to an independent advisor →	Explore our platforms
+
+04 · Advisory
+Business Case Development
+The commercial argument that gets your technology project approved and funded.
+Technology leaders who can't quantify the return on their investment don't get the budget. We build rigorous, evidence-based business cases that quantify the cost of inaction, model the financial return, and present the operational and commercial benefits in language that resonates with CFOs, boards, and procurement teams — so the right technology projects get the green light they deserve.
+What's included
+Cost of current-state analysis — quantifying the operational and commercial cost of the status quo
+TCO modelling — total cost of ownership across 3 and 5-year investment horizons
+ROI and payback period calculation with sensitivity analysis
+Operational benefit quantification — productivity, AHT, CSAT, and cost-per-contact improvements
+Risk analysis — implementation risk, change management risk, and mitigation strategies
+Executive presentation deck and supporting financial model
+Need to build the case for your next technology investment?
+Start your business case →	See how we work
+
+05 · Advisory
+Current-State Audit & Gap Analysis
+Understand exactly where you are before you decide where to go.
+You can't plan a transformation without knowing what you're transforming. Our current-state audit gives enterprises a clear, honest view of their existing CX, UC, or workplace technology environment — what's working, what isn't, where the gaps are, and what those gaps are actually costing the business. We benchmark your environment against industry best practice and your peers, giving you the context to make confident decisions about what to change and in what order.
+What's included
+Technology infrastructure review — platforms, integrations, and architecture assessment
+Process and workflow audit — identifying friction points and inefficiency across CX and UC
+Performance benchmarking — AHT, CSAT, first-contact resolution, and SLA adherence
+Compliance and risk assessment — data handling, call recording, and regulatory exposure
+Gap analysis report — current state vs best practice with prioritised improvement recommendations
+Quick-win identification — changes that can be made immediately without significant investment
+Want to know where your technology environment really stands?
+Book a current-state audit →		Download our audit methodology
+
+06 · Advisory
+Digital Transformation Strategy
+A transformation strategy that your entire organisation can execute — not just read.
+Digital transformation is not a technology programme. It is an organisational change programme that happens to involve technology. The strategies that succeed treat people, process, and platform with equal priority — and plan for the change management required to make the technology land. We build transformation strategies that are commercially grounded, operationally realistic, and designed to get the full organisation moving in the same direction.
+What's included
+Transformation vision definition — where the organisation needs to be and why
+Stakeholder mapping and change impact assessment
+People, process, and technology workstream planning
+Programme structure and governance design — roles, accountability, and decision rights
+Change management and communications strategy
+Benefits realisation framework — how transformation success will be measured and tracked
+Executive and board-ready strategy document with supporting business case
+Ready to build a transformation strategy that actually gets delivered?
+Talk to a transformation specialist →		See client stories
+
+Every advisory engagement follows a proven process — and ends with a decision you can act on.
+Our methodology is deliberately structured so every advisory output is actionable, commercially justified, and ready for internal approval — not a report that sits on a shelf.
+
+Step 01
+Discover
+We embed ourselves in your environment — interviewing stakeholders, reviewing existing technology, assessing current processes, and understanding the commercial and operational context before forming any view.
+
+Step 02
+Analyse
+We benchmark your current state against best practice, identify gaps and opportunities, and develop a clear point of view on the highest-value path forward — independent of any vendor relationship.
+
+Step 03
+Define
+We translate analysis into a structured output — roadmap, business case, platform recommendation, or transformation strategy — with clear rationale, commercial justification, and a plan your organisation can execute.
+
+Step 04
+Align
+We present findings to your leadership team, facilitate the alignment conversation, and refine the output to reflect internal priorities and constraints — ensuring every recommendation has genuine organisational buy-in before delivery begins.
+
+Your email address. Get a call back 
+
+Client stories 
+
+Related Services 
+Strategy & Advisory typically leads directly into one or more of these — depending on what the engagement recommends.
+→ Solution Design & Delivery
+Once the strategy is defined and the platform selected — we build and deploy it.
+Learn more 
+
+→ Customer Experience
+CX roadmaps and AI assessments typically lead to contact centre transformation engagements.
+Learn more 
+
+→ Digital Workplace
+UC technology roadmaps and vendor selection lead to UCaaS and collaboration deployments.
+Learn more 
+
+Not sure where to start? That's exactly what we're here for.
+Every advisory engagement begins with a free discovery call — no commitment, no sales pitch. Just a straight conversation about your technology challenges and what the right next step looks like for your business.
+Book a free discovery call →		Talk to a specialist		Download AI readiness guide

@@ -26,7 +26,7 @@ export default function TalkToUs() {
         {/* CTAs */}
         <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4 mt-2">
           <a
-            href="#book-a-call"
+            href="/contact#book"
             className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all"
           >
             <Phone size={16} strokeWidth={2.2} />
@@ -34,7 +34,7 @@ export default function TalkToUs() {
           </a>
 
           <a
-            href="#contact-form"
+            href="/contact#message"
             className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-paper border border-hairline text-ink-800 text-sm font-medium shadow-sm hover:shadow-chip hover:-translate-y-0.5 transition-all"
           >
             <FileText size={16} strokeWidth={2.2} />
