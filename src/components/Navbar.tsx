@@ -74,6 +74,21 @@ function isChildActive(pathname: string, href: string) {
     return pathname === href.split("#")[0];
 }
 
+// Two stacked copies of the label inside a one-line window: hovering slides the
+// stack up by exactly half its height, so the second copy rolls into place.
+function RollingLabel({ children }: { children: string }) {
+    return (
+        <span className="block h-[1.4em] overflow-hidden">
+            <span className="flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover/roll:-translate-y-1/2">
+                <span className="block h-[1.4em] leading-[1.4]">{children}</span>
+                <span className="block h-[1.4em] leading-[1.4]" aria-hidden="true">
+                    {children}
+                </span>
+            </span>
+        </span>
+    );
+}
+
 function MegaMenu({ menu, pathname }: { menu: NavMenu; pathname: string }) {
     return (
         // pt-3 (not mt-3) keeps the gap below the pill bar inside the hover area.
@@ -92,13 +107,13 @@ function MegaMenu({ menu, pathname }: { menu: NavMenu; pathname: string }) {
                                     <li key={child.label}>
                                         <Link
                                             href={child.href}
-                                            className={`block px-3 py-2 rounded-2xl text-[13.5px] font-medium leading-snug no-underline transition-colors ${
+                                            className={`group/roll block px-3 py-2 rounded-2xl text-[13.5px] font-medium no-underline transition-colors ${
                                                 isChildActive(pathname, child.href)
                                                     ? "text-ink-800 bg-paper-muted"
                                                     : "text-text-secondary hover:text-ink-800 hover:bg-paper-muted"
                                             }`}
                                         >
-                                            {child.label}
+                                            <RollingLabel>{child.label}</RollingLabel>
                                         </Link>
                                     </li>
                                 ))}
@@ -119,9 +134,9 @@ function MegaMenu({ menu, pathname }: { menu: NavMenu; pathname: string }) {
                     <div className="absolute inset-x-0 bottom-0 p-3 flex justify-center">
                         <Link
                             href={menu.feature.href}
-                            className="inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full bg-white/95 text-ink-800 text-xs font-medium shadow-pill no-underline hover:bg-white transition-colors"
+                            className="group/roll inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full bg-white/95 text-ink-800 text-xs font-medium shadow-pill no-underline hover:bg-white transition-colors"
                         >
-                            {menu.feature.label}
+                            <RollingLabel>{menu.feature.label}</RollingLabel>
                             <span aria-hidden="true">↗</span>
                         </Link>
                     </div>
