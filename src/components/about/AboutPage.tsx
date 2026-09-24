@@ -238,7 +238,7 @@ export default function AboutPage() {
                         </p>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mt-1">
                             <PrimaryLink href="/contact">Contact us</PrimaryLink>
-                            <TextLink href="/#case-studies">See our work →</TextLink>
+                            <TextLink href="/case-studies">See our work →</TextLink>
                         </div>
                     </div>
 
@@ -412,7 +412,7 @@ export default function AboutPage() {
                         </div>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-1">
                             <PrimaryLink href="/contact">Book a consultation</PrimaryLink>
-                            <TextLink href="/#case-studies">View client stories →</TextLink>
+                            <TextLink href="/case-studies">View client stories →</TextLink>
                         </div>
                     </div>
                     </div>
@@ -571,7 +571,7 @@ export default function AboutPage() {
                         </p>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-1">
                             <PrimaryLink href="/contact">Talk to a specialist</PrimaryLink>
-                            <TextLink href="/#case-studies">See client stories →</TextLink>
+                            <TextLink href="/case-studies">See client stories →</TextLink>
                         </div>
                     </div>
                 </div>

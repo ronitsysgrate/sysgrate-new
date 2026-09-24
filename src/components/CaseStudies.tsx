@@ -18,7 +18,7 @@ const CASE_STUDIES = [
     avatarSrc: "/case-studies/avatar-placeholder-1.png",
     name: "Jordan Lee",
     role: "VP of Customer Operations, Global Retail",
-    primaryCta: { label: "Read the full case study", href: "#case-studies" },
+    primaryCta: { label: "Read the full case study", href: "/case-studies" },
   },
   {
     outcomeValue: "2.4x",
@@ -29,7 +29,7 @@ const CASE_STUDIES = [
     avatarSrc: "/case-studies/avatar-placeholder-2.png",
     name: "Amara Chen",
     role: "Head of Engineering, Fintech Scale-up",
-    primaryCta: { label: "Read the full case study", href: "#case-studies" },
+    primaryCta: { label: "Read the full case study", href: "/case-studies" },
   },
   {
     outcomeValue: "61%",
@@ -40,7 +40,7 @@ const CASE_STUDIES = [
     avatarSrc: "/case-studies/avatar-placeholder-3.png",
     name: "Priya Nair",
     role: "Director of Finance, Manufacturing Group",
-    primaryCta: { label: "Read the full case study", href: "#case-studies" },
+    primaryCta: { label: "Read the full case study", href: "/case-studies" },
   },
   {
     outcomeValue: "99.98%",
@@ -51,7 +51,7 @@ const CASE_STUDIES = [
     avatarSrc: "/case-studies/avatar-placeholder-4.png",
     name: "Marcus Webb",
     role: "CTO, Healthcare Network",
-    primaryCta: { label: "Read the full case study", href: "#case-studies" },
+    primaryCta: { label: "Read the full case study", href: "/case-studies" },
   },
 ];
 

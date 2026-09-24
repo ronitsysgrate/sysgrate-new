@@ -61,7 +61,6 @@ const NAV_LINKS: NavItem[] = [
     },
     { href: "/ai", label: "AI Hub" },
     { href: "/about", label: "About" },
-    { href: "/careers", label: "Careers" },
     { href: "/contact", label: "Contact Us" },
 ];
 

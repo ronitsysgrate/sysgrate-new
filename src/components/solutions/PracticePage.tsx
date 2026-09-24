@@ -321,7 +321,7 @@ export function PracticePage({ page }: { page: SolutionPage }) {
                                 {story.body !== "Read" ? (
                                     <p className="text-sm text-text-secondary leading-relaxed m-0">{story.body}</p>
                                 ) : null}
-                                <Link href="/#case-studies" className="text-sm font-medium text-link hover:text-link-hover mt-auto pt-3">
+                                <Link href="/case-studies" className="text-sm font-medium text-link hover:text-link-hover mt-auto pt-3">
                                     Read the story →
                                 </Link>
                             </div>

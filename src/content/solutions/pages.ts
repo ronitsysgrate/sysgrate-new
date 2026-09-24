@@ -35,7 +35,7 @@ export type SolutionPage = {
 };
 
 const contact = "/contact";
-const stories = "/#case-studies";
+const stories = "/case-studies";
 
 export const SOLUTION_PAGES: SolutionPage[] = [
     {
