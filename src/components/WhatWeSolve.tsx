@@ -56,7 +56,7 @@ const AI_PRACTICE = {
   title: "AI built into your business — not bolted on top of it.",
   description:
     "From intelligent virtual assistants and AI chatbots to voice bots, conversational analytics, and agentic AI workflows — we design and deploy AI solutions that integrate with your existing platforms and deliver outcomes your business can measure from day one.",
-  primaryCta: { label: "Explore AI solutions", href: "#ai" },
+  primaryCta: { label: "Explore AI solutions", href: "/ai" },
   secondaryCta: { label: "Book an AI readiness assessment", href: "/contact" },
   imageSrc: "/practice-areas/artificial-intelligence.jpg",
   imageAlt: "Conversational AI assistant handling a customer interaction",

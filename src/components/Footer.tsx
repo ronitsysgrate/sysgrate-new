@@ -27,7 +27,7 @@ const COLUMNS: {
             { label: "Customer Experience", href: "/solutions" },
             { label: "Employee Experience", href: "/solutions/employee-experience" },
             { label: "Modern Workplace", href: "/solutions/modern-workplace" },
-            { label: "Artificial Intelligence", href: "/about#practices" },
+            { label: "Artificial Intelligence", href: "/ai" },
         ],
     },
     {

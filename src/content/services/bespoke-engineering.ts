@@ -254,9 +254,9 @@ export const bespokeEngineering: Service = {
             href: service("experience-as-a-service"),
         },
         {
-            title: "AI practice",
+            title: "AI Hub",
             blurb: "Many bespoke builds are AI-powered — voice bots, analytics, natural language reporting. Our AI practice delivers the intelligence layer inside every custom build.",
-            href: solve,
+            href: "/ai",
         },
     ],
     close: {

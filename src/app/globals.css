@@ -123,6 +123,140 @@ body {
     animation: sg-menu-in 0.18s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
+/* AI Hub live console */
+@keyframes sg-bar {
+    0%,
+    100% {
+        transform: scaleY(0.35);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes sg-live-dot {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.35;
+        transform: scale(0.7);
+    }
+}
+
+@keyframes sg-chat-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes sg-typing {
+    0%,
+    80%,
+    100% {
+        opacity: 0.25;
+        transform: translateY(0);
+    }
+    40% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes sg-sheen {
+    0%,
+    18% {
+        transform: translateX(-140%);
+    }
+    62%,
+    100% {
+        transform: translateX(360%);
+    }
+}
+
+.ai-console {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    background:
+        radial-gradient(120% 80% at 100% 0%, rgba(154, 110, 172, 0.45), transparent 55%),
+        radial-gradient(80% 60% at 0% 100%, rgba(62, 58, 151, 0.55), transparent 50%),
+        #1c1848;
+    color: #fff;
+    box-shadow: 0 20px 60px rgba(38, 32, 90, 0.28);
+}
+
+.ai-console::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 80%);
+    pointer-events: none;
+}
+
+.ai-console-sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.08) 48%, transparent 62%);
+    animation: sg-sheen 7s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.ai-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 28px;
+}
+
+.ai-bar {
+    flex: 1;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #f2deee, #9a6eac 55%, #3e3a97);
+    transform-origin: bottom;
+    animation: sg-bar 1.15s ease-in-out infinite;
+}
+
+.ai-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #cbf382;
+    animation: sg-live-dot 1.6s ease-in-out infinite;
+}
+
+.ai-bubble {
+    animation: sg-chat-in 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.ai-typing span {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: currentColor;
+    animation: sg-typing 1s ease-in-out infinite;
+}
+
+.ai-typing span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.ai-typing span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
 @keyframes sg-progress {
     from {
         transform: scaleX(0);

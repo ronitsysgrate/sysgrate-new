@@ -23,7 +23,6 @@ const SOLUTION_LINKS: NavChild[] = [
     { href: "/solutions", label: "Customer Experience" },
     { href: "/solutions/employee-experience", label: "Employee Experience" },
     { href: "/solutions/modern-workplace", label: "Modern Workplace" },
-    { href: "/about#practices", label: "Artificial Intelligence" },
 ];
 
 const SERVICE_LINKS: NavChild[] = services.map((item) => ({
@@ -60,6 +59,7 @@ const NAV_LINKS: NavItem[] = [
             },
         },
     },
+    { href: "/ai", label: "AI Hub" },
     { href: "/about", label: "About" },
     { href: "/careers", label: "Careers" },
     { href: "/contact", label: "Contact Us" },
@@ -154,7 +154,7 @@ function MobileNav({ pathname }: { pathname: string }) {
         <>
             <button
                 onClick={() => setOpen((current) => !current)}
-                className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-white/60 text-ink-800"
+                className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-white/60 text-ink-800 relative z-50 pointer-events-auto"
                 aria-label="Toggle Navigation Menu"
                 aria-expanded={open}
             >
@@ -183,60 +183,69 @@ function MobileNav({ pathname }: { pathname: string }) {
             </button>
 
             {open && (
-                <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-5 bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl border border-white/80 flex flex-col gap-1.5 pointer-events-auto sg-menu-in">
-                    {NAV_LINKS.map((item) => (
-                        <div key={item.href} className="flex flex-col">
-                            <div className="flex items-center gap-1">
-                                <Link
-                                    href={item.href}
-                                    onClick={() => setOpen(false)}
-                                    className={`flex-1 px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] no-underline ${
-                                        isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
-                                    }`}
-                                >
-                                    {item.label}
-                                </Link>
-                                {item.menu && (
-                                    <button
-                                        onClick={() =>
-                                            setExpanded((current) =>
-                                                current === item.label ? null : item.label
-                                            )
-                                        }
-                                        className="w-10 h-10 grid place-items-center rounded-full text-text-secondary hover:bg-paper-muted"
-                                        aria-label={`Show ${item.label} pages`}
-                                        aria-expanded={expanded === item.label}
+                <>
+                    {/* Mobile backdrop blur */}
+                    <div
+                        className="fixed inset-0 z-40 bg-black/35 backdrop-blur-md md:hidden pointer-events-auto"
+                        onClick={() => setOpen(false)}
+                        aria-hidden="true"
+                    />
+
+                    <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-5 bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl border border-white/80 flex flex-col gap-1.5 pointer-events-auto sg-menu-in z-50">
+                        {NAV_LINKS.map((item) => (
+                            <div key={item.href} className="flex flex-col">
+                                <div className="flex items-center gap-1">
+                                    <Link
+                                        href={item.href}
+                                        onClick={() => setOpen(false)}
+                                        className={`flex-1 px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] no-underline ${
+                                            isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
+                                        }`}
                                     >
-                                        <ChevronDown
-                                            className={`w-4 h-4 transition-transform ${
-                                                expanded === item.label ? "rotate-180" : ""
-                                            }`}
-                                        />
-                                    </button>
+                                        {item.label}
+                                    </Link>
+                                    {item.menu && (
+                                        <button
+                                            onClick={() =>
+                                                setExpanded((current) =>
+                                                    current === item.label ? null : item.label
+                                                )
+                                            }
+                                            className="w-10 h-10 grid place-items-center rounded-full text-text-secondary hover:bg-paper-muted"
+                                            aria-label={`Show ${item.label} pages`}
+                                            aria-expanded={expanded === item.label}
+                                        >
+                                            <ChevronDown
+                                                className={`w-4 h-4 transition-transform ${
+                                                    expanded === item.label ? "rotate-180" : ""
+                                                }`}
+                                            />
+                                        </button>
+                                    )}
+                                </div>
+
+                                {item.menu && expanded === item.label && (
+                                    <div className="mt-1 mb-1 ml-4 pl-3 border-l border-hairline flex flex-col gap-0.5">
+                                        {item.menu.columns.flat().map((child) => (
+                                            <Link
+                                                key={child.label}
+                                                href={child.href}
+                                                onClick={() => setOpen(false)}
+                                                className={`px-3 py-2 rounded-xl text-[14px] no-underline hover:bg-paper-muted ${
+                                                    isChildActive(pathname, child.href)
+                                                        ? "text-ink-800 font-medium"
+                                                        : "text-text-secondary"
+                                                }`}
+                                            >
+                                                {child.label}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 )}
                             </div>
-
-                            {item.menu && expanded === item.label && (
-                                <div className="mt-1 mb-1 ml-4 pl-3 border-l border-hairline flex flex-col gap-0.5">
-                                    {item.menu.columns.flat().map((child) => (
-                                        <Link
-                                            key={child.label}
-                                            href={child.href}
-                                            onClick={() => setOpen(false)}
-                                            className={`px-3 py-2 rounded-xl text-[14px] no-underline hover:bg-paper-muted ${
-                                                isChildActive(pathname, child.href)
-                                                    ? "text-ink-800 font-medium"
-                                                    : "text-text-secondary"
-                                            }`}
-                                        >
-                                            {child.label}
-                                        </Link>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </>
             )}
         </>
     );
@@ -245,8 +254,11 @@ function MobileNav({ pathname }: { pathname: string }) {
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [openMenu, setOpenMenu] = useState<string | null>(null);
+    const [navHovered, setNavHovered] = useState(false);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const pathname = usePathname();
+
+    const isBlurred = navHovered || Boolean(openMenu);
 
     const navItem =
         "inline-flex items-center gap-1 px-4.5 py-2 rounded-full text-sm font-medium transition-all no-underline";
@@ -269,98 +281,130 @@ export default function Navbar() {
 
     useEffect(() => {
         setOpenMenu(null);
+        setNavHovered(false);
     }, [pathname]);
 
     useEffect(() => () => {
         if (closeTimer.current) clearTimeout(closeTimer.current);
     }, []);
 
-    const openNow = (label: string) => {
+    const hoverOption = (item: NavItem) => {
         if (closeTimer.current) clearTimeout(closeTimer.current);
-        setOpenMenu(label);
+        setNavHovered(true);
+        if (item.menu) {
+            setOpenMenu(item.label);
+        } else {
+            setOpenMenu(null);
+        }
     };
 
     // Small delay so the pointer can travel across the gap between the pill bar and the panel.
     const closeSoon = () => {
         if (closeTimer.current) clearTimeout(closeTimer.current);
-        closeTimer.current = setTimeout(() => setOpenMenu(null), 140);
+        closeTimer.current = setTimeout(() => {
+            setOpenMenu(null);
+            setNavHovered(false);
+        }, 140);
+    };
+
+    const dismiss = () => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        setOpenMenu(null);
+        setNavHovered(false);
     };
 
     const active = NAV_LINKS.find((item) => item.label === openMenu);
 
     return (
-        <header
-            className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-[clamp(20px,5vw,64px)] py-5 pointer-events-none transition-all duration-200 ${scrolled ? "py-4" : "py-5"
+        <>
+            {/* Full-screen backdrop blur overlay */}
+            <div
+                className={`hidden md:block fixed inset-0 z-40 bg-black/25 backdrop-blur-md transition-all duration-300 ${
+                    isBlurred
+                        ? "opacity-100 pointer-events-auto visible"
+                        : "opacity-0 pointer-events-none invisible"
                 }`}
-        >
-            {/* Brand logo */}
-            <Link
-                href="/"
-                className="inline-flex items-center gap-2.5 no-underline pointer-events-auto group"
+                onClick={dismiss}
+                aria-hidden="true"
+            />
+
+            <header
+                className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-[clamp(20px,5vw,64px)] py-5 pointer-events-none transition-all duration-200 ${scrolled ? "py-4" : "py-5"
+                    }`}
             >
-                <div className="relative w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-105 duration-200">
-                    <Image
-                        src="/sysgrate-mark.png"
-                        alt="Sysgrate Logo Mark"
-                        width={32}
-                        height={32}
-                        className="w-8 h-8 object-contain"
-                        priority
-                    />
-                </div>
-                <span className="font-semibold text-xl tracking-tight text-ink-800 group-hover:text-link transition-colors">
-                    Sysgrate
-                </span>
-            </Link>
-
-            {/* Desktop Navigation Pill Bar */}
-            <nav
-                className="hidden md:flex relative items-center gap-1 p-1.5 rounded-full bg-white/75 shadow-pill backdrop-blur-md border border-white/40 pointer-events-auto"
-                aria-label="Main Navigation"
-                onMouseLeave={closeSoon}
-                onKeyDown={(event) => {
-                    if (event.key === "Escape") setOpenMenu(null);
-                }}
-            >
-                {NAV_LINKS.map((item) => (
-                    <Link
-                        key={item.href}
-                        href={item.href}
-                        className={navClass(item)}
-                        onMouseEnter={() => (item.menu ? openNow(item.label) : closeSoon())}
-                        onFocus={() => (item.menu ? openNow(item.label) : setOpenMenu(null))}
-                        aria-haspopup={item.menu ? "true" : undefined}
-                        aria-expanded={item.menu ? openMenu === item.label : undefined}
-                    >
-                        {item.label}
-                        {item.menu && (
-                            <ChevronDown
-                                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                                    openMenu === item.label ? "rotate-180" : ""
-                                }`}
-                                aria-hidden="true"
-                            />
-                        )}
-                    </Link>
-                ))}
-
-                {active?.menu && <MegaMenu menu={active.menu} pathname={pathname} />}
-            </nav>
-
-            {/* Action CTA & Mobile Toggle */}
-            <div className="flex items-center gap-3 pointer-events-auto">
-                <a
-                    href="/contact"
-                    className="inline-flex items-center justify-center h-11 pl-5 pr-1.5 rounded-full bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:shadow-md transition-all group"
+                {/* Brand logo */}
+                <Link
+                    href="/"
+                    className="inline-flex items-center gap-2.5 no-underline pointer-events-auto group"
                 >
-                    <span className="font-medium text-sm">Get Started</span>
-                    <span className="w-7.5 h-7.5 rounded-full bg-paper-muted inline-grid place-items-center ml-2 text-sm font-semibold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                        ↗
+                    <div className="relative w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-105 duration-200">
+                        <Image
+                            src="/sysgrate-mark.png"
+                            alt="Sysgrate Logo Mark"
+                            width={32}
+                            height={32}
+                            className="w-8 h-8 object-contain"
+                            priority
+                        />
+                    </div>
+                    <span className="font-semibold text-xl tracking-tight text-ink-800 group-hover:text-link transition-colors">
+                        Sysgrate
                     </span>
-                </a>
+                </Link>
 
-                <MobileNav key={pathname} pathname={pathname} />
-            </div>
-        </header>
+                {/* Desktop Navigation Pill Bar */}
+                <nav
+                    className="hidden md:flex relative items-center gap-1 p-1.5 rounded-full bg-white/75 shadow-pill backdrop-blur-md border border-white/40 pointer-events-auto"
+                    aria-label="Main Navigation"
+                    onMouseEnter={() => {
+                        if (closeTimer.current) clearTimeout(closeTimer.current);
+                        setNavHovered(true);
+                    }}
+                    onMouseLeave={closeSoon}
+                    onKeyDown={(event) => {
+                        if (event.key === "Escape") dismiss();
+                    }}
+                >
+                    {NAV_LINKS.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={navClass(item)}
+                            onMouseEnter={() => hoverOption(item)}
+                            onFocus={() => hoverOption(item)}
+                            aria-haspopup={item.menu ? "true" : undefined}
+                            aria-expanded={item.menu ? openMenu === item.label : undefined}
+                        >
+                            {item.label}
+                            {item.menu && (
+                                <ChevronDown
+                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                                        openMenu === item.label ? "rotate-180" : ""
+                                    }`}
+                                    aria-hidden="true"
+                                />
+                            )}
+                        </Link>
+                    ))}
+
+                    {active?.menu && <MegaMenu menu={active.menu} pathname={pathname} />}
+                </nav>
+
+                {/* Action CTA & Mobile Toggle */}
+                <div className="flex items-center gap-3 pointer-events-auto">
+                    <a
+                        href="/contact"
+                        className="inline-flex items-center justify-center h-11 pl-5 pr-1.5 rounded-full bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:shadow-md transition-all group"
+                    >
+                        <span className="font-medium text-sm">Get Started</span>
+                        <span className="w-7.5 h-7.5 rounded-full bg-paper-muted inline-grid place-items-center ml-2 text-sm font-semibold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            ↗
+                        </span>
+                    </a>
+
+                    <MobileNav key={pathname} pathname={pathname} />
+                </div>
+            </header>
+        </>
     );
 }

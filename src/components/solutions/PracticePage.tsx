@@ -144,9 +144,6 @@ export function PracticePage({ page }: { page: SolutionPage }) {
             <section className="sg-container pt-[clamp(120px,16vw,168px)]">
                 <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] items-center gap-[clamp(28px,5vw,64px)]">
                     <div className="flex flex-col items-start gap-5 sg-animate-rise">
-                        <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary">
-                            {page.eyebrow}
-                        </span>
                         <h1 className="text-[clamp(34px,4.2vw,60px)] font-normal leading-[1.08] tracking-[-0.03em] text-ink-800 m-0">
                             <Headline text={page.headline} highlight={page.highlight} />
                         </h1>
@@ -166,9 +163,6 @@ export function PracticePage({ page }: { page: SolutionPage }) {
                     </div>
                 </div>
             </section>
-
-            <Subnav current={page.slug} />
-
             {page.alternateHero ? (
                 <section className="sg-container pt-[clamp(48px,8vw,80px)]">
                     <div data-reveal="rise" className="rounded-panel border border-hairline bg-paper-muted px-8 py-10 sm:px-12 flex flex-col items-start gap-4">
@@ -314,8 +308,8 @@ export function PracticePage({ page }: { page: SolutionPage }) {
                     Related client stories
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
-                    {page.stories.map((story) => (
-                        <article key={story.title + story.body} className="rounded-card border border-hairline bg-paper overflow-hidden flex flex-col">
+                    {page.stories.map((story, index) => (
+                        <article key={`${page.slug}-${index}`} className="rounded-card border border-hairline bg-paper overflow-hidden flex flex-col">
                             <div className="h-36 bg-paper-card flex items-end p-5">
                                 <span className="text-xs font-medium tracking-[0.08em] uppercase text-ink-300">Case visual</span>
                             </div>
