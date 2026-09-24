@@ -1,23 +1,139 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ChevronDown } from "lucide-react";
+import { services } from "@/content/services";
+import { service as serviceHref } from "@/content/services/links";
 
-const NAV_LINKS = [
-    { href: "/services", label: "Services" },
+type NavChild = { href: string; label: string };
+
+type NavMenu = {
+    eyebrow: string;
+    columns: NavChild[][];
+    width: string;
+    feature: { src: string; label: string; href: string };
+};
+
+type NavItem = { href: string; label: string; menu?: NavMenu };
+
+const SOLUTION_LINKS: NavChild[] = [
+    { href: "/solutions", label: "Customer Experience" },
+    { href: "/solutions/employee-experience", label: "Employee Experience" },
+    { href: "/solutions/modern-workplace", label: "Modern Workplace" },
+    { href: "/about#practices", label: "Artificial Intelligence" },
+];
+
+const SERVICE_LINKS: NavChild[] = services.map((item) => ({
+    href: serviceHref(item.slug),
+    label: item.title,
+}));
+
+const NAV_LINKS: NavItem[] = [
+    {
+        href: "/solutions",
+        label: "Solutions",
+        menu: {
+            eyebrow: "Practice areas",
+            columns: [SOLUTION_LINKS],
+            width: "w-[30rem]",
+            feature: {
+                src: "/practice-areas/customer-experience.jpg",
+                label: "View All Solutions",
+                href: "/solutions",
+            },
+        },
+    },
+    {
+        href: "/services",
+        label: "Services",
+        menu: {
+            eyebrow: "Core services",
+            columns: [SERVICE_LINKS.slice(0, 4), SERVICE_LINKS.slice(4)],
+            width: "w-[42rem]",
+            feature: {
+                src: "/services/strategy-advisory.jpg",
+                label: "View All Services",
+                href: "/services",
+            },
+        },
+    },
     { href: "/about", label: "About" },
     { href: "/careers", label: "Careers" },
     { href: "/contact", label: "Contact Us" },
 ];
 
 function isActive(pathname: string, href: string) {
-    return pathname === href || pathname.startsWith(`${href}/`);
+    const [path] = href.split("#");
+    return pathname === path || pathname.startsWith(`${path}/`);
+}
+
+function isChildActive(pathname: string, href: string) {
+    return pathname === href.split("#")[0];
+}
+
+function MegaMenu({ menu, pathname }: { menu: NavMenu; pathname: string }) {
+    return (
+        // pt-3 (not mt-3) keeps the gap below the pill bar inside the hover area.
+        <div
+            className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 max-w-[calc(100vw-2rem)] ${menu.width}`}
+        >
+            <div className="sg-menu-in flex gap-4 p-4 rounded-[28px] bg-paper border border-hairline/70 shadow-float">
+                <div className="flex-1 min-w-0">
+                    <p className="m-0 px-3 text-[11px] font-medium tracking-[0.08em] uppercase text-text-secondary/60">
+                        {menu.eyebrow}
+                    </p>
+                    <div className="mt-2 flex gap-2">
+                        {menu.columns.map((column, index) => (
+                            <ul key={index} className="flex-1 m-0 p-0 list-none flex flex-col gap-0.5">
+                                {column.map((child) => (
+                                    <li key={child.label}>
+                                        <Link
+                                            href={child.href}
+                                            className={`block px-3 py-2 rounded-2xl text-[13.5px] font-medium leading-snug no-underline transition-colors ${
+                                                isChildActive(pathname, child.href)
+                                                    ? "text-ink-800 bg-paper-muted"
+                                                    : "text-text-secondary hover:text-ink-800 hover:bg-paper-muted"
+                                            }`}
+                                        >
+                                            {child.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="relative w-44 shrink-0 rounded-[20px] overflow-hidden">
+                    <Image
+                        src={menu.feature.src}
+                        alt=""
+                        fill
+                        sizes="176px"
+                        className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-ink-800/60 via-ink-800/5 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-3 flex justify-center">
+                        <Link
+                            href={menu.feature.href}
+                            className="inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full bg-white/95 text-ink-800 text-xs font-medium shadow-pill no-underline hover:bg-white transition-colors"
+                        >
+                            {menu.feature.label}
+                            <span aria-hidden="true">↗</span>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 function MobileNav({ pathname }: { pathname: string }) {
     const [open, setOpen] = useState(false);
+    const [expanded, setExpanded] = useState<string | null>(null);
 
     return (
         <>
@@ -52,18 +168,58 @@ function MobileNav({ pathname }: { pathname: string }) {
             </button>
 
             {open && (
-                <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-5 bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl border border-white/80 flex flex-col gap-3 pointer-events-auto animate-in fade-in slide-in-from-top-3 duration-200">
+                <div className="md:hidden absolute top-full left-4 right-4 mt-2 p-5 bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl border border-white/80 flex flex-col gap-1.5 pointer-events-auto sg-menu-in">
                     {NAV_LINKS.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setOpen(false)}
-                            className={`px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] ${
-                                isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
-                            }`}
-                        >
-                            {item.label}
-                        </Link>
+                        <div key={item.href} className="flex flex-col">
+                            <div className="flex items-center gap-1">
+                                <Link
+                                    href={item.href}
+                                    onClick={() => setOpen(false)}
+                                    className={`flex-1 px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] no-underline ${
+                                        isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
+                                    }`}
+                                >
+                                    {item.label}
+                                </Link>
+                                {item.menu && (
+                                    <button
+                                        onClick={() =>
+                                            setExpanded((current) =>
+                                                current === item.label ? null : item.label
+                                            )
+                                        }
+                                        className="w-10 h-10 grid place-items-center rounded-full text-text-secondary hover:bg-paper-muted"
+                                        aria-label={`Show ${item.label} pages`}
+                                        aria-expanded={expanded === item.label}
+                                    >
+                                        <ChevronDown
+                                            className={`w-4 h-4 transition-transform ${
+                                                expanded === item.label ? "rotate-180" : ""
+                                            }`}
+                                        />
+                                    </button>
+                                )}
+                            </div>
+
+                            {item.menu && expanded === item.label && (
+                                <div className="mt-1 mb-1 ml-4 pl-3 border-l border-hairline flex flex-col gap-0.5">
+                                    {item.menu.columns.flat().map((child) => (
+                                        <Link
+                                            key={child.label}
+                                            href={child.href}
+                                            onClick={() => setOpen(false)}
+                                            className={`px-3 py-2 rounded-xl text-[14px] no-underline hover:bg-paper-muted ${
+                                                isChildActive(pathname, child.href)
+                                                    ? "text-ink-800 font-medium"
+                                                    : "text-text-secondary"
+                                            }`}
+                                        >
+                                            {child.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     ))}
                 </div>
             )}
@@ -73,12 +229,20 @@ function MobileNav({ pathname }: { pathname: string }) {
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [openMenu, setOpenMenu] = useState<string | null>(null);
+    const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const pathname = usePathname();
 
     const navItem =
-        "inline-flex items-center px-4.5 py-2 rounded-full text-sm font-medium transition-all";
+        "inline-flex items-center gap-1 px-4.5 py-2 rounded-full text-sm font-medium transition-all no-underline";
     const navActive = `${navItem} bg-white text-ink-800 shadow-pill`;
+    const navOpen = `${navItem} bg-white/80 text-ink-800`;
     const navIdle = `${navItem} text-text-secondary hover:text-ink-800 hover:bg-white/80`;
+
+    const navClass = (item: NavItem) => {
+        if (isActive(pathname, item.href)) return navActive;
+        return openMenu === item.label ? navOpen : navIdle;
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -87,6 +251,27 @@ export default function Navbar() {
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    useEffect(() => {
+        setOpenMenu(null);
+    }, [pathname]);
+
+    useEffect(() => () => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+    }, []);
+
+    const openNow = (label: string) => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        setOpenMenu(label);
+    };
+
+    // Small delay so the pointer can travel across the gap between the pill bar and the panel.
+    const closeSoon = () => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        closeTimer.current = setTimeout(() => setOpenMenu(null), 140);
+    };
+
+    const active = NAV_LINKS.find((item) => item.label === openMenu);
 
     return (
         <header
@@ -115,18 +300,36 @@ export default function Navbar() {
 
             {/* Desktop Navigation Pill Bar */}
             <nav
-                className="hidden md:flex items-center gap-1 p-1.5 rounded-full bg-white/75 shadow-pill backdrop-blur-md border border-white/40 pointer-events-auto"
+                className="hidden md:flex relative items-center gap-1 p-1.5 rounded-full bg-white/75 shadow-pill backdrop-blur-md border border-white/40 pointer-events-auto"
                 aria-label="Main Navigation"
+                onMouseLeave={closeSoon}
+                onKeyDown={(event) => {
+                    if (event.key === "Escape") setOpenMenu(null);
+                }}
             >
                 {NAV_LINKS.map((item) => (
                     <Link
                         key={item.href}
                         href={item.href}
-                        className={isActive(pathname, item.href) ? navActive : navIdle}
+                        className={navClass(item)}
+                        onMouseEnter={() => (item.menu ? openNow(item.label) : closeSoon())}
+                        onFocus={() => (item.menu ? openNow(item.label) : setOpenMenu(null))}
+                        aria-haspopup={item.menu ? "true" : undefined}
+                        aria-expanded={item.menu ? openMenu === item.label : undefined}
                     >
                         {item.label}
+                        {item.menu && (
+                            <ChevronDown
+                                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                                    openMenu === item.label ? "rotate-180" : ""
+                                }`}
+                                aria-hidden="true"
+                            />
+                        )}
                     </Link>
                 ))}
+
+                {active?.menu && <MegaMenu menu={active.menu} pathname={pathname} />}
             </nav>
 
             {/* Action CTA & Mobile Toggle */}

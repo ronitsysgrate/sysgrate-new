@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+*.txt
+*.docx
+sysgrate-demo.html
+sysgrate-ui.css
+sysgrate-ui.js
