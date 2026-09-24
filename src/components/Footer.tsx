@@ -49,7 +49,7 @@ const COLUMNS: {
             { label: "About", href: "/about" },
             { label: "Careers", href: "/careers" },
             { label: "Contact", href: "/contact" },
-            { label: "Insights", href: "/#insights" },
+            { label: "Insights", href: "/insights" },
             { label: "FAQ", href: "/#faq" },
         ],
     },
