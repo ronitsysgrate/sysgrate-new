@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { services } from "@/content/services";
 import { service as serviceHref } from "@/content/services/links";
 
 const linkClass =
-    "text-[13px] leading-snug text-white/70 hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:text-white";
+    "group/link inline-flex items-center gap-1.5 text-[14px] leading-snug text-white/70 hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:text-white";
 
 const OFFICES = [
     { label: "Singapore", href: "/contact#offices" },
@@ -17,12 +16,9 @@ const COLUMNS: {
     title: string;
     links: { label: string; href: string }[];
     wide?: boolean;
-    order: string;
-    span?: string;
 }[] = [
     {
         title: "Practices",
-        order: "order-1",
         links: [
             { label: "Customer Experience", href: "/solutions" },
             { label: "Employee Experience", href: "/solutions/employee-experience" },
@@ -33,8 +29,6 @@ const COLUMNS: {
     {
         title: "Services",
         wide: true,
-        order: "order-3 lg:order-2",
-        span: "col-span-2 lg:col-span-1",
         links: services.map((item) => ({
             label: item.title,
             href: serviceHref(item.slug),
@@ -42,7 +36,6 @@ const COLUMNS: {
     },
     {
         title: "Company",
-        order: "order-2 lg:order-3",
         links: [
             { label: "Platforms", href: "/platforms" },
             { label: "Case studies", href: "/case-studies" },
@@ -56,16 +49,24 @@ const COLUMNS: {
 ];
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+    const inner = (
+        <>
+            <span>{children}</span>
+            <span aria-hidden="true" className="opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all text-[12px]">
+                →
+            </span>
+        </>
+    );
     if (href.startsWith("mailto:") || href.startsWith("tel:")) {
         return (
             <a href={href} className={linkClass}>
-                {children}
+                {inner}
             </a>
         );
     }
     return (
         <Link href={href} className={linkClass}>
-            {children}
+            {inner}
         </Link>
     );
 }
@@ -74,58 +75,29 @@ export default function Footer() {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="mt-auto bg-surface-inverse text-white">
-            <div className="sg-container py-8 sm:py-10">
-                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-3 min-w-0">
-                        <Link href="/" className="inline-flex items-center gap-2.5 no-underline shrink-0 group">
-                            <Image
-                                src="/sysgrate-mark.png"
-                                alt=""
-                                width={28}
-                                height={28}
-                                className="w-7 h-7 object-contain transition-transform group-hover:scale-105 duration-200"
-                            />
-                            <span className="font-semibold text-lg tracking-tight text-white group-hover:text-white/80 transition-colors">
-                                Sysgrate
-                            </span>
-                        </Link>
-                        <span className="hidden md:block w-px h-4 bg-white/20" aria-hidden="true" />
-                        <p className="hidden md:block text-[13px] text-white/60 m-0 truncate">
-                            AI-native CX, communications, and workplace.
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <a
-                            href="mailto:sales@sysgrate.com"
-                            className="text-[13px] font-medium text-white/70 hover:text-white transition-colors no-underline"
-                        >
-                            sales@sysgrate.com
-                        </a>
-                        <Link
-                            href="/contact"
-                            className="inline-flex items-center justify-center h-9 pl-4 pr-1 rounded-full bg-white text-ink-800 shadow-pill hover:shadow-md transition-all group no-underline shrink-0"
-                        >
-                            <span className="font-medium text-[13px]">Get Started</span>
-                            <span className="w-7 h-7 rounded-full bg-paper-muted inline-grid place-items-center ml-2 text-sm font-semibold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                                ↗
-                            </span>
-                        </Link>
-                    </div>
-                </div>
+        <footer className="mt-auto relative overflow-hidden text-white bg-[#1c1848]">
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-24 right-[-10%] h-[420px] w-[520px] rounded-full bg-[#9A6EAC]/35 blur-3xl"
+            />
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute bottom-[-120px] left-[-8%] h-[320px] w-[420px] rounded-full bg-[#3E3A97]/50 blur-3xl"
+            />
 
+            <div className="sg-container relative pt-12 pb-8 sm:pt-16">
                 <nav
                     aria-label="Footer"
-                    className="mt-8 pt-8 border-t border-white/15 grid grid-cols-2 lg:grid-cols-[1fr_1.6fr_1fr] gap-x-8 gap-y-8"
+                    className="grid grid-cols-2 lg:grid-cols-[1fr_1.7fr_1fr] gap-x-8 gap-y-10 rounded-[28px] border border-white/10 bg-white/[0.04] backdrop-blur-md px-6 py-8 sm:px-8"
                 >
                     {COLUMNS.map((column) => (
-                        <div key={column.title} className={`${column.order} ${column.span ?? ""}`}>
-                            <p className="text-[11px] font-medium tracking-[0.08em] uppercase text-white/40 m-0">
+                        <div key={column.title} className={column.wide ? "col-span-2 lg:col-span-1" : ""}>
+                            <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-white/40 m-0">
                                 {column.title}
                             </p>
                             <ul
-                                className={`m-0 mt-3 p-0 list-none gap-x-6 gap-y-2 ${
-                                    column.wide ? "grid grid-cols-2" : "flex flex-col"
+                                className={`m-0 mt-4 p-0 list-none gap-x-8 gap-y-2.5 ${
+                                    column.wide ? "grid grid-cols-1 sm:grid-cols-2" : "flex flex-col"
                                 }`}
                             >
                                 {column.links.map((item) => (
@@ -138,15 +110,20 @@ export default function Footer() {
                     ))}
                 </nav>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-[13px] text-white/45 m-0">© {year} Sysgrate</p>
-                    <p className="text-[13px] text-white/45 m-0 flex flex-wrap gap-x-3 gap-y-1">
+                    <ul className="m-0 p-0 list-none flex flex-wrap gap-2">
                         {OFFICES.map((office) => (
-                            <FooterLink key={office.label} href={office.href}>
-                                {office.label}
-                            </FooterLink>
+                            <li key={office.label}>
+                                <Link
+                                    href={office.href}
+                                    className="inline-flex items-center h-8 px-3.5 rounded-full border border-white/15 text-[13px] text-white/70 no-underline hover:text-white hover:border-white/40 transition-colors"
+                                >
+                                    {office.label}
+                                </Link>
+                            </li>
                         ))}
-                    </p>
+                    </ul>
                 </div>
             </div>
         </footer>
