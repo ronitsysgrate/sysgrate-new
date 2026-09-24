@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { PillCta } from "@/components/services/PillCta";
 
 const contact = "/contact";
-const platforms = "/solutions#platforms";
+const platforms = "/platforms";
 const bespoke = "/services/bespoke-engineering";
 const services = "/services";
 

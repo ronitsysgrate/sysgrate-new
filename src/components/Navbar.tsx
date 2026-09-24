@@ -59,6 +59,24 @@ const NAV_LINKS: NavItem[] = [
             },
         },
     },
+    {
+        href: "/platforms",
+        label: "Platforms",
+        menu: {
+            eyebrow: "Platform details",
+            columns: [[
+                { href: "/platforms/amazon-connect", label: "Amazon Connect" },
+                { href: "/platforms/zoom", label: "Zoom" },
+                { href: "/platforms/zendesk", label: "Zendesk" },
+            ]],
+            width: "w-[30rem]",
+            feature: {
+                src: "/practice-areas/customer-experience.jpg",
+                label: "View all platforms",
+                href: "/platforms",
+            },
+        },
+    },
     { href: "/ai", label: "AI Hub" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact Us" },

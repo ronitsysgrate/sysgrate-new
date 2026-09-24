@@ -44,6 +44,7 @@ const COLUMNS: {
         title: "Company",
         order: "order-2 lg:order-3",
         links: [
+            { label: "Platforms", href: "/platforms" },
             { label: "Case studies", href: "/case-studies" },
             { label: "About", href: "/about" },
             { label: "Careers", href: "/careers" },
