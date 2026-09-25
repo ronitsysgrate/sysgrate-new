@@ -22,7 +22,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
     title: "Smarter contact centres. Happier customers. Powered by AI.",
     description:
       "We implement and manage cloud contact centre platforms — Amazon Connect, Avaya, and Zoom Contact Center — integrated with AI virtual agents, omnichannel engagement, and real-time analytics to reduce costs and raise CSAT.",
-    primaryCta: { label: "See CX solutions", href: "#cx" },
+    primaryCta: { label: "See CX solutions", href: "/solutions" },
     secondaryCta: { label: "Book a CX consultation", href: "/contact" },
     imageSrc: "/practice-areas/customer-experience.jpg",
     imageAlt: "Contact centre agents working across an AI-assisted platform",

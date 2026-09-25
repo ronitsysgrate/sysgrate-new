@@ -163,14 +163,25 @@ function MegaMenu({ menu, pathname }: { menu: NavMenu; pathname: string }) {
     );
 }
 
-function MobileNav({ pathname }: { pathname: string }) {
+function MobileNav({
+    pathname,
+    onOpenChange,
+}: {
+    pathname: string;
+    onOpenChange: (open: boolean) => void;
+}) {
     const [open, setOpen] = useState(false);
     const [expanded, setExpanded] = useState<string | null>(null);
+
+    const updateOpen = (next: boolean) => {
+        setOpen(next);
+        onOpenChange(next);
+    };
 
     return (
         <>
             <button
-                onClick={() => setOpen((current) => !current)}
+                onClick={() => updateOpen(!open)}
                 className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-white/60 text-ink-800 relative z-50 pointer-events-auto"
                 aria-label="Toggle Navigation Menu"
                 aria-expanded={open}
@@ -204,7 +215,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                     {/* Mobile backdrop blur */}
                     <div
                         className="fixed inset-0 z-40 bg-black/35 backdrop-blur-md md:hidden pointer-events-auto"
-                        onClick={() => setOpen(false)}
+                        onClick={() => updateOpen(false)}
                         aria-hidden="true"
                     />
 
@@ -214,7 +225,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                                 <div className="flex items-center gap-1">
                                     <Link
                                         href={item.href}
-                                        onClick={() => setOpen(false)}
+                                        onClick={() => updateOpen(false)}
                                         className={`flex-1 px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] no-underline ${
                                             isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
                                         }`}
@@ -247,7 +258,7 @@ function MobileNav({ pathname }: { pathname: string }) {
                                             <Link
                                                 key={child.label}
                                                 href={child.href}
-                                                onClick={() => setOpen(false)}
+                                                onClick={() => updateOpen(false)}
                                                 className={`px-3 py-2 rounded-xl text-[14px] no-underline hover:bg-paper-muted ${
                                                     isChildActive(pathname, child.href)
                                                         ? "text-ink-800 font-medium"
@@ -270,6 +281,8 @@ function MobileNav({ pathname }: { pathname: string }) {
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [navHovered, setNavHovered] = useState(false);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -289,9 +302,23 @@ export default function Navbar() {
     };
 
     useEffect(() => {
+        let lastY = window.scrollY;
+
         const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
+            const y = window.scrollY;
+            setScrolled(y > 20);
+
+            const delta = y - lastY;
+            if (Math.abs(delta) < 8) return;
+
+            if (y < 80 || delta < 0) {
+                setHidden(false);
+            } else {
+                setHidden(true);
+            }
+            lastY = y;
         };
+
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
@@ -299,6 +326,7 @@ export default function Navbar() {
     useEffect(() => {
         setOpenMenu(null);
         setNavHovered(false);
+        setMobileOpen(false);
     }, [pathname]);
 
     useEffect(() => () => {
@@ -331,6 +359,7 @@ export default function Navbar() {
     };
 
     const active = NAV_LINKS.find((item) => item.label === openMenu);
+    const concealed = hidden && !openMenu && !mobileOpen;
 
     return (
         <>
@@ -346,9 +375,17 @@ export default function Navbar() {
             />
 
             <header
-                className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-[clamp(20px,5vw,64px)] py-5 pointer-events-none transition-all duration-200 ${scrolled ? "py-4" : "py-5"
-                    }`}
+                className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-[clamp(20px,5vw,64px)] pointer-events-none transition-[padding,transform] duration-300 ${
+                    scrolled ? "py-4" : "py-5"
+                } ${concealed ? "-translate-y-[calc(100%+2.5rem)]" : "translate-y-0"}`}
             >
+                <div
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute inset-x-0 -top-px -bottom-8 -z-10 backdrop-blur-lg transition-opacity duration-200 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.7)_42%,rgba(255,255,255,0)_100%)] [mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] ${
+                        scrolled ? "opacity-100" : "opacity-0"
+                    }`}
+                />
+
                 {/* Brand logo */}
                 <Link
                     href="/"
@@ -419,7 +456,7 @@ export default function Navbar() {
                         </span>
                     </a>
 
-                    <MobileNav key={pathname} pathname={pathname} />
+                    <MobileNav key={pathname} pathname={pathname} onOpenChange={setMobileOpen} />
                 </div>
             </header>
         </>
