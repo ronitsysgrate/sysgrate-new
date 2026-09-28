@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
+import InquiryModal from "@/components/inquiry/InquiryModal";
+import { CONTACT_MESSAGE_INQUIRY } from "@/components/inquiry/contactMessage";
 
 interface FaqItem {
   id: string;
@@ -50,6 +52,7 @@ const FAQS: FaqItem[] = [
 
 export default function Faq() {
   const [openId, setOpenId] = useState<string | null>(FAQS[0].id);
+  const [messageOpen, setMessageOpen] = useState(false);
 
   return (
     <section id="faq" className="sg-container pt-[clamp(64px,10vw,120px)] pb-[clamp(64px,10vw,120px)] relative">
@@ -110,6 +113,29 @@ export default function Faq() {
           })}
         </div>
       </div>
+
+      <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-card border border-hairline bg-paper-muted px-6 py-5">
+        <p className="text-sm leading-relaxed text-text-secondary m-0">
+          Don&rsquo;t see what you&rsquo;re looking for? Send it to{" "}
+          <a href="mailto:sales@sysgrate.com" className="text-link hover:text-link-hover">
+            sales@sysgrate.com
+          </a>{" "}
+          and a specialist will answer.
+        </p>
+        <button
+          type="button"
+          onClick={() => setMessageOpen(true)}
+          className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all cursor-pointer shrink-0"
+        >
+          Send a message
+        </button>
+      </div>
+
+      <InquiryModal
+        open={messageOpen}
+        onClose={() => setMessageOpen(false)}
+        {...CONTACT_MESSAGE_INQUIRY}
+      />
     </section>
   );
 }

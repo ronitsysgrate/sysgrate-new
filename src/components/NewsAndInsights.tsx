@@ -156,18 +156,9 @@ export default function NewsAndInsights() {
       {/* Section Header */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
         <div className="max-w-[720px] flex flex-col gap-4">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
-            News &amp; Insights
-          </span>
-
           <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-            Frontline thinking.{" "}
-            <span className="sg-highlight font-medium">Proven blueprints</span>.
+            News &amp; Insights
           </h2>
-
-          <p className="text-[18px] leading-[1.55] text-text-secondary m-0 max-w-[640px]">
-            Explore deep technical guides, architecture whitepapers, client stories, and industry perspectives from our system integration leaders.
-          </p>
         </div>
 
         {/* Category Filter Pills */}
