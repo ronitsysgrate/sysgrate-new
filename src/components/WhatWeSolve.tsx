@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import InquiryModal from "@/components/inquiry/InquiryModal";
+import { AI_READINESS_INQUIRY } from "@/components/inquiry/aiReadiness";
 
 interface PracticeArea {
   id: string;
@@ -64,6 +66,7 @@ const AI_PRACTICE = {
 
 export default function WhatWeSolve() {
   const [activeId, setActiveId] = useState(PRACTICE_AREAS[0].id);
+  const [assessmentOpen, setAssessmentOpen] = useState(false);
   const active =
     PRACTICE_AREAS.find((p) => p.id === activeId) ?? PRACTICE_AREAS[0];
 
@@ -166,12 +169,12 @@ export default function WhatWeSolve() {
               >
                 {AI_PRACTICE.primaryCta.label} →
               </a>
-              <a
-                href={AI_PRACTICE.secondaryCta.href}
+              <button
+                onClick={() => setAssessmentOpen(true)}
                 className="inline-flex items-center justify-center h-13 px-6.5 rounded-full bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:-translate-y-0.5 transition-all font-medium text-sm cursor-pointer"
               >
                 <span>{AI_PRACTICE.secondaryCta.label}</span>
-              </a>
+              </button>
             </div>
           </div>
 
@@ -186,6 +189,12 @@ export default function WhatWeSolve() {
           </div>
         </div>
       </div>
+
+      <InquiryModal
+        open={assessmentOpen}
+        onClose={() => setAssessmentOpen(false)}
+        {...AI_READINESS_INQUIRY}
+      />
     </section>
   );
 }

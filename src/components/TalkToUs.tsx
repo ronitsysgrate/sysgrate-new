@@ -1,9 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Phone, FileText } from "lucide-react";
+import InquiryModal from "@/components/inquiry/InquiryModal";
+import { CONTACT_MESSAGE_INQUIRY } from "@/components/inquiry/contactMessage";
 
 export default function TalkToUs() {
+  const [formOpen, setFormOpen] = useState(false);
+
   return (
     <section id="talk-to-us" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
       <div
@@ -33,15 +37,22 @@ export default function TalkToUs() {
             <span>Book a call</span>
           </a>
 
-          <a
-            href="/contact#message"
-            className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-paper border border-hairline text-ink-800 text-sm font-medium shadow-sm hover:shadow-chip hover:-translate-y-0.5 transition-all"
+          <button
+            type="button"
+            onClick={() => setFormOpen(true)}
+            className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-paper border border-hairline text-ink-800 text-sm font-medium shadow-sm hover:shadow-chip hover:-translate-y-0.5 transition-all cursor-pointer"
           >
             <FileText size={16} strokeWidth={2.2} />
             <span>Fill out a form</span>
-          </a>
+          </button>
         </div>
       </div>
+
+      <InquiryModal
+        open={formOpen}
+        onClose={() => setFormOpen(false)}
+        {...CONTACT_MESSAGE_INQUIRY}
+      />
     </section>
   );
 }

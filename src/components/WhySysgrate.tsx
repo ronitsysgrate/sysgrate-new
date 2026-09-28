@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   LucideIcon,
 } from "lucide-react";
+import InquiryModal from "@/components/inquiry/InquiryModal";
+import { ARCHITECTURE_REVIEW_INQUIRY } from "@/components/inquiry/architectureReview";
 
 interface Differentiator {
   number: string;
@@ -107,6 +109,7 @@ const DIFFERENTIATORS: Differentiator[] = [
 
 export default function WhySysgrate() {
   const [showDrawbacks, setShowDrawbacks] = useState(false);
+  const [reviewOpen, setReviewOpen] = useState(false);
 
   return (
     <section id="why-sysgrate" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
@@ -232,16 +235,23 @@ export default function WhySysgrate() {
           </p>
         </div>
 
-        <a
-          href="/contact"
-          className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group shrink-0"
+        <button
+          type="button"
+          onClick={() => setReviewOpen(true)}
+          className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group shrink-0 cursor-pointer"
         >
           <span>Schedule an Architecture Review</span>
           <span className="w-8 h-8 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-2 text-sm font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
             ↗
           </span>
-        </a>
+        </button>
       </div>
+
+      <InquiryModal
+        open={reviewOpen}
+        onClose={() => setReviewOpen(false)}
+        {...ARCHITECTURE_REVIEW_INQUIRY}
+      />
     </section>
   );
 }
