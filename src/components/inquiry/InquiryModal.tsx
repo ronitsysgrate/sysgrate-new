@@ -350,9 +350,11 @@ export default function InquiryModal({
     submitLabel,
     subject,
     sections,
+    scheduleUrl,
 }: InquiryContent & {
     open: boolean;
     onClose: () => void;
+    scheduleUrl?: string;
 }) {
     const titleId = useId();
     const onCloseRef = useRef(onClose);
@@ -402,17 +404,32 @@ export default function InquiryModal({
         setErrors(nextErrors);
         if (Object.keys(nextErrors).length > 0) return;
 
-        const body = sections
-            .flatMap((section) => [
-                section.title,
-                ...section.fields.map((field) => `${field.label}: ${displayValue(field, values)}`),
-                "",
-            ])
-            .join("\n");
+        const emailField = sections.flatMap((section) => section.fields).find((field) => field.type === "email");
+        const email = emailField ? String(values[emailField.id] ?? "").trim() : "";
 
-        window.location.href = `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
-            `Sysgrate enquiry — ${subject}`,
-        )}&body=${encodeURIComponent(body)}`;
+        if (scheduleUrl) {
+            const url = new URL(scheduleUrl);
+            if (email) url.searchParams.set("email", email);
+            sections
+                .flatMap((section) => section.fields)
+                .filter((field) => field.type !== "email")
+                .forEach((field, index) => {
+                    url.searchParams.set(`a${index + 1}`, displayValue(field, values));
+                });
+            window.location.href = url.toString();
+        } else {
+            const body = sections
+                .flatMap((section) => [
+                    section.title,
+                    ...section.fields.map((field) => `${field.label}: ${displayValue(field, values)}`),
+                    "",
+                ])
+                .join("\n");
+
+            window.location.href = `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
+                `Sysgrate enquiry — ${subject}`,
+            )}&body=${encodeURIComponent(body)}`;
+        }
         setSubmitted(true);
     };
 
@@ -456,9 +473,13 @@ export default function InquiryModal({
                 <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-4">
                     {submitted ? (
                         <div className="flex flex-col gap-2 py-3">
-                            <h3 className="text-sm font-medium text-ink-800 m-0">Message sent, we&rsquo;ll get back to you.</h3>
+                            <h3 className="text-sm font-medium text-ink-800 m-0">
+                                {scheduleUrl ? "Opening the scheduler." : "Message sent, we'll get back to you."}
+                            </h3>
                             <p className="text-xs text-text-secondary leading-relaxed m-0">
-                                Your email app should have opened with this message addressed to {SALES_EMAIL}. Send it from there and the right specialist will pick it up.
+                                {scheduleUrl
+                                    ? "Your answers are attached to the booking page so the specialist has them before the call."
+                                    : `Your email app should have opened with this message addressed to ${SALES_EMAIL}. Send it from there and the right specialist will pick it up.`}
                             </p>
                             <button
                                 type="button"
@@ -491,6 +512,7 @@ export default function InquiryModal({
                                                     id={field.id}
                                                     name={field.id}
                                                     rows={4}
+                                                    placeholder={field.placeholder}
                                                     value={String(values[field.id] ?? "")}
                                                     onChange={(event) => update(field.id, event.target.value)}
                                                     className="w-full min-h-24 resize-y rounded-2xl border border-hairline bg-paper px-3.5 py-2.5 text-xs text-ink-800 outline-none transition-shadow placeholder:text-ink-300 focus-visible:border-link focus-visible:shadow-[var(--ring-focus)]"

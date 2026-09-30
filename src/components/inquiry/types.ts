@@ -15,6 +15,7 @@ export type InquiryTextareaField = {
     id: string;
     label: string;
     type: "textarea";
+    placeholder?: string;
 };
 
 export type InquirySelectField = {

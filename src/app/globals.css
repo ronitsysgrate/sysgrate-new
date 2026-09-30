@@ -392,6 +392,125 @@ body {
     animation-play-state: paused;
 }
 
+/* Employee Experience: broken tools reconnecting. */
+@keyframes uc-gap-fade {
+    0%, 22% { opacity: 1; }
+    42%, 76% { opacity: 0; }
+    94%, 100% { opacity: 1; }
+}
+
+@keyframes uc-hub-in {
+    0%, 30% { opacity: 0; transform: scale(0.72); }
+    48%, 76% { opacity: 1; transform: scale(1); }
+    94%, 100% { opacity: 0; transform: scale(0.72); }
+}
+
+@keyframes uc-line-draw {
+    0%, 26% { stroke-dashoffset: 1; opacity: 0; }
+    50%, 76% { stroke-dashoffset: 0; opacity: 1; }
+    94%, 100% { stroke-dashoffset: 1; opacity: 0; }
+}
+
+@keyframes uc-dot {
+    0%, 24% { background: #c45c78; }
+    46%, 76% { background: #4a3e92; }
+    94%, 100% { background: #c45c78; }
+}
+
+@keyframes uc-chip-border {
+    0%, 24% { border-color: #e7c5d2; }
+    46%, 76% { border-color: #c9c2e8; }
+    94%, 100% { border-color: #e7c5d2; }
+}
+
+.uc-gap,
+.uc-gap-lines {
+    animation: uc-gap-fade 9s ease-in-out infinite;
+}
+
+.uc-hub {
+    opacity: 0;
+    animation: uc-hub-in 9s ease-in-out infinite;
+}
+
+.uc-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: uc-line-draw 9s ease-in-out infinite;
+}
+
+.uc-draw-2 { animation-delay: 0.12s; }
+.uc-draw-3 { animation-delay: 0.24s; }
+.uc-draw-4 { animation-delay: 0.36s; }
+
+.uc-dot {
+    background: #c45c78;
+    animation: uc-dot 9s ease-in-out infinite;
+}
+
+.uc-chip {
+    animation: uc-chip-border 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .uc-gap,
+    .uc-gap-lines,
+    .uc-hub,
+    .uc-draw,
+    .uc-dot,
+    .uc-chip {
+        animation: none !important;
+    }
+
+    .uc-gap,
+    .uc-gap-lines {
+        opacity: 0 !important;
+    }
+
+    .uc-hub {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .uc-draw {
+        stroke-dashoffset: 0 !important;
+        opacity: 1 !important;
+    }
+
+    .uc-dot {
+        background: #4a3e92 !important;
+    }
+
+    .uc-chip {
+        border-color: #c9c2e8 !important;
+    }
+}
+
+@keyframes room-glow {
+    0%, 100% { opacity: 0.72; }
+    50% { opacity: 1; }
+}
+
+@keyframes room-sign {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.room-glow {
+    animation: room-glow 3.6s ease-in-out infinite;
+}
+
+.room-sign {
+    animation: room-sign 4.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .room-glow,
+    .room-sign {
+        animation: none !important;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .sg-marquee-track {
         animation: none !important;

@@ -27,11 +27,9 @@ export type SolutionPage = {
     platformsTitle: string;
     platformsIntro: string;
     platforms: string[];
-    capabilities?: { title: string; items: string[] };
     stories: Story[];
     closeLinks: LinkItem[];
-    alternateHero?: { title: string; body: string; ctas: LinkItem[] };
-    roomNote?: string;
+    roomNote?: { title: string; body: string };
 };
 
 const contact = "/contact";
@@ -46,7 +44,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         alternate: "We make your contact centre more efficient—without compromising experience.",
         summary:
             "We design, implement, and manage AI-powered cloud contact centre solutions that reduce costs, improve CSAT, and deliver seamless customer experiences — across every channel, in every market.",
-        primaryCta: { label: "Book a CX consultation", href: contact },
+        primaryCta: { label: "Book a free CX consultation", href: contact },
         secondaryCta: { label: "Download capability deck", href: contact },
         image: {
             src: "/practice-areas/customer-experience.jpg",
@@ -99,7 +97,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         midCtas: [
             { label: "Talk to a CX specialist", href: contact },
-            { label: "See client stories", href: stories },
+            { label: "See client stories", href: '/#case-studies' },
         ],
         platformsEyebrow: "Platforms",
         platformsTitle: "Platform-agnostic. Best-in-class.",
@@ -115,31 +113,6 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             "SAP C4C",
             "AWS Lex & Bedrock",
         ],
-        capabilities: {
-            title: "Core Contact Centre Capabilities",
-            items: [
-                "Skills-based routing",
-                "Workforce Management",
-                "Inbound, outbound, and blended calling",
-                "Analytics, real-time and historical dashboards, and reporting",
-                "Speech-enabled IVR and Intelligent Virtual Agents (IVAs)",
-                "Predictive, progressive, power, preview, and manual dialling",
-                "CTI screen pop",
-                "Call recording",
-                "Caller identification",
-                "Campaign and list management",
-                "Web callback",
-                "Do Not Call compliance",
-                "Screen recording",
-                "CRM integration",
-                "Agent scripting",
-                "Agent assistance",
-                "Post-call surveys",
-                "Virtual assistants",
-                "Quality assurance",
-                "Speech analytics",
-            ],
-        },
         stories: [
             { sector: "Automotive", title: "Cycle & Carriage — AWS Connect OBC migration", body: "Read" },
             { sector: "Healthcare", title: "Fullerton Health — Zendesk + Zoom CC rollout", body: "Read" },
@@ -147,8 +120,8 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         closeLinks: [
             { label: "Elevate your CX", href: contact },
-            { label: "See all client stories", href: stories },
-            { label: "Explore our platforms", href: "#platforms" },
+            { label: "See all client stories", href: "/#case-studies" },
+            { label: "Explore AI Hub", href: "#platforms" },
         ],
     },
     {
@@ -159,7 +132,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         alternate: "Smarter tools. Faster team performance. Unified communications that actually work.",
         summary:
             "Fragmented communication slows your business down. We connect your teams, tools, and workflows—so work moves faster, everywhere.",
-        primaryCta: { label: "Request a UC assessment", href: contact },
+        primaryCta: { label: "Request free UC assessment", href: contact },
         secondaryCta: { label: "Download capability deck", href: contact },
         image: {
             src: "/practice-areas/employee-experience.jpg",
@@ -173,7 +146,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             { value: "Weeks", label: "Not months — our typical deployment timeline", source: "Sysgrate delivery benchmark" },
         ],
         solveEyebrow: "What we solve",
-        solveTitle: "Fix what’s slowing your teams down",
+        solveTitle: "Fix what's slowing your teams down",
         solveBody: [
             "Poor connectivity, scattered tools, and unreliable systems create delays your business can’t afford.",
             "We streamline your communication infrastructure—so teams collaborate better, respond faster, and keep work moving without disruption.",
@@ -242,8 +215,8 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         closeLinks: [
             { label: "See the platform in action", href: "#platforms" },
-            { label: "See all client stories", href: stories },
-            { label: "Explore our platforms", href: "#platforms" },
+            { label: "See all client stories", href: "/#case-studies" },
+            { label: "Explore AI hub", href: "#platforms" },
         ],
     },
     {
@@ -253,19 +226,11 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         highlight: "just work",
         summary:
             "Complicated setups, unreliable AV, and constant IT support requests disrupt productivity and frustrate teams. We build intuitive, fully integrated meeting spaces with unified communications, conferencing systems, and smart controls—so every meeting starts on time and runs smoothly.",
-        primaryCta: { label: "Evaluate your workplace", href: contact },
+        primaryCta: { label: "Evaluate your AV", href: contact },
         secondaryCta: { label: "Download capability deck", href: contact },
         image: {
             src: "/practice-areas/modern-workplace.jpg",
             alt: "Integrated meeting room with conferencing and smart controls",
-        },
-        alternateHero: {
-            title: "Intelligent spaces for better work",
-            body: "Workspaces should enable productivity—not slow it down with technical friction and poor user experience. We create AI-enabled, integrated workplace environments with smart AV, automation, and collaboration tools that improve efficiency and user experience.",
-            ctas: [
-                { label: "Evaluate your workplace", href: contact },
-                { label: "View our projects", href: stories },
-            ],
         },
         statsEyebrow: "What a well-designed workplace environment delivers",
         stats: [
@@ -274,8 +239,10 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             { value: "40%", label: "Many meeting rooms go unused due to poor booking and AV reliability", source: "Gartner" },
             { value: "1 day", label: "Our typical AV room fit-out per space — minimal disruption", source: "Sysgrate delivery benchmark" },
         ],
-        roomNote:
-            "Every room reflects how your business works. A boardroom that impresses. A meeting room that connects every participant, in every location, without friction. A command centre where decisions happen faster. We build all three — and everything in between — with AV infrastructure that your teams will never notice because it just works.",
+        roomNote: {
+            title: "Every room reflects how your business works",
+            body: "A boardroom that impresses. A meeting room that connects every participant, in every location, without friction. A command centre where decisions happen faster. We build all three — and everything in between — with AV infrastructure that your teams will never notice because it just works.",
+        },
         solveEyebrow: "What we deliver",
         solveTitle: "From boardroom to building — we integrate it all.",
         solveBody: [
@@ -313,7 +280,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         midCtas: [
             { label: "Talk to an AV specialist", href: contact },
-            { label: "View our projects", href: stories },
+            { label: "View our projects", href: "#client-stories" },
         ],
         platformsEyebrow: "Platforms",
         platformsTitle: "Best-in-class hardware. Best-in-class integration.",
@@ -351,8 +318,8 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         closeLinks: [
             { label: "Discuss your AV requirement", href: contact },
-            { label: "See all client stories", href: stories },
-            { label: "Explore our platforms", href: "#platforms" },
+            { label: "See all client stories", href: "/#case-studies" },
+            { label: "Explore AI hub", href: "#platforms" },
         ],
     },
 ];
