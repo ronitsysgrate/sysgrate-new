@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -25,8 +26,9 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" data-scroll-behavior="smooth" className={`${outfit.variable} h-full antialiased`}>
+        <html lang="en" className={`${outfit.variable} h-full antialiased`}>
             <body className="min-h-full flex flex-col font-sans selection:bg-[#E4D8F3]">
+                <SmoothScroll />
                 {children}
                 <Footer />
             </body>
