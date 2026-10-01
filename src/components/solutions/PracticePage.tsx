@@ -205,13 +205,13 @@ function PlatformsBand({ page }: { page: SolutionPage }) {
         <section id="platforms" className="pt-[clamp(64px,10vw,120px)] scroll-mt-32">
             <div data-reveal="rise" className="sg-container">
                 <div className="max-w-[760px] flex flex-col gap-4">
-                <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
-                    {page.platformsEyebrow}
-                </span>
-                <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-                    {page.platformsTitle}
-                </h2>
-                <p className="text-[18px] leading-[1.6] text-text-secondary m-0">{page.platformsIntro}</p>
+                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
+                        {page.platformsEyebrow}
+                    </span>
+                    <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
+                        {page.platformsTitle}
+                    </h2>
+                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0">{page.platformsIntro}</p>
                 </div>
             </div>
 
@@ -425,7 +425,7 @@ export function PracticePage({ page }: { page: SolutionPage }) {
                     {page.stats.map((stat) => (
                         <article key={stat.label} data-reveal="rise" className="rounded-card border border-hairline bg-paper p-6">
                             <p className="text-[clamp(28px,3vw,40px)] font-medium tracking-[-0.03em] text-ink-800 m-0" aria-label={stat.value}>
-                                {page.slug === "modern-workplace" ? <CountValue value={stat.value} /> : stat.value}
+                                <CountValue value={stat.value} />
                             </p>
                             <p className="text-sm text-text-secondary leading-snug m-0 mt-2">{stat.label}</p>
                             {stat.source ? <p className="text-xs text-ink-300 m-0 mt-3">{stat.source}</p> : null}
@@ -468,27 +468,27 @@ export function PracticePage({ page }: { page: SolutionPage }) {
                         const Icon = CX_OFFERING_ICONS[item.title] ?? UC_OFFERING_ICONS[item.title] ?? WORKPLACE_OFFERING_ICONS[item.title];
                         const showRoom = page.slug === "modern-workplace";
                         return (
-                        <article
-                            key={item.title}
-                            data-reveal="rise"
-                            className={`rounded-card border border-hairline bg-paper flex flex-col h-full hover:-translate-y-1 hover:shadow-card transition-all ${showRoom ? "overflow-hidden" : "p-7"}`}
-                        >
-                            {showRoom ? <WorkplaceRoom title={item.title} /> : null}
-                            <div className={showRoom ? "p-7 flex flex-col flex-1" : "contents"}>
-                            {Icon ? (
-                                <span className="w-11 h-11 rounded-2xl bg-paper-muted border border-hairline inline-flex items-center justify-center text-link">
-                                    <Icon size={18} strokeWidth={2} aria-hidden="true" />
-                                </span>
-                            ) : (
-                                <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono">0{index + 1}</span>
-                            )}
-                            <h3 className="text-[18px] font-medium text-ink-800 m-0 mt-4 leading-snug">{item.title}</h3>
-                            <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2.5 flex-1">{item.body}</p>
-                            <Link href="/contact" className="text-sm font-medium text-link hover:text-link-hover mt-4">
-                                Learn more →
-                            </Link>
-                            </div>
-                        </article>
+                            <article
+                                key={item.title}
+                                data-reveal="rise"
+                                className={`rounded-card border border-hairline bg-paper flex flex-col h-full hover:-translate-y-1 hover:shadow-card transition-all ${showRoom ? "overflow-hidden" : "p-7"}`}
+                            >
+                                {showRoom ? <WorkplaceRoom title={item.title} /> : null}
+                                <div className={showRoom ? "p-7 flex flex-col flex-1" : "contents"}>
+                                    {Icon ? (
+                                        <span className="w-11 h-11 rounded-2xl bg-paper-muted border border-hairline inline-flex items-center justify-center text-link">
+                                            <Icon size={18} strokeWidth={2} aria-hidden="true" />
+                                        </span>
+                                    ) : (
+                                        <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono">0{index + 1}</span>
+                                    )}
+                                    <h3 className="text-[18px] font-medium text-ink-800 m-0 mt-4 leading-snug">{item.title}</h3>
+                                    <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2.5 flex-1">{item.body}</p>
+                                    <Link href="/contact" className="text-sm font-medium text-link hover:text-link-hover mt-4">
+                                        Learn more →
+                                    </Link>
+                                </div>
+                            </article>
                         );
                     })}
                 </div>
