@@ -265,6 +265,52 @@ body {
     }
 }
 
+@keyframes sg-dash {
+    to {
+        background-position: 22px 0;
+    }
+}
+
+@keyframes sg-dash-y {
+    to {
+        background-position: 0 22px;
+    }
+}
+
+@keyframes sg-packet {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+    14% {
+        opacity: 1;
+    }
+    86% {
+        opacity: 1;
+    }
+    100% {
+        left: calc(100% - 8px);
+        opacity: 0;
+    }
+}
+
+@keyframes sg-packet-y {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+    14% {
+        opacity: 1;
+    }
+    86% {
+        opacity: 1;
+    }
+    100% {
+        top: calc(100% - 8px);
+        opacity: 0;
+    }
+}
+
 @keyframes sg-pin {
     0%,
     100% {
