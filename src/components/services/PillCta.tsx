@@ -6,9 +6,11 @@ type Variant = "primary" | "secondary";
 export function PillCta({
     cta,
     variant = "primary",
+    onClick,
 }: {
     cta: Cta;
     variant?: Variant;
+    onClick?: () => void;
 }) {
     const className =
         variant === "primary"
@@ -26,6 +28,14 @@ export function PillCta({
         ) : (
             <span>{cta.label}</span>
         );
+
+    if (onClick) {
+        return (
+            <button type="button" onClick={onClick} className={`${className} cursor-pointer`}>
+                {inner}
+            </button>
+        );
+    }
 
     if (cta.href.startsWith("#")) {
         return (

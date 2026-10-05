@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 
 export default function SmoothScroll() {
     const pathname = usePathname();
@@ -13,6 +14,7 @@ export default function SmoothScroll() {
             lerp: 0.1,
             anchors: { offset: -128 },
             autoToggle: true,
+            allowNestedScroll: true,
             stopInertiaOnNavigate: true,
         });
 

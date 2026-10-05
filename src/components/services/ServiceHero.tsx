@@ -1,5 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import type { Service } from "@/content/services/types";
+import InquiryModal from "@/components/inquiry/InquiryModal";
+import { DELIVERY_METHODOLOGY_INQUIRY } from "@/components/inquiry/deliveryMethodology";
 import { PillCta } from "./PillCta";
 
 function Headline({ text, highlight }: { text: string; highlight: string }) {
@@ -17,10 +22,16 @@ function Headline({ text, highlight }: { text: string; highlight: string }) {
 }
 
 export function ServiceHero({ service }: { service: Service }) {
+    const [methodologyOpen, setMethodologyOpen] = useState(false);
+    const opensMethodology = service.secondaryCta.label === "Download our delivery methodology";
+
     return (
         <section className="sg-container pt-[clamp(120px,16vw,168px)]">
             <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] items-center gap-[clamp(28px,5vw,64px)]">
                 <div className="flex flex-col items-start gap-5">
+                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
+                        {service.title}
+                    </span>
                     <h1 className="text-[clamp(34px,4.4vw,64px)] font-normal leading-[1.35] tracking-[-0.03em] text-ink-800 m-0">
                         <Headline text={service.headline} highlight={service.highlight} />
                     </h1>
@@ -29,8 +40,19 @@ export function ServiceHero({ service }: { service: Service }) {
                     </p>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-1">
                         <PillCta cta={service.primaryCta} />
-                        <PillCta cta={service.secondaryCta} variant="secondary" />
+                        <PillCta
+                            cta={service.secondaryCta}
+                            variant="secondary"
+                            onClick={opensMethodology ? () => setMethodologyOpen(true) : undefined}
+                        />
                     </div>
+                    {opensMethodology ? (
+                        <InquiryModal
+                            open={methodologyOpen}
+                            onClose={() => setMethodologyOpen(false)}
+                            {...DELIVERY_METHODOLOGY_INQUIRY}
+                        />
+                    ) : null}
                 </div>
                 <div className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip">
                     <Image

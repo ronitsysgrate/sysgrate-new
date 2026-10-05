@@ -16,8 +16,8 @@ export const adoptionEnablement: Service = {
         src: "/services/adoption-enablement.jpg",
         alt: "A trainer working with employees during a platform enablement session",
     },
-    accentColor: "#5A5372",
-    bgTint: "#F2F1F6",
+    accentColor: "#4A3E92",
+    bgTint: "#F6F3FB",
     primaryCta: { label: "Plan your enablement programme", href: close },
     secondaryCta: { label: "Download training methodology", href: close },
     problem: {

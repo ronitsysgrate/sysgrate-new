@@ -10,12 +10,16 @@ import {
     Headphones,
     LayoutDashboard,
     MessagesSquare,
+    Pause,
+    Play,
     Shield,
     Sparkles,
     Workflow,
     type LucideIcon,
 } from "lucide-react";
 import type { Offering, Service } from "@/content/services/types";
+import InquiryModal from "@/components/inquiry/InquiryModal";
+import { MIGRATION_GUIDE_INQUIRY } from "@/components/inquiry/migrationGuide";
 import { PillCta } from "./PillCta";
 
 const VISUAL_ICONS: LucideIcon[] = [
@@ -70,6 +74,7 @@ export function OfferingIndex({ service }: { service: Service }) {
     const [active, setActive] = useState(0);
     const [paused, setPaused] = useState(false);
     const [inView, setInView] = useState(false);
+    const [guideOpen, setGuideOpen] = useState(false);
     const count = service.offerings.length;
     const offering = service.offerings[active] ?? service.offerings[0];
 
@@ -99,9 +104,6 @@ export function OfferingIndex({ service }: { service: Service }) {
 
     if (!offering) return null;
 
-    const hold = () => setPaused(true);
-    const release = () => setPaused(false);
-
     return (
         <section
             ref={sectionRef}
@@ -109,12 +111,6 @@ export function OfferingIndex({ service }: { service: Service }) {
             className="sg-container scroll-mt-28 pt-[clamp(72px,10vw,128px)] pb-4"
             aria-roledescription="carousel"
             aria-label={service.offeringsIntro.title}
-            onMouseEnter={hold}
-            onMouseLeave={release}
-            onFocus={hold}
-            onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget)) release();
-            }}
         >
             {service.offerings.map((item) => (
                 <span key={item.id} id={item.id} className="sr-only" />
@@ -146,6 +142,19 @@ export function OfferingIndex({ service }: { service: Service }) {
                         aria-label="Previous offering"
                     >
                         <ChevronLeft size={18} strokeWidth={2} />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setPaused((value) => !value)}
+                        className="w-11 h-11 rounded-full bg-paper border border-hairline text-ink-800 shadow-chip cursor-pointer grid place-items-center hover:shadow-pill transition-shadow"
+                        aria-label={paused ? "Play offerings" : "Pause offerings"}
+                        aria-pressed={paused}
+                    >
+                        {paused ? (
+                            <Play size={16} strokeWidth={2} className="translate-x-px" />
+                        ) : (
+                            <Pause size={16} strokeWidth={2} />
+                        )}
                     </button>
                     <button
                         type="button"
@@ -210,7 +219,15 @@ export function OfferingIndex({ service }: { service: Service }) {
                         <div className="flex flex-col sm:flex-row items-start gap-3 pt-2">
                             <PillCta cta={offering.primaryCta} />
                             {offering.secondaryCta ? (
-                                <PillCta cta={offering.secondaryCta} variant="secondary" />
+                                <PillCta
+                                    cta={offering.secondaryCta}
+                                    variant="secondary"
+                                    onClick={
+                                        offering.secondaryCta.label === "Download migration guide"
+                                            ? () => setGuideOpen(true)
+                                            : undefined
+                                    }
+                                />
                             ) : null}
                         </div>
                     </div>
@@ -258,6 +275,11 @@ export function OfferingIndex({ service }: { service: Service }) {
                     </div>
                 ) : null}
             </div>
+            <InquiryModal
+                open={guideOpen}
+                onClose={() => setGuideOpen(false)}
+                {...MIGRATION_GUIDE_INQUIRY}
+            />
         </section>
     );
 }

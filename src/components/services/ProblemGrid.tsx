@@ -1,5 +1,6 @@
 import { FileWarning, GitFork, Unplug } from "lucide-react";
 import type { Service } from "@/content/services/types";
+import { CallbackForm } from "@/components/CallbackForm";
 
 const PAIN_ICONS = [Unplug, GitFork, FileWarning];
 
@@ -45,12 +46,9 @@ export function ProblemGrid({ service }: { service: Service }) {
                 })}
             </div>
 
-            <a
-                href="#close"
-                className="inline-flex items-center mt-8 text-sm font-medium text-link hover:text-link-hover transition-colors"
-            >
-                Get a call back →
-            </a>
+            <div className="mt-10 flex justify-center [&>form]:w-full">
+                <CallbackForm />
+            </div>
         </section>
     );
 }

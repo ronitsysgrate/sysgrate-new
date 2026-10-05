@@ -16,10 +16,10 @@ export const bespokeEngineering: Service = {
         src: "/services/bespoke-engineering.jpg",
         alt: "Engineers sketching a custom interface beside a laptop",
     },
-    accentColor: "#7B5AA6",
-    bgTint: "#F4EEF8",
+    accentColor: "#4A3E92",
+    bgTint: "#F6F3FB",
     primaryCta: { label: "Tell us what you want to build", href: close },
-    secondaryCta: { label: "Explore Nexus", href: "#nexus" },
+    secondaryCta: { label: "Explore AI Hub", href: "#nexus" },
     problem: {
         eyebrow: "What we solve",
         title: "Out-of-the-box is a starting point.",

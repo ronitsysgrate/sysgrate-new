@@ -16,8 +16,8 @@ export const platformIntegration: Service = {
         src: "/services/platform-systems-integration.jpg",
         alt: "Two colleagues reviewing connected systems on shared screens",
     },
-    accentColor: "#3E3A97",
-    bgTint: "#EEEDF8",
+    accentColor: "#4A3E92",
+    bgTint: "#F6F3FB",
     primaryCta: { label: "Discuss your integration requirements", href: close },
     secondaryCta: { label: "Download integration capability deck", href: close },
     problem: {

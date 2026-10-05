@@ -16,8 +16,8 @@ export const managedOperations: Service = {
         src: "/services/managed-operations.jpg",
         alt: "Operations specialist monitoring platform health on a display wall",
     },
-    accentColor: "#26205A",
-    bgTint: "#EAE8F5",
+    accentColor: "#4A3E92",
+    bgTint: "#F6F3FB",
     primaryCta: { label: "Get a managed services quote", href: close },
     secondaryCta: { label: "See what we monitor", href: "#offering-monitoring" },
     problem: {
@@ -211,8 +211,8 @@ export const managedOperations: Service = {
     close: {
         title: "Ready to hand over the operational burden — to a team that actually knows your platform?",
         body: "Tell us what you're running — contact centre, UC, AV, or all three — and we'll give you a managed operations proposal built around your environment, your SLA requirements, and your budget within five business days.",
-        primaryCta: { label: "Get a managed services quote", href: talk },
+        primaryCta: { label: "Talk to a specialist", href: talk },
         secondaryCta: { label: "See what we monitor", href: "#offering-monitoring" },
-        tertiaryCta: { label: "Talk to a specialist", href: talk },
+        tertiaryCta: { label: "Get a managed services quote", href: talk },
     },
 };

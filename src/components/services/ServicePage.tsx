@@ -16,7 +16,13 @@ export function ServicePage({ service }: { service: Service }) {
             <ProblemGrid service={service} />
             <OfferingIndex service={service} />
             {service.comparison ? <ComparisonTable comparison={service.comparison} /> : null}
-            {service.process ? <ProcessSteps process={service.process} /> : null}
+            {service.process ? (
+                <ProcessSteps
+                    process={service.process}
+                    accentColor={service.accentColor}
+                    bgTint={service.bgTint}
+                />
+            ) : null}
             <RelatedServices service={service} />
             <ServiceClose service={service} />
         </main>

@@ -7,6 +7,7 @@ export const solutionDesign: Service = {
     icon: "layers",
     title: "Solution Design & Delivery",
     cardDescription: "From blueprint to live — built right the first time.",
+    eyebrow: "02 · Delivery",
     headline: "From blueprint to live — built right the first time.",
     highlight: "built right the first time",
     summary:
@@ -16,9 +17,9 @@ export const solutionDesign: Service = {
         alt: "Contact centre agents at a modern delivery floor",
     },
     accentColor: "#4A3E92",
-    bgTint: "#F0EFF9",
+    bgTint: "#F6F3FB",
     primaryCta: { label: "Talk to a delivery specialist", href: close },
-    secondaryCta: { label: "See client stories", href: stories },
+    secondaryCta: { label: "Download our delivery methodology", href: close },
     problem: {
         eyebrow: "What we solve",
         title: "Where strategy becomes successful delivery",

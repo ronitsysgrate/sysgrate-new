@@ -17,8 +17,8 @@ export const experienceAsAService: Service = {
         src: "/services/experience-as-a-service.jpg",
         alt: "A product team planning the next month of platform improvements",
     },
-    accentColor: "#E79AC0",
-    bgTint: "#FAF0F5",
+    accentColor: "#4A3E92",
+    bgTint: "#F6F3FB",
     primaryCta: { label: "Explore Experience as a Service", href: offerings },
     secondaryCta: { label: "Talk to a specialist", href: close },
     problem: {
@@ -61,8 +61,8 @@ export const experienceAsAService: Service = {
                 "Performance analysis and recommendations — monthly review of CSAT, AHT, FCR, and abandonment data with improvement actions",
                 "Platform release adoption — new features from Zoom, AWS, and Avaya evaluated and deployed where they add value",
             ],
-            primaryCta: { label: "Explore CXaaS", href: close },
-            secondaryCta: { label: "Talk to a specialist", href: close },
+            primaryCta: { label: "Talk to a specialist", href: close },
+            secondaryCta: { label: "Explore CXaaS", href: close },
         },
         {
             id: "exaas",

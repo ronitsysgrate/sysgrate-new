@@ -181,6 +181,7 @@ function CountryField({
                 <ul
                     id={listId}
                     role="listbox"
+                    data-lenis-prevent
                     className="absolute z-20 bottom-[calc(100%+4px)] inset-x-0 m-0 p-1.5 list-none rounded-2xl border border-hairline bg-paper shadow-float max-h-48 overflow-y-auto"
                 >
                     {matches.map((country) => (
@@ -434,7 +435,7 @@ export default function InquiryModal({
     };
 
     return createPortal(
-        <div className="fixed inset-0 z-80 flex items-end sm:items-center justify-center p-4 sm:p-8">
+        <div data-lenis-prevent className="fixed inset-0 z-80 flex items-end sm:items-center justify-center p-4 sm:p-8">
             <button
                 type="button"
                 className="absolute inset-0 bg-black/25 backdrop-blur-md cursor-default"
@@ -470,7 +471,7 @@ export default function InquiryModal({
                     </button>
                 </div>
 
-                <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-4">
+                <div data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-4">
                     {submitted ? (
                         <div className="flex flex-col gap-2 py-3">
                             <h3 className="text-sm font-medium text-ink-800 m-0">
