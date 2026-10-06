@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import AiHubPage from "@/components/ai/AiHubPage";
+import "@/components/ai/ai-hub.css";
 
 export const metadata: Metadata = {
     title: "AI Hub · Sysgrate",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
     return (
-        <main className="min-h-screen overflow-x-hidden">
+        <main className="ai-world min-h-screen">
             <Navbar />
             <AiHubPage />
         </main>

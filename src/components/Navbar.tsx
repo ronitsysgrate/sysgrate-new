@@ -172,6 +172,7 @@ function MobileNav({
 }) {
     const [open, setOpen] = useState(false);
     const [expanded, setExpanded] = useState<string | null>(null);
+    const dark = pathname === "/ai";
 
     const updateOpen = (next: boolean) => {
         setOpen(next);
@@ -182,7 +183,11 @@ function MobileNav({
         <>
             <button
                 onClick={() => updateOpen(!open)}
-                className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-white/60 text-ink-800 relative z-50 pointer-events-auto"
+                className={`md:hidden flex items-center justify-center w-11 h-11 rounded-full backdrop-blur-md shadow-sm border relative z-50 pointer-events-auto ${
+                    dark
+                        ? "bg-[#0c1428]/80 border-white/20 text-white"
+                        : "bg-white/90 border-white/60 text-ink-800"
+                }`}
                 aria-label="Toggle Navigation Menu"
                 aria-expanded={open}
             >
@@ -287,14 +292,21 @@ export default function Navbar() {
     const [navHovered, setNavHovered] = useState(false);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const pathname = usePathname();
+    const dark = pathname === "/ai";
 
     const isBlurred = navHovered || Boolean(openMenu);
 
     const navItem =
         "inline-flex items-center gap-1 px-4.5 py-2 rounded-full text-sm font-medium transition-all no-underline";
-    const navActive = `${navItem} bg-white text-ink-800 shadow-pill`;
-    const navOpen = `${navItem} bg-white/80 text-ink-800`;
-    const navIdle = `${navItem} text-text-secondary hover:text-ink-800 hover:bg-white/80`;
+    const navActive = dark
+        ? `${navItem} bg-white text-ink-800 shadow-[0_0_18px_rgba(77,232,255,0.28)]`
+        : `${navItem} bg-white text-ink-800 shadow-pill`;
+    const navOpen = dark
+        ? `${navItem} bg-white/15 text-white`
+        : `${navItem} bg-white/80 text-ink-800`;
+    const navIdle = dark
+        ? `${navItem} text-white/75 hover:text-white hover:bg-white/10`
+        : `${navItem} text-text-secondary hover:text-ink-800 hover:bg-white/80`;
 
     const navClass = (item: NavItem) => {
         if (isActive(pathname, item.href)) return navActive;
@@ -381,9 +393,11 @@ export default function Navbar() {
             >
                 <div
                     aria-hidden="true"
-                    className={`pointer-events-none absolute inset-x-0 -top-px -bottom-8 -z-10 backdrop-blur-lg transition-opacity duration-200 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.7)_42%,rgba(255,255,255,0)_100%)] [mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] ${
-                        scrolled ? "opacity-100" : "opacity-0"
-                    }`}
+                    className={`pointer-events-none absolute inset-x-0 -top-px -bottom-8 -z-10 backdrop-blur-lg transition-opacity duration-200 [mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] ${
+                        dark
+                            ? "bg-[linear-gradient(to_bottom,rgba(7,11,24,0.94)_0%,rgba(7,11,24,0.62)_42%,rgba(7,11,24,0)_100%)]"
+                            : "bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.7)_42%,rgba(255,255,255,0)_100%)]"
+                    } ${scrolled ? "opacity-100" : "opacity-0"}`}
                 />
 
                 {/* Brand logo */}
@@ -401,14 +415,22 @@ export default function Navbar() {
                             priority
                         />
                     </div>
-                    <span className="font-semibold text-xl tracking-tight text-ink-800 group-hover:text-link transition-colors">
+                    <span
+                        className={`font-semibold text-xl tracking-tight transition-colors ${
+                            dark ? "text-white group-hover:text-[#4de8ff]" : "text-ink-800 group-hover:text-link"
+                        }`}
+                    >
                         Sysgrate
                     </span>
                 </Link>
 
                 {/* Desktop Navigation Pill Bar */}
                 <nav
-                    className="hidden md:flex relative items-center gap-1 p-1.5 rounded-full bg-white/75 shadow-pill backdrop-blur-md border border-white/40 pointer-events-auto"
+                    className={`hidden md:flex relative items-center gap-1 p-1.5 rounded-full backdrop-blur-md border pointer-events-auto ${
+                        dark
+                            ? "bg-[#0c1428]/80 border-white/15 shadow-[0_0_28px_rgba(77,232,255,0.12)]"
+                            : "bg-white/75 shadow-pill border-white/40"
+                    }`}
                     aria-label="Main Navigation"
                     onMouseEnter={() => {
                         if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -448,10 +470,18 @@ export default function Navbar() {
                 <div className="flex items-center gap-3 pointer-events-auto">
                     <a
                         href="/contact"
-                        className="inline-flex items-center justify-center h-11 pl-5 pr-1.5 rounded-full bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:shadow-md transition-all group"
+                        className={`inline-flex items-center justify-center h-11 pl-5 pr-1.5 rounded-full transition-all group ${
+                            dark
+                                ? "border border-[#4de8ff]/50 bg-[#4de8ff]/10 text-white shadow-[0_0_22px_rgba(77,232,255,0.18)] hover:bg-[#4de8ff]/20"
+                                : "bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:shadow-md"
+                        }`}
                     >
                         <span className="font-medium text-sm">Get Started</span>
-                        <span className="w-7.5 h-7.5 rounded-full bg-paper-muted inline-grid place-items-center ml-2 text-sm font-semibold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                        <span
+                            className={`w-7.5 h-7.5 rounded-full inline-grid place-items-center ml-2 text-sm font-semibold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+                                dark ? "bg-[#4de8ff] text-[#071018]" : "bg-paper-muted"
+                            }`}
+                        >
                             ↗
                         </span>
                     </a>

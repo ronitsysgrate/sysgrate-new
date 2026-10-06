@@ -14,7 +14,7 @@ export default function PlatformsPage() {
         <main className="min-h-screen overflow-x-hidden">
             <Navbar />
             <section className="sg-container pt-[clamp(120px,16vw,168px)] pb-[clamp(64px,10vw,120px)]">
-                <div className="max-w-[760px] flex flex-col gap-4 sg-animate-rise">
+                <div className="max-w-190 flex flex-col gap-4 sg-animate-rise">
                     <h1 className="text-[clamp(34px,4.2vw,60px)] font-normal leading-[1.08] tracking-[-0.03em] text-ink-800 m-0">
                         The platforms we <span className="sg-highlight font-medium">deploy</span>, integrate, and run.
                     </h1>

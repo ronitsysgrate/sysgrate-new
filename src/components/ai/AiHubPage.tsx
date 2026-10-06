@@ -1,12 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { PillCta } from "@/components/services/PillCta";
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
+import Link from "next/link";
+import { Cpu, TrendingUp } from "lucide-react";
 
 const contact = "/contact";
 const platforms = "/platforms";
 const bespoke = "/services/bespoke-engineering";
 const services = "/services";
+
+const RAIL = [
+    { id: "reporting", label: "Reporting" },
+    { id: "voice", label: "Voice" },
+    { id: "emergency", label: "Emergency" },
+    { id: "capabilities", label: "Capabilities" },
+];
+
+function delay(index: number): CSSProperties {
+    return { "--i": index } as CSSProperties;
+}
 
 function CallbackForm() {
     const [email, setEmail] = useState("");
@@ -21,14 +33,14 @@ function CallbackForm() {
 
     if (sent) {
         return (
-            <p className="text-sm text-ink-800 m-0">
-                Callback requested for <strong className="font-semibold">{email}</strong>.
+            <p className="ai-note">
+                Callback requested for <strong className="font-semibold text-white">{email}</strong>.
             </p>
         );
     }
 
     return (
-        <form onSubmit={onSubmit} className="flex flex-col sm:flex-row items-stretch gap-2 max-w-[560px]">
+        <form onSubmit={onSubmit} className="ai-callback">
             <input
                 type="email"
                 required
@@ -36,23 +48,52 @@ function CallbackForm() {
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="Your email address"
                 aria-label="Your email address"
-                className="h-12 flex-1 rounded-full border border-hairline bg-paper px-5 text-sm text-ink-800 outline-none placeholder:text-ink-300 focus-visible:border-link focus-visible:shadow-[var(--ring-focus)]"
+                className="ai-input"
             />
-            <button
-                type="submit"
-                className="inline-flex items-center justify-center h-12 px-6 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:-translate-y-0.5 transition-all cursor-pointer"
-            >
-                Get a call back
+            <button type="submit" className="ai-cta ai-cta-primary">
+                <span>Get a call back</span>
+                <span className="ai-cta-arrow" aria-hidden="true">
+                    ↗
+                </span>
             </button>
         </form>
     );
 }
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function AiCta({
+    label,
+    href,
+    variant = "primary",
+}: {
+    label: string;
+    href: string;
+    variant?: "primary" | "secondary";
+}) {
+    const className = variant === "primary" ? "ai-cta ai-cta-primary" : "ai-cta ai-cta-secondary";
+    const inner =
+        variant === "primary" ? (
+            <>
+                <span>{label}</span>
+                <span className="ai-cta-arrow" aria-hidden="true">
+                    ↗
+                </span>
+            </>
+        ) : (
+            <span>{label}</span>
+        );
+
+    if (href.startsWith("#")) {
+        return (
+            <a href={href} className={className}>
+                {inner}
+            </a>
+        );
+    }
+
     return (
-        <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
-            {children}
-        </span>
+        <Link href={href} className={className}>
+            {inner}
+        </Link>
     );
 }
 
@@ -62,18 +103,15 @@ function LiveChat({
     title,
     status,
     exchanges,
-    tone = "dark",
 }: {
     title: string;
     status: string;
     exchanges: Exchange[];
-    tone?: "dark" | "light";
 }) {
     const [shown, setShown] = useState(0);
     const [typing, setTyping] = useState(false);
     const [active, setActive] = useState(false);
     const root = useRef<HTMLDivElement>(null);
-    const dark = tone === "dark";
 
     useEffect(() => {
         const node = root.current;
@@ -128,39 +166,37 @@ function LiveChat({
         return () => window.clearTimeout(timer);
     }, [active, exchanges]);
 
-    const messages = exchanges.flatMap((item) => [
-        { role: "user" as const, text: item.ask },
-        { role: "bot" as const, text: item.answer },
-    ]).slice(0, shown);
+    const messages = exchanges
+        .flatMap((item) => [
+            { role: "user" as const, text: item.ask },
+            { role: "bot" as const, text: item.answer },
+        ])
+        .slice(0, shown);
 
     return (
-        <div ref={root} className={dark ? "ai-console" : "rounded-card border border-hairline bg-paper shadow-chip"}>
-            <div className="relative flex flex-col gap-4 p-5 sm:p-6">
+        <div ref={root} className="ai-terminal">
+            <span className="ai-edge" aria-hidden="true" />
+            <div className="ai-terminal-sweep" aria-hidden="true" />
+            <div className="ai-terminal-body">
                 <div className="flex items-center justify-between gap-3">
-                    <p className={`m-0 text-sm font-medium ${dark ? "text-white" : "text-ink-800"}`}>{title}</p>
-                    <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-medium tracking-[0.06em] uppercase ${dark ? "bg-white/10 text-white" : "bg-paper-muted text-text-secondary border border-hairline"}`}>
+                    <p className="m-0 text-sm font-medium text-white">{title}</p>
+                    <span className="ai-status">
                         <span className="ai-live-dot" aria-hidden="true" />
                         {status}
                     </span>
                 </div>
-                <div className="flex h-[340px] flex-col justify-end gap-3 overflow-hidden">
-                    {messages.map((message) => (
+                <div className="ai-feed">
+                    {messages.map((message, index) => (
                         <div
-                            key={message.text}
-                            className={`ai-bubble max-w-[88%] px-4 py-3 text-sm leading-snug ${
-                                message.role === "user"
-                                    ? "self-end rounded-2xl rounded-br-md bg-white/15 text-white"
-                                    : "self-start rounded-2xl rounded-bl-md bg-white text-ink-800"
-                            }`}
+                            key={`${message.role}-${index}`}
+                            className={`ai-bubble ai-msg ${message.role === "user" ? "ai-msg-user" : "ai-msg-bot"}`}
                         >
-                            <span className={`block text-[10px] font-medium tracking-[0.08em] uppercase mb-1 ${message.role === "user" ? "opacity-60" : "text-ink-300"}`}>
-                                {message.role === "user" ? "You" : "AI assistant"}
-                            </span>
+                            <span className="ai-msg-who">{message.role === "user" ? "You" : "AI assistant"}</span>
                             {message.text}
                         </div>
                     ))}
                     {typing ? (
-                        <div className={`ai-typing self-start inline-flex items-center gap-1 px-4 py-3 rounded-2xl ${dark ? "bg-white text-ink-800" : "bg-paper-muted text-ink-800"}`} aria-label="Assistant is typing">
+                        <div className="ai-typing self-start inline-flex items-center gap-1 px-4 py-3 rounded-2xl bg-white text-ink-800" aria-label="Assistant is typing">
                             <span />
                             <span />
                             <span />
@@ -169,6 +205,85 @@ function LiveChat({
                 </div>
             </div>
         </div>
+    );
+}
+
+function OrbitalCore() {
+    return (
+        <div className="ai-orbital" aria-hidden="true">
+            <div className="ai-ring" />
+            <div className="ai-ring ai-ring-b" />
+            <div className="ai-ring ai-ring-c" />
+            <div className="ai-spin">
+                <span className="ai-node" style={{ top: "6%", left: "48%" }} />
+                <span className="ai-node ai-node-violet" style={{ top: "68%", left: "88%" }} />
+            </div>
+            <div className="ai-spin ai-spin-slow">
+                <span className="ai-node" style={{ top: "18%", left: "8%" }} />
+                <span className="ai-node ai-node-violet" style={{ top: "78%", left: "22%" }} />
+                <span className="ai-node" style={{ top: "40%", left: "92%" }} />
+            </div>
+            <div className="ai-core" />
+        </div>
+    );
+}
+
+function SectionRail() {
+    const [active, setActive] = useState<string | null>(null);
+
+    useEffect(() => {
+        const pick = () => {
+            const mark = window.innerHeight * 0.42;
+            const current = RAIL.find((item) => {
+                const node = document.getElementById(item.id);
+                if (!node) return false;
+                const rect = node.getBoundingClientRect();
+                return rect.top <= mark && rect.bottom >= mark;
+            });
+            setActive(current?.id ?? null);
+        };
+        pick();
+        window.addEventListener("scroll", pick, { passive: true });
+        window.addEventListener("resize", pick);
+        return () => {
+            window.removeEventListener("scroll", pick);
+            window.removeEventListener("resize", pick);
+        };
+    }, []);
+
+    return (
+        <nav className="ai-rail" aria-label="On this page">
+            {RAIL.map((item) => (
+                <a key={item.id} href={`#${item.id}`} className={active === item.id ? "is-active" : undefined} aria-current={active === item.id ? "true" : undefined}>
+                    <span className="ai-rail-dot" aria-hidden="true" />
+                    <span className="ai-rail-label">{item.label}</span>
+                </a>
+            ))}
+        </nav>
+    );
+}
+
+function Reveal({
+    as: Tag = "div",
+    kind = "ai-fade",
+    index = 0,
+    className,
+    spot = false,
+    children,
+}: {
+    as?: "div" | "h1" | "h2" | "h3" | "p" | "article" | "li";
+    kind?: "ai-clip" | "ai-fade" | "ai-item";
+    index?: number;
+    className?: string;
+    spot?: boolean;
+    children: ReactNode;
+}) {
+    const clip = kind === "ai-clip";
+    return (
+        <Tag data-reveal={kind} className={className} style={delay(index)}>
+            {clip ? <span>{children}</span> : children}
+            {spot ? <span className="ai-edge" aria-hidden="true" /> : null}
+        </Tag>
     );
 }
 
@@ -275,13 +390,144 @@ const STEPS = [
     },
 ];
 
+function StorySection({
+    id,
+    title,
+    kicker,
+    paragraphs,
+    chatTitle,
+    chatStatus,
+    exchanges,
+    listTitle,
+    items,
+    impactTitle,
+    impactBody,
+    techTitle,
+    techBody,
+    prompt,
+    primary,
+    secondary,
+}: {
+    id: string;
+    title: string;
+    kicker: string;
+    paragraphs: string[];
+    chatTitle: string;
+    chatStatus: string;
+    exchanges: Exchange[];
+    listTitle: string;
+    items: string[];
+    impactTitle: string;
+    impactBody: string;
+    techTitle: string;
+    techBody: string;
+    prompt: string;
+    primary: { label: string; href: string };
+    secondary: { label: string; href: string };
+}) {
+    return (
+        <section id={id} className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[clamp(28px,5vw,56px)] items-center">
+                <div className="flex flex-col gap-4">
+                    <Reveal as="h2" kind="ai-clip" className="ai-title-sm">
+                        {title}
+                    </Reveal>
+                    <Reveal as="p" className="ai-kicker" index={1}>
+                        {kicker}
+                    </Reveal>
+                    {paragraphs.map((paragraph, index) => (
+                        <Reveal key={paragraph} as="p" className="ai-lead" index={index + 2}>
+                            {paragraph}
+                        </Reveal>
+                    ))}
+                </div>
+                <Reveal index={1}>
+                    <LiveChat title={chatTitle} status={chatStatus} exchanges={exchanges} />
+                </Reveal>
+            </div>
+
+            <div className="ai-sequence mt-14">
+                <Reveal as="h3" kind="ai-clip" className="ai-card-title">
+                    {listTitle}
+                </Reveal>
+                <div className="ai-sequence-list">
+                    <span className="ai-sequence-rail" aria-hidden="true">
+                        <span className="ai-sequence-pulse" />
+                    </span>
+                    <ol className="ai-sequence-steps">
+                    {items.map((item, index) => (
+                        <li
+                            key={item}
+                            className="ai-sequence-step"
+                            data-reveal="ai-item"
+                            style={delay(index)}
+                        >
+                            <span className="ai-sequence-index">{String(index + 1).padStart(2, "0")}</span>
+                            <p>
+                                <span className="ai-sequence-roll">
+                                    <span className="ai-sequence-roll-sizer">{item}</span>
+                                    <span className="ai-sequence-roll-track">
+                                        <span>{item}</span>
+                                        <span aria-hidden="true">{item}</span>
+                                    </span>
+                                </span>
+                            </p>
+                        </li>
+                    ))}
+                    </ol>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+                <Reveal as="article" kind="ai-item" spot className="ai-glass p-7">
+                    <span className="ai-pair-icon" aria-hidden="true">
+                        <TrendingUp size={18} strokeWidth={1.75} />
+                    </span>
+                    <h3 className="ai-card-title">Business impact</h3>
+                    <p className="ai-kicker mt-3">{impactTitle}</p>
+                    <p className="ai-muted mt-2">{impactBody}</p>
+                </Reveal>
+                <Reveal as="article" kind="ai-item" index={1} spot className="ai-glass p-7">
+                    <span className="ai-pair-icon" aria-hidden="true">
+                        <Cpu size={18} strokeWidth={1.75} />
+                    </span>
+                    <h3 className="ai-card-title">Technical depth</h3>
+                    <p className="ai-kicker mt-3">{techTitle}</p>
+                    <p className="ai-muted mt-2">{techBody}</p>
+                </Reveal>
+            </div>
+
+            <div className="flex flex-col gap-4 mt-8">
+                <Reveal as="p" className="ai-prompt">
+                    {prompt}
+                </Reveal>
+                <div className="flex flex-wrap gap-3">
+                    <AiCta label={primary.label} href={primary.href} />
+                    <AiCta label={secondary.label} href={secondary.href} variant="secondary" />
+                </div>
+            </div>
+        </section>
+    );
+}
+
 export default function AiHubPage() {
+    const heroRef = useRef<HTMLElement>(null);
+
     useEffect(() => {
-        const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+        const previous = document.body.style.background;
+        document.body.style.background = "#070b18";
+        return () => {
+            document.body.style.background = previous;
+        };
+    }, []);
+
+    useEffect(() => {
+        const root = document.querySelector(".ai-world");
+        if (!root) return;
         const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const reveal = () => {
             const view = window.innerHeight || document.documentElement.clientHeight;
-            nodes.forEach((node) => {
+            root.querySelectorAll<HTMLElement>("[data-reveal]").forEach((node) => {
                 if (node.classList.contains("is-in") || reduce) {
                     node.classList.add("is-in");
                     return;
@@ -299,290 +545,244 @@ export default function AiHubPage() {
         };
     }, []);
 
+    useEffect(() => {
+        const root = document.querySelector<HTMLElement>(".ai-world");
+        const hero = heroRef.current;
+        if (!root) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const boxes = ".ai-glass, .ai-terminal";
+        const onMove = (event: PointerEvent) => {
+            root.style.setProperty("--gx", `${event.clientX}px`);
+            root.style.setProperty("--gy", `${event.clientY}px`);
+
+            const target = event.target;
+            const card = target instanceof Element ? target.closest<HTMLElement>(boxes) : null;
+            root.classList.toggle("is-card", Boolean(card));
+            if (card) {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+                card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+            }
+
+            if (!hero) return;
+            const rect = hero.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            hero.style.setProperty("--px", `${(x / rect.width - 0.5) * 18}px`);
+            hero.style.setProperty("--py", `${(y / rect.height - 0.5) * 14}px`);
+        };
+        const onLeave = () => {
+            root.classList.remove("is-card");
+            root.style.setProperty("--gx", "-400px");
+            root.style.setProperty("--gy", "-400px");
+        };
+
+        window.addEventListener("pointermove", onMove);
+        document.documentElement.addEventListener("pointerleave", onLeave);
+        return () => {
+            window.removeEventListener("pointermove", onMove);
+            document.documentElement.removeEventListener("pointerleave", onLeave);
+        };
+    }, []);
+
     return (
         <>
-            <section className="sg-container pt-[clamp(120px,16vw,168px)]">
-                <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] items-center gap-[clamp(28px,5vw,64px)]">
-                    <div className="flex flex-col items-start gap-5 sg-animate-rise">
-                        <Eyebrow>AI Hub</Eyebrow>
-                        <h1 className="text-[clamp(34px,4.2vw,60px)] font-normal leading-[1.08] tracking-[-0.03em] text-ink-800 m-0">
-                            AI that handles <span className="sg-highlight font-medium">everything</span> for you
-                        </h1>
-                        <p className="text-[18px] leading-[1.6] text-text-secondary m-0 max-w-[620px]">
-                            From voice bots to smart dashboards — we turn manual workflows into scalable, AI-powered experiences.
-                        </p>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-1">
-                            <PillCta cta={{ label: "Book an AI readiness assessment", href: contact }} />
-                            <PillCta cta={{ label: "Talk to an AI specialist", href: contact }} variant="secondary" />
+            <div className="ai-atmosphere" aria-hidden="true">
+                <div className="ai-grid" />
+                <div className="ai-orb ai-orb-a" />
+                <div className="ai-orb ai-orb-b" />
+                <div className="ai-orb ai-orb-c" />
+                <div className="ai-scan" />
+            </div>
+
+            <div className="ai-stage">
+                <div className="ai-cursor" aria-hidden="true" />
+                <SectionRail />
+
+                <section ref={heroRef} className="ai-hero sg-container pt-[clamp(120px,16vw,168px)]">
+                    <div className="relative grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] items-center gap-[clamp(28px,5vw,64px)]">
+                        <div className="flex flex-col items-start gap-5">
+                            <Reveal kind="ai-item" className="ai-eyebrow">
+                                AI Hub
+                            </Reveal>
+                            <Reveal as="h1" kind="ai-clip" index={1} className="ai-display">
+                                AI that handles <span className="ai-highlight">everything</span> for you
+                            </Reveal>
+                            <Reveal as="p" className="ai-lead" index={2}>
+                                From voice bots to smart dashboards — we turn manual workflows into scalable, AI-powered experiences.
+                            </Reveal>
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-1">
+                                <AiCta label="Book an AI readiness assessment" href={contact} />
+                                <AiCta label="Talk to an AI specialist" href={contact} variant="secondary" />
+                            </div>
+                        </div>
+                        <div className="ai-hero-visual">
+                            <OrbitalCore />
+                            <LiveChat title="Contact centre assistant" status="Live" exchanges={REPORTING_CHAT} />
                         </div>
                     </div>
-                    <LiveChat
-                        title="Contact centre assistant"
-                        status="Live"
-                        exchanges={REPORTING_CHAT}
-                    />
-                </div>
-            </section>
+                </section>
 
-            <section className="sg-container pt-[clamp(64px,10vw,120px)]">
-                <Eyebrow>What you get</Eyebrow>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-                    {STATS.map((stat) => (
-                        <article key={stat.label} data-reveal="rise" className="rounded-card border border-hairline bg-paper p-6">
-                            <p className="text-[clamp(28px,3vw,40px)] font-medium tracking-[-0.03em] text-ink-800 m-0">{stat.value}</p>
-                            <p className="text-sm text-text-secondary leading-snug m-0 mt-2">{stat.label}</p>
-                        </article>
-                    ))}
-                </div>
-            </section>
-
-            <section className="sg-container pt-[clamp(64px,10vw,120px)]">
-                <div data-reveal="rise" className="max-w-[760px] flex flex-col gap-4">
-                    <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-                        AI in production — already driving real results.
-                    </h2>
-                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                        From voice to reporting, our AI is already solving real problems across CX operations.
-                    </p>
-                    <CallbackForm />
-                </div>
-            </section>
-
-            <section id="reporting" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[clamp(28px,5vw,56px)] items-start">
-                    <div data-reveal="rise" className="flex flex-col gap-4">
-                        <h2 className="text-[clamp(26px,3.2vw,44px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-                            AI-Powered Natural Language Reporting
-                        </h2>
-                        <p className="text-[18px] font-medium text-ink-800 m-0">
-                            Ask a question. Get the report—no manual navigation required.
-                        </p>
-                        <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                            A conversational AI assistant embedded directly in the contact center dashboard — enabling supervisors to query live data using plain English. No manual filters. No multiple screens.
-                        </p>
-                        <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                            It interprets natural-language questions and instantly pulls insights into agent performance, queue metrics, routing, and activity — all within a chat-style interface.
-                        </p>
-                    </div>
-                    <div data-reveal="rise">
-                        <LiveChat title="Natural language reporting" status="Live demo" exchanges={REPORTING_CHAT} />
-                    </div>
-                </div>
-
-                <div className="mt-10">
-                    <h3 className="text-[20px] font-medium text-ink-800 m-0">What it does</h3>
-                    <ul className="m-0 mt-5 p-0 list-none grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {REPORTING_DOES.map((item) => (
-                            <li key={item} className="rounded-2xl border border-hairline bg-paper px-4 py-3 text-sm text-ink-800 leading-snug">
-                                {item}
-                            </li>
+                <section className="sg-container pt-[clamp(64px,10vw,120px)]">
+                    <Reveal className="ai-eyebrow">What you get</Reveal>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                        {STATS.map((stat, index) => (
+                            <Reveal key={stat.label} as="article" kind="ai-item" index={index} spot className="ai-glass ai-stat">
+                                <p className="ai-stat-value">{stat.value}</p>
+                                <p className="ai-muted mt-2">{stat.label}</p>
+                            </Reveal>
                         ))}
-                    </ul>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
-                    <article className="rounded-card border border-hairline bg-paper p-7">
-                        <h3 className="text-[18px] font-medium text-ink-800 m-0">Business impact</h3>
-                        <p className="text-[16px] font-medium text-ink-800 m-0 mt-3">Reports in seconds — not minutes</p>
-                        <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2">
-                            Supervisors who previously spent time navigating dashboards and building filters now get instant answers — freeing operational time for coaching, quality management, and decision-making.
-                        </p>
-                    </article>
-                    <article className="rounded-card border border-hairline bg-paper p-7">
-                        <h3 className="text-[18px] font-medium text-ink-800 m-0">Technical depth</h3>
-                        <p className="text-[16px] font-medium text-ink-800 m-0 mt-3">Intent recognition + dynamic query generation</p>
-                        <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2">
-                            AI-driven intent recognition translates conversational input into structured API queries — handling ambiguity, multi-entity questions, and follow-up queries without scripted decision trees.
-                        </p>
-                    </article>
-                </div>
-
-                <div className="flex flex-col gap-4 mt-8">
-                    <p className="text-[18px] text-ink-800 m-0">Want AI-powered reporting inside your Contact Center?</p>
-                    <div className="flex flex-wrap gap-3">
-                        <PillCta cta={{ label: "Talk to our AI team", href: contact }} />
-                        <PillCta cta={{ label: "See platform details", href: platforms }} variant="secondary" />
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section id="voice" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[clamp(28px,5vw,56px)] items-start">
-                    <div data-reveal="rise" className="flex flex-col gap-4">
-                        <h2 className="text-[clamp(26px,3.2vw,44px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-                            AI-Powered Voice Bots & Chatbots
-                        </h2>
-                        <p className="text-[18px] font-medium text-ink-800 m-0">
-                            Self-service that actually resolves — not just deflects.
-                        </p>
-                        <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                            AI-powered voice and chatbots automate customer interactions across voice and digital channels — reducing agent workload, improving first-contact resolution, and enabling 24/7 self-service with natural, multi-turn conversations. Integrated with backend systems and CRMs, they deliver personalised, context-aware experiences that resolve—not deflect.
-                        </p>
+                <section className="sg-container pt-[clamp(64px,10vw,120px)]">
+                    <div className="max-w-[760px] flex flex-col gap-4">
+                        <Reveal as="h2" kind="ai-clip" className="ai-title">
+                            AI in production — already driving real results.
+                        </Reveal>
+                        <div className="ai-beam" aria-hidden="true" />
+                        <Reveal as="p" className="ai-lead" index={1}>
+                            From voice to reporting, our AI is already solving real problems across CX operations.
+                        </Reveal>
+                        <CallbackForm />
                     </div>
-                    <div data-reveal="rise">
-                        <LiveChat title="Voicebot live transcript" status="Active call" exchanges={VOICE_CHAT} />
-                    </div>
-                </div>
+                </section>
 
-                <div className="mt-10">
-                    <h3 className="text-[20px] font-medium text-ink-800 m-0">What we deliver</h3>
-                    <ul className="m-0 mt-5 p-0 list-none grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {VOICE_DELIVERS.map((item) => (
-                            <li key={item} className="rounded-2xl border border-hairline bg-paper px-4 py-3 text-sm text-ink-800 leading-snug">
-                                {item}
-                            </li>
+                <StorySection
+                    id="reporting"
+                    title="AI-Powered Natural Language Reporting"
+                    kicker="Ask a question. Get the report—no manual navigation required."
+                    paragraphs={[
+                        "A conversational AI assistant embedded directly in the contact center dashboard — enabling supervisors to query live data using plain English. No manual filters. No multiple screens.",
+                        "It interprets natural-language questions and instantly pulls insights into agent performance, queue metrics, routing, and activity — all within a chat-style interface.",
+                    ]}
+                    chatTitle="Natural language reporting"
+                    chatStatus="Live demo"
+                    exchanges={REPORTING_CHAT}
+                    listTitle="What it does"
+                    items={REPORTING_DOES}
+                    impactTitle="Reports in seconds — not minutes"
+                    impactBody="Supervisors who previously spent time navigating dashboards and building filters now get instant answers — freeing operational time for coaching, quality management, and decision-making."
+                    techTitle="Intent recognition + dynamic query generation"
+                    techBody="AI-driven intent recognition translates conversational input into structured API queries — handling ambiguity, multi-entity questions, and follow-up queries without scripted decision trees."
+                    prompt="Want AI-powered reporting inside your Contact Center?"
+                    primary={{ label: "Talk to our AI team", href: contact }}
+                    secondary={{ label: "See platform details", href: platforms }}
+                />
+
+                <StorySection
+                    id="voice"
+                    title="AI-Powered Voice Bots & Chatbots"
+                    kicker="Self-service that actually resolves — not just deflects."
+                    paragraphs={[
+                        "AI-powered voice and chatbots automate customer interactions across voice and digital channels — reducing agent workload, improving first-contact resolution, and enabling 24/7 self-service with natural, multi-turn conversations. Integrated with backend systems and CRMs, they deliver personalised, context-aware experiences that resolve—not deflect.",
+                    ]}
+                    chatTitle="Voicebot live transcript"
+                    chatStatus="Active call"
+                    exchanges={VOICE_CHAT}
+                    listTitle="What we deliver"
+                    items={VOICE_DELIVERS}
+                    impactTitle="Reduce inbound volume. Scale without headcount."
+                    impactBody="AI voice bots handle repeatable, high-volume interactions 24/7 — reducing the contact volume that reaches human agents and allowing support teams to focus on complex, high-value interactions."
+                    techTitle="Amazon Lex + Lambda + Connect — fully integrated"
+                    techBody="Amazon Lex for NLU, Lambda for backend logic, Amazon Connect for call flow orchestration — fully integrated with CRM, ticketing, and enterprise data sources for real-time resolution."
+                    prompt="Ready to automate customer interactions with AI?"
+                    primary={{ label: "Book an AI voice bot consultation", href: contact }}
+                    secondary={{ label: "See platform details", href: platforms }}
+                />
+
+                <StorySection
+                    id="emergency"
+                    title="AI-Powered Reporting for Emergency Communications"
+                    kicker="Critical incident intelligence — available the moment it's needed, without manual data retrieval."
+                    paragraphs={[
+                        "An AI-powered reporting module for emergency communications platforms — enabling teams to query live incident data using natural language, without navigating complex dashboards. In time-critical situations, it delivers instant insights on incident status, failures, response times, and organisation-wide metrics through a simple conversational interface.",
+                    ]}
+                    chatTitle="Incident assistant"
+                    chatStatus="Live"
+                    exchanges={EMERGENCY_CHAT}
+                    listTitle="What it does"
+                    items={EMERGENCY_DOES}
+                    impactTitle="Faster decisions in critical moments."
+                    impactBody="In emergency operations, manual report retrieval is a liability. AI-powered natural language reporting gives teams the data they need in seconds — enabling faster escalations, more accurate incident management, and real-time operational oversight."
+                    techTitle="NLP query engine + dynamic report generation"
+                    techBody="AI query interpretation layer translates natural language into structured database queries — handling multi-entity questions, time-range specifications, and cross-organisation aggregations without predefined report templates."
+                    prompt="Interested in AI-powered reporting for your operational platform?"
+                    primary={{ label: "Talk to our AI engineering team", href: contact }}
+                    secondary={{ label: "Explore Bespoke Engineering", href: bespoke }}
+                />
+
+                <section id="capabilities" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
+                    <div className="max-w-[760px] flex flex-col gap-4">
+                        <Reveal as="h2" kind="ai-clip" className="ai-title">
+                            AI runs across all your operations
+                        </Reveal>
+                        <Reveal as="p" className="ai-lead" index={1}>
+                            Helping you to automate workflows, improve decisions, and scale.
+                        </Reveal>
+                        <Reveal as="p" className="ai-lead" index={2}>
+                            These are the additional AI capabilities we bring to every engagement.
+                        </Reveal>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+                        {CAPABILITIES.map((item, index) => (
+                            <Reveal key={item.number} as="article" kind="ai-item" index={index % 3} spot className="ai-glass ai-cap">
+                                <span className="ai-cap-orbit" aria-hidden="true">
+                                    <span />
+                                </span>
+                                <span className="ai-index mt-4">{item.number}</span>
+                                <h3 className="ai-card-title">{item.title}</h3>
+                                <p className="ai-muted mt-2.5">{item.body}</p>
+                            </Reveal>
                         ))}
-                    </ul>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
-                    <article className="rounded-card border border-hairline bg-paper p-7">
-                        <h3 className="text-[18px] font-medium text-ink-800 m-0">Business impact</h3>
-                        <p className="text-[16px] font-medium text-ink-800 m-0 mt-3">Reduce inbound volume. Scale without headcount.</p>
-                        <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2">
-                            AI voice bots handle repeatable, high-volume interactions 24/7 — reducing the contact volume that reaches human agents and allowing support teams to focus on complex, high-value interactions.
-                        </p>
-                    </article>
-                    <article className="rounded-card border border-hairline bg-paper p-7">
-                        <h3 className="text-[18px] font-medium text-ink-800 m-0">Technical depth</h3>
-                        <p className="text-[16px] font-medium text-ink-800 m-0 mt-3">Amazon Lex + Lambda + Connect — fully integrated</p>
-                        <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2">
-                            Amazon Lex for NLU, Lambda for backend logic, Amazon Connect for call flow orchestration — fully integrated with CRM, ticketing, and enterprise data sources for real-time resolution.
-                        </p>
-                    </article>
-                </div>
-
-                <div className="flex flex-col gap-4 mt-8">
-                    <p className="text-[18px] text-ink-800 m-0">Ready to automate customer interactions with AI?</p>
-                    <div className="flex flex-wrap gap-3">
-                        <PillCta cta={{ label: "Book an AI voice bot consultation", href: contact }} />
-                        <PillCta cta={{ label: "See platform details", href: platforms }} variant="secondary" />
                     </div>
-                </div>
-            </section>
-
-            <section id="emergency" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[clamp(28px,5vw,56px)] items-start">
-                    <div data-reveal="rise" className="flex flex-col gap-4">
-                        <h2 className="text-[clamp(26px,3.2vw,44px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-                            AI-Powered Reporting for Emergency Communications
-                        </h2>
-                        <p className="text-[18px] font-medium text-ink-800 m-0">
-                            Critical incident intelligence — available the moment it&apos;s needed, without manual data retrieval.
-                        </p>
-                        <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                            An AI-powered reporting module for emergency communications platforms — enabling teams to query live incident data using natural language, without navigating complex dashboards. In time-critical situations, it delivers instant insights on incident status, failures, response times, and organisation-wide metrics through a simple conversational interface.
-                        </p>
+                    <div className="flex flex-col gap-4 mt-8">
+                        <Reveal as="p" className="ai-prompt">
+                            Want to explore what AI can do for your specific environment?
+                        </Reveal>
+                        <div className="flex flex-wrap gap-3">
+                            <AiCta label="Book an AI readiness assessment" href={contact} />
+                            <AiCta label="Explore AI Services" href={services} variant="secondary" />
+                        </div>
                     </div>
-                    <div data-reveal="rise">
-                        <LiveChat title="Incident assistant" status="Live" exchanges={EMERGENCY_CHAT} />
+                </section>
+
+                <section id="methodology" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
+                    <div className="max-w-[820px] flex flex-col gap-4">
+                        <Reveal className="ai-eyebrow">Our AI methodology</Reveal>
+                        <Reveal as="p" className="ai-lead" index={1}>
+                            We follow three simple rules — decide the goal first, build it to work from day one, and track results from the start. Our AI is easy to understand, easy to check, and keeps getting better — not something confusing over time.
+                        </Reveal>
                     </div>
-                </div>
-
-                <div className="mt-10">
-                    <h3 className="text-[20px] font-medium text-ink-800 m-0">What it does</h3>
-                    <ul className="m-0 mt-5 p-0 list-none grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {EMERGENCY_DOES.map((item) => (
-                            <li key={item} className="rounded-2xl border border-hairline bg-paper px-4 py-3 text-sm text-ink-800 leading-snug">
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
-                    <article className="rounded-card border border-hairline bg-paper p-7">
-                        <h3 className="text-[18px] font-medium text-ink-800 m-0">Business impact</h3>
-                        <p className="text-[16px] font-medium text-ink-800 m-0 mt-3">Faster decisions in critical moments.</p>
-                        <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2">
-                            In emergency operations, manual report retrieval is a liability. AI-powered natural language reporting gives teams the data they need in seconds — enabling faster escalations, more accurate incident management, and real-time operational oversight.
-                        </p>
-                    </article>
-                    <article className="rounded-card border border-hairline bg-paper p-7">
-                        <h3 className="text-[18px] font-medium text-ink-800 m-0">Technical depth</h3>
-                        <p className="text-[16px] font-medium text-ink-800 m-0 mt-3">NLP query engine + dynamic report generation</p>
-                        <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2">
-                            AI query interpretation layer translates natural language into structured database queries — handling multi-entity questions, time-range specifications, and cross-organisation aggregations without predefined report templates.
-                        </p>
-                    </article>
-                </div>
-
-                <div className="flex flex-col gap-4 mt-8">
-                    <p className="text-[18px] text-ink-800 m-0">Interested in AI-powered reporting for your operational platform?</p>
-                    <div className="flex flex-wrap gap-3">
-                        <PillCta cta={{ label: "Talk to our AI engineering team", href: contact }} />
-                        <PillCta cta={{ label: "Explore Bespoke Engineering", href: bespoke }} variant="secondary" />
+                    <div className="ai-steps mt-10" data-reveal="ai-fade">
+                        <span className="ai-step-pulse" aria-hidden="true" />
+                        <ol className="m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-5">
+                            {STEPS.map((step, index) => (
+                                <Reveal key={step.number} as="li" kind="ai-item" index={index} spot className="ai-glass p-7">
+                                    <span className="ai-index">Step {step.number}</span>
+                                    <h3 className="ai-card-title">{step.title}</h3>
+                                    <p className="ai-muted mt-2.5">{step.body}</p>
+                                </Reveal>
+                            ))}
+                        </ol>
                     </div>
-                </div>
-            </section>
-
-            <section id="capabilities" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
-                <div data-reveal="rise" className="max-w-[760px] flex flex-col gap-4">
-                    <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-                        AI runs across all your operations
-                    </h2>
-                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                        Helping you to automate workflows, improve decisions, and scale.
-                    </p>
-                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                        These are the additional AI capabilities we bring to every engagement.
-                    </p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-                    {CAPABILITIES.map((item) => (
-                        <article
-                            key={item.number}
-                            data-reveal="rise"
-                            className="rounded-card border border-hairline bg-paper p-7 flex flex-col hover:-translate-y-1 hover:shadow-card transition-all"
-                        >
-                            <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono">{item.number}</span>
-                            <h3 className="text-[18px] font-medium text-ink-800 m-0 mt-4 leading-snug">{item.title}</h3>
-                            <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2.5">{item.body}</p>
-                        </article>
-                    ))}
-                </div>
-                <div className="flex flex-col gap-4 mt-8">
-                    <p className="text-[18px] text-ink-800 m-0">Want to explore what AI can do for your specific environment?</p>
-                    <div className="flex flex-wrap gap-3">
-                        <PillCta cta={{ label: "Book an AI readiness assessment", href: contact }} />
-                        <PillCta cta={{ label: "Explore AI Services", href: services }} variant="secondary" />
+                    <div className="mt-8">
+                        <CallbackForm />
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section id="methodology" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
-                <div data-reveal="rise" className="max-w-[820px] flex flex-col gap-4">
-                    <Eyebrow>Our AI methodology</Eyebrow>
-                    <p className="text-[18px] leading-[1.6] text-text-secondary m-0">
-                        We follow three simple rules — decide the goal first, build it to work from day one, and track results from the start. Our AI is easy to understand, easy to check, and keeps getting better — not something confusing over time.
-                    </p>
-                </div>
-                <ol className="m-0 mt-10 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-5">
-                    {STEPS.map((step) => (
-                        <li key={step.number} data-reveal="rise" className="rounded-card border border-hairline bg-paper p-7">
-                            <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono">Step {step.number}</span>
-                            <h3 className="text-[18px] font-medium text-ink-800 m-0 mt-4 leading-snug">{step.title}</h3>
-                            <p className="text-sm text-text-secondary leading-relaxed m-0 mt-2.5">{step.body}</p>
-                        </li>
-                    ))}
-                </ol>
-                <div className="mt-8">
-                    <CallbackForm />
-                </div>
-            </section>
-
-            <section className="sg-container pt-[clamp(64px,10vw,120px)] pb-[clamp(64px,10vw,120px)]">
-                <div data-reveal="rise" className="rounded-panel bg-paper-muted border border-hairline px-8 py-12 sm:px-12 flex flex-col items-start gap-5">
-                    <h2 className="text-[clamp(28px,3.6vw,52px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
-                        Ready to use AI in business?
-                    </h2>
-                    <div className="flex flex-wrap gap-3">
-                        <PillCta cta={{ label: "Talk to an AI specialist", href: contact }} />
-                        <PillCta cta={{ label: "See our AI capabilities", href: "#capabilities" }} variant="secondary" />
-                        <PillCta cta={{ label: "Explore AI Services", href: services }} variant="secondary" />
-                    </div>
-                </div>
-            </section>
+                <section className="sg-container pt-[clamp(64px,10vw,120px)] pb-[clamp(64px,10vw,120px)]">
+                    <Reveal spot className="ai-glass ai-close flex flex-col items-start gap-5">
+                        <h2 className="ai-title">Ready to use AI in business?</h2>
+                        <div className="relative flex flex-wrap gap-3">
+                            <AiCta label="Talk to an AI specialist" href={contact} />
+                            <AiCta label="See our AI capabilities" href="#capabilities" variant="secondary" />
+                            <AiCta label="Explore AI Services" href={services} variant="secondary" />
+                        </div>
+                    </Reveal>
+                </section>
+            </div>
         </>
     );
 }
