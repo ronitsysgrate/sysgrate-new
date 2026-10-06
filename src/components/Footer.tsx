@@ -1,72 +1,122 @@
+import type { ReactNode, SVGProps } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { services } from "@/content/services";
-import { service as serviceHref } from "@/content/services/links";
 
-const linkClass =
-    "group/link inline-flex items-center gap-1.5 text-[14px] leading-snug text-white/70 hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:text-white";
-
-const OFFICES = [
-    { label: "Singapore", href: "/contact#offices" },
-    { label: "India", href: "/contact#offices" },
-    { label: "Malaysia", href: "/contact#offices" },
-    { label: "UAE", href: "/contact#offices" },
-];
-
-const COLUMNS: {
-    title: string;
-    links: { label: string; href: string }[];
-    wide?: boolean;
-}[] = [
+const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
     {
-        title: "Practices",
+        title: "Solutions",
         links: [
             { label: "Customer Experience", href: "/solutions" },
             { label: "Employee Experience", href: "/solutions/employee-experience" },
             { label: "Modern Workplace", href: "/solutions/modern-workplace" },
-            { label: "Artificial Intelligence", href: "/ai" },
+            { label: "Services", href: "/services" },
         ],
     },
     {
-        title: "Services",
-        wide: true,
-        links: services.map((item) => ({
-            label: item.title,
-            href: serviceHref(item.slug),
-        })),
+        title: "Resources",
+        links: [
+            { label: "Insights", href: "/insights" },
+            { label: "Case studies", href: "/case-studies" },
+            { label: "AI Hub", href: "/ai" },
+            { label: "Platforms", href: "/platforms" },
+        ],
     },
     {
         title: "Company",
         links: [
-            { label: "Platforms", href: "/platforms" },
-            { label: "Case studies", href: "/case-studies" },
             { label: "About", href: "/about" },
             { label: "Careers", href: "/careers" },
             { label: "Contact", href: "/contact" },
-            { label: "Insights", href: "/insights" },
-            { label: "FAQ", href: "/#faq" },
+            { label: "Offices", href: "/contact#offices" },
         ],
     },
 ];
 
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
-    const inner = (
-        <>
-            <span>{children}</span>
-            <span aria-hidden="true" className="opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all text-[12px]">
-                →
-            </span>
-        </>
+const LEGAL = [
+    { label: "Privacy Policy", href: "mailto:sales@sysgrate.com?subject=Privacy%20Policy" },
+    { label: "Terms of Service", href: "mailto:sales@sysgrate.com?subject=Terms%20of%20Service" },
+    { label: "Cookies Settings", href: "mailto:sales@sysgrate.com?subject=Cookies%20Settings" },
+];
+
+type SocialIcon = (props: SVGProps<SVGSVGElement>) => ReactNode;
+
+const iconProps = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.75,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true,
+};
+
+function XIcon(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+            <path d="M14.23 10.16 21.7 2h-1.77l-6.48 7.09L8.16 2H2.3l7.83 10.73L2.3 22h1.77l6.85-7.5L15.84 22h5.86l-7.47-11.84Zm-2.42 2.65-.8-1.07L4.7 3.3h2.72l5.1 6.89.8 1.07 6.62 8.94h-2.72l-5.41-7.39Z" />
+        </svg>
     );
-    if (href.startsWith("mailto:") || href.startsWith("tel:")) {
+}
+
+function InstagramIcon(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg {...iconProps} {...props}>
+            <rect x="4" y="4" width="16" height="16" rx="4" />
+            <circle cx="12" cy="12" r="3.5" />
+            <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
+        </svg>
+    );
+}
+
+function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg {...iconProps} {...props}>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <path d="M8 10.5V16M8 8h.01M12 16v-3.2a2 2 0 0 1 4 0V16M12 13.2V16" />
+        </svg>
+    );
+}
+
+function MailIcon(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg {...iconProps} {...props}>
+            <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+            <path d="M4 7l8 6 8-6" />
+        </svg>
+    );
+}
+
+const SOCIAL: { label: string; href: string; Icon: SocialIcon }[] = [
+    { label: "X", href: "https://x.com/sysgrate", Icon: XIcon },
+    { label: "Instagram", href: "https://www.instagram.com/sysgrate", Icon: InstagramIcon },
+    {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/company/sysgrate-technologies",
+        Icon: LinkedInIcon,
+    },
+    { label: "Email", href: "mailto:sales@sysgrate.com", Icon: MailIcon },
+];
+
+function FooterLink({ href, children, underline = false }: { href: string; children: ReactNode; underline?: boolean }) {
+    const className = `text-[14px] leading-snug text-white/65 transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white ${
+        underline ? "underline underline-offset-[3px] decoration-white/30 hover:decoration-white" : "no-underline"
+    }`;
+
+    if (href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("http")) {
         return (
-            <a href={href} className={linkClass}>
-                {inner}
+            <a
+                href={href}
+                className={className}
+                {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+                {children}
             </a>
         );
     }
+
     return (
-        <Link href={href} className={linkClass}>
-            {inner}
+        <Link href={href} className={className}>
+            {children}
         </Link>
     );
 }
@@ -75,55 +125,85 @@ export default function Footer() {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="mt-auto relative overflow-hidden text-white bg-[#1c1848]">
+        <footer className="relative mt-auto overflow-hidden bg-[#1c1848] text-white">
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-24 right-[-10%] h-[420px] w-[520px] rounded-full bg-[#9A6EAC]/35 blur-3xl"
+                className="pointer-events-none absolute -top-24 right-[-10%] h-[420px] w-[520px] rounded-full bg-[#9A6EAC]/30 blur-3xl"
             />
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute bottom-[-120px] left-[-8%] h-[320px] w-[420px] rounded-full bg-[#3E3A97]/50 blur-3xl"
+                className="pointer-events-none absolute bottom-[-120px] left-[-8%] h-[320px] w-[420px] rounded-full bg-[#3E3A97]/45 blur-3xl"
             />
+            <p
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 z-0 m-0 translate-y-[34%] text-center text-[clamp(108px,22vw,280px)] font-semibold leading-none tracking-[-0.06em] text-[#5c56b8] select-none"
+            >
+                Sysgrate
+            </p>
 
-            <div className="sg-container relative pt-12 pb-8 sm:pt-16">
-                <nav
-                    aria-label="Footer"
-                    className="grid grid-cols-2 lg:grid-cols-[1fr_1.7fr_1fr] gap-x-8 gap-y-10 rounded-[28px] border border-white/10 bg-white/[0.04] backdrop-blur-md px-6 py-8 sm:px-8"
-                >
-                    {COLUMNS.map((column) => (
-                        <div key={column.title} className={column.wide ? "col-span-2 lg:col-span-1" : ""}>
-                            <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-white/40 m-0">
-                                {column.title}
+            <div className="sg-container relative z-10 pt-8 pb-24 sm:pt-12 sm:pb-32">
+                <div className="rounded-[28px] border border-white/10 bg-[#26205A] px-6 py-8 shadow-[0_24px_60px_-28px_rgba(8,6,28,0.55)] sm:rounded-[32px] sm:px-10 sm:py-10 lg:px-12">
+                    <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+                        <div className="max-w-[34rem] lg:max-w-[280px]">
+                            <Link href="/" className="inline-flex items-center gap-2.5 no-underline group">
+                                <Image
+                                    src="/sysgrate-mark.png"
+                                    alt=""
+                                    width={32}
+                                    height={32}
+                                    className="h-8 w-8 object-contain transition-transform duration-200 group-hover:scale-105"
+                                />
+                                <span className="text-[20px] font-semibold tracking-tight text-white">Sysgrate</span>
+                            </Link>
+                            <p className="m-0 mt-4 text-[14px] leading-[1.6] text-white/65">
+                                Sysgrate helps enterprises design and run AI&#8209;native customer and workplace experiences — end to end.
                             </p>
-                            <ul
-                                className={`m-0 mt-4 p-0 list-none gap-x-8 gap-y-2.5 ${
-                                    column.wide ? "grid grid-cols-1 sm:grid-cols-2" : "flex flex-col"
-                                }`}
-                            >
-                                {column.links.map((item) => (
-                                    <li key={item.label}>
-                                        <FooterLink href={item.href}>{item.label}</FooterLink>
+                            <ul className="m-0 mt-5 flex list-none items-center gap-4 p-0">
+                                {SOCIAL.map(({ label, href, Icon }) => (
+                                    <li key={label}>
+                                        <a
+                                            href={href}
+                                            aria-label={label}
+                                            {...(href.startsWith("http")
+                                                ? { target: "_blank", rel: "noopener noreferrer" }
+                                                : {})}
+                                            className="inline-flex text-white/75 transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white"
+                                        >
+                                            <Icon className="h-[18px] w-[18px]" />
+                                        </a>
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                    ))}
-                </nav>
 
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-[13px] text-white/45 m-0">© {year} Sysgrate</p>
-                    <ul className="m-0 p-0 list-none flex flex-wrap gap-2">
-                        {OFFICES.map((office) => (
-                            <li key={office.label}>
-                                <Link
-                                    href={office.href}
-                                    className="inline-flex items-center h-8 px-3.5 rounded-full border border-white/15 text-[13px] text-white/70 no-underline hover:text-white hover:border-white/40 transition-colors"
-                                >
-                                    {office.label}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
+                        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 sm:gap-x-14">
+                            {COLUMNS.map((column) => (
+                                <div key={column.title}>
+                                    <p className="m-0 text-[14px] font-semibold text-white">{column.title}</p>
+                                    <ul className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
+                                        {column.links.map((item) => (
+                                            <li key={item.label}>
+                                                <FooterLink href={item.href}>{item.label}</FooterLink>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </nav>
+                    </div>
+
+                    <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 sm:mt-12 sm:flex-row sm:items-center sm:justify-between">
+                        <p className="m-0 text-[13px] text-white/50">© {year} Sysgrate. All rights reserved.</p>
+                        <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
+                            {LEGAL.map((item) => (
+                                <li key={item.label}>
+                                    <FooterLink href={item.href} underline>
+                                        {item.label}
+                                    </FooterLink>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </footer>
