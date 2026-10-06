@@ -78,6 +78,15 @@ interface Office {
     phoneHref?: string;
     timezone: string;
     label: "left" | "right";
+    headquarters?: boolean;
+}
+
+function HeadquartersBadge() {
+    return (
+        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#F4EEF8] text-[#7B5AA6] text-[10px] font-semibold tracking-[0.08em] uppercase leading-none">
+            Headquarters
+        </span>
+    );
 }
 
 const OFFICES: Office[] = [
@@ -90,6 +99,7 @@ const OFFICES: Office[] = [
         phoneHref: "tel:+6583467679",
         timezone: "SGT · GMT+8",
         label: "right",
+        headquarters: true,
     },
     {
         id: "india",
@@ -551,7 +561,10 @@ export default function ContactPage() {
                             <p className="text-xs font-semibold tracking-[0.08em] uppercase text-ink-300 m-0">
                                 {office.region}
                             </p>
-                            <p className="text-base font-medium text-ink-800 m-0 mt-1">{office.name}</p>
+                            <p className="text-base font-medium text-ink-800 m-0 mt-1 flex flex-wrap items-center gap-2">
+                                {office.name}
+                                {office.headquarters ? <HeadquartersBadge /> : null}
+                            </p>
                             <p className="text-sm text-text-secondary leading-relaxed m-0 mt-1">
                                 {office.lines.join(", ")}
                             </p>
@@ -586,8 +599,9 @@ export default function ContactPage() {
                                     >
                                         <div className="flex items-center justify-between gap-3">
                                             <div className="min-w-0">
-                                                <h3 className="text-[16px] font-medium text-ink-800 m-0 leading-tight">
+                                                <h3 className="text-[16px] font-medium text-ink-800 m-0 leading-tight flex flex-wrap items-center gap-2">
                                                     {item.name}
+                                                    {item.headquarters ? <HeadquartersBadge /> : null}
                                                 </h3>
                                                 <p className="text-[11px] tracking-[0.04em] uppercase text-text-secondary m-0 mt-0.5">
                                                     {item.region}
@@ -696,70 +710,73 @@ function RegionMap({
                 </filter>
             </defs>
             <rect width="920" height="560" fill="url(#sea-dots)" />
-            <g filter="url(#land-shadow)" fill="#FFFFFF" stroke="#E4D8F3" strokeWidth="1.1" strokeLinejoin="round">
-                {REGION_LAND.map((d, index) => (
-                    <path key={index} d={d} fillRule="evenodd" />
-                ))}
-            </g>
-            <path
-                d={officeRoute()}
-                fill="none"
-                stroke="#9A6EAC"
-                strokeWidth="1.4"
-                strokeDasharray="4 6"
-                strokeLinecap="round"
-                opacity="0.8"
-            />
-            {OFFICES.map((item) => {
-                const pin = PIN_BY_ID[item.id];
-                const selected = item.id === activeId;
-                const labelLeft = item.label === "left";
-                const labelWidth = item.name.length * 7.2 + 18;
-                const labelX = labelLeft ? -labelWidth - 12 : 12;
-                const labelY = item.id === "singapore" ? 10 : item.id === "malaysia" ? -28 : -12;
-                return (
-                    <g
-                        key={item.id}
-                        transform={`translate(${pin.x} ${pin.y})`}
-                        role="button"
-                        tabIndex={0}
-                        aria-pressed={selected}
-                        aria-label={item.name}
-                        className="cursor-pointer outline-none"
-                        onClick={() => onSelect(item.id)}
-                        onKeyDown={(event) => {
-                            if (event.key === "Enter" || event.key === " ") {
-                                event.preventDefault();
-                                onSelect(item.id);
-                            }
-                        }}
-                    >
-                        <circle r="20" fill="transparent" />
-                        {selected ? (
-                            <circle r="11" fill="none" stroke="#E4D8F3" strokeWidth="5" />
-                        ) : null}
-                        <circle
-                            r={selected ? 6.5 : 5}
-                            fill={selected ? "#3E3A97" : "#7B5AA6"}
-                            stroke="#FFFFFF"
-                            strokeWidth="2.5"
-                        />
-                        <g transform={`translate(${labelX} ${labelY})`}>
-                            <rect width={labelWidth} height="22" rx="11" fill="#FFFFFF" />
-                            <text
-                                x={labelWidth / 2}
-                                y="15"
-                                textAnchor="middle"
-                                fill={selected ? "#141414" : "#5A5372"}
-                                fontSize="12"
-                                fontWeight="500"
-                            >
-                                {item.name}
-                            </text>
+            {/* Land outlines stop 18 units inside the viewBox; scaling the map lets them meet the edges. */}
+            <g transform="translate(460 280) scale(1.07) translate(-460 -280)">
+                <g filter="url(#land-shadow)" fill="#FFFFFF" stroke="#E4D8F3" strokeWidth="1.1" strokeLinejoin="round">
+                    {REGION_LAND.map((d, index) => (
+                        <path key={index} d={d} fillRule="evenodd" />
+                    ))}
+                </g>
+                <path
+                    d={officeRoute()}
+                    fill="none"
+                    stroke="#9A6EAC"
+                    strokeWidth="1.4"
+                    strokeDasharray="4 6"
+                    strokeLinecap="round"
+                    opacity="0.8"
+                />
+                {OFFICES.map((item) => {
+                    const pin = PIN_BY_ID[item.id];
+                    const selected = item.id === activeId;
+                    const labelLeft = item.label === "left";
+                    const labelWidth = item.name.length * 7.2 + 18;
+                    const labelX = labelLeft ? -labelWidth - 12 : 12;
+                    const labelY = item.id === "singapore" ? 10 : item.id === "malaysia" ? -28 : -12;
+                    return (
+                        <g
+                            key={item.id}
+                            transform={`translate(${pin.x} ${pin.y})`}
+                            role="button"
+                            tabIndex={0}
+                            aria-pressed={selected}
+                            aria-label={item.name}
+                            className="cursor-pointer outline-none"
+                            onClick={() => onSelect(item.id)}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter" || event.key === " ") {
+                                    event.preventDefault();
+                                    onSelect(item.id);
+                                }
+                            }}
+                        >
+                            <circle r="20" fill="transparent" />
+                            {selected ? (
+                                <circle r="11" fill="none" stroke="#E4D8F3" strokeWidth="5" />
+                            ) : null}
+                            <circle
+                                r={selected ? 6.5 : 5}
+                                fill={selected ? "#3E3A97" : "#7B5AA6"}
+                                stroke="#FFFFFF"
+                                strokeWidth="2.5"
+                            />
+                            <g transform={`translate(${labelX} ${labelY})`}>
+                                <rect width={labelWidth} height="22" rx="11" fill="#FFFFFF" />
+                                <text
+                                    x={labelWidth / 2}
+                                    y="15"
+                                    textAnchor="middle"
+                                    fill={selected ? "#141414" : "#5A5372"}
+                                    fontSize="12"
+                                    fontWeight="500"
+                                >
+                                    {item.name}
+                                </text>
+                            </g>
                         </g>
-                    </g>
-                );
-            })}
+                    );
+                })}
+            </g>
         </svg>
     );
 }

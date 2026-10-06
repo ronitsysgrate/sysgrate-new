@@ -78,8 +78,24 @@ const NAV_LINKS: NavItem[] = [
         },
     },
     { href: "/ai", label: "AI Hub" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact Us" },
+    {
+        href: "/about",
+        label: "Resources",
+        menu: {
+            eyebrow: "Resources",
+            columns: [[
+                { href: "/about", label: "About" },
+                { href: "/contact", label: "Contact Us" },
+                { href: "/case-studies", label: "Case Studies" },
+            ]],
+            width: "w-[30rem]",
+            feature: {
+                src: "/practice-areas/customer-experience.jpg",
+                label: "About Sysgrate",
+                href: "/about",
+            },
+        },
+    },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -89,6 +105,13 @@ function isActive(pathname: string, href: string) {
 
 function isChildActive(pathname: string, href: string) {
     return pathname === href.split("#")[0];
+}
+
+function isItemActive(pathname: string, item: NavItem) {
+    return (
+        isActive(pathname, item.href) ||
+        Boolean(item.menu?.columns.flat().some((child) => isChildActive(pathname, child.href)))
+    );
 }
 
 // Two stacked copies of the label inside a one-line window: hovering slides the
@@ -124,11 +147,10 @@ function MegaMenu({ menu, pathname }: { menu: NavMenu; pathname: string }) {
                                     <li key={child.label}>
                                         <Link
                                             href={child.href}
-                                            className={`group/roll block px-3 py-2 rounded-2xl text-[13.5px] font-medium no-underline transition-colors ${
-                                                isChildActive(pathname, child.href)
-                                                    ? "text-ink-800 bg-paper-muted"
-                                                    : "text-text-secondary hover:text-ink-800 hover:bg-paper-muted"
-                                            }`}
+                                            className={`group/roll block px-3 py-2 rounded-2xl text-[13.5px] font-medium no-underline transition-colors ${isChildActive(pathname, child.href)
+                                                ? "text-ink-800 bg-paper-muted"
+                                                : "text-text-secondary hover:text-ink-800 hover:bg-paper-muted"
+                                                }`}
                                         >
                                             <RollingLabel>{child.label}</RollingLabel>
                                         </Link>
@@ -183,11 +205,10 @@ function MobileNav({
         <>
             <button
                 onClick={() => updateOpen(!open)}
-                className={`md:hidden flex items-center justify-center w-11 h-11 rounded-full backdrop-blur-md shadow-sm border relative z-50 pointer-events-auto ${
-                    dark
-                        ? "bg-[#0c1428]/80 border-white/20 text-white"
-                        : "bg-white/90 border-white/60 text-ink-800"
-                }`}
+                className={`md:hidden flex items-center justify-center w-11 h-11 rounded-full backdrop-blur-md shadow-sm border relative z-50 pointer-events-auto ${dark
+                    ? "bg-[#0c1428]/80 border-white/20 text-white"
+                    : "bg-white/90 border-white/60 text-ink-800"
+                    }`}
                 aria-label="Toggle Navigation Menu"
                 aria-expanded={open}
             >
@@ -231,9 +252,8 @@ function MobileNav({
                                     <Link
                                         href={item.href}
                                         onClick={() => updateOpen(false)}
-                                        className={`flex-1 px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] no-underline ${
-                                            isActive(pathname, item.href) ? "text-ink-800" : "text-text-secondary"
-                                        }`}
+                                        className={`flex-1 px-4 py-3 rounded-2xl hover:bg-paper-muted font-medium text-[15px] no-underline ${isItemActive(pathname, item) ? "text-ink-800" : "text-text-secondary"
+                                            }`}
                                     >
                                         {item.label}
                                     </Link>
@@ -249,9 +269,8 @@ function MobileNav({
                                             aria-expanded={expanded === item.label}
                                         >
                                             <ChevronDown
-                                                className={`w-4 h-4 transition-transform ${
-                                                    expanded === item.label ? "rotate-180" : ""
-                                                }`}
+                                                className={`w-4 h-4 transition-transform ${expanded === item.label ? "rotate-180" : ""
+                                                    }`}
                                             />
                                         </button>
                                     )}
@@ -264,11 +283,10 @@ function MobileNav({
                                                 key={child.label}
                                                 href={child.href}
                                                 onClick={() => updateOpen(false)}
-                                                className={`px-3 py-2 rounded-xl text-[14px] no-underline hover:bg-paper-muted ${
-                                                    isChildActive(pathname, child.href)
-                                                        ? "text-ink-800 font-medium"
-                                                        : "text-text-secondary"
-                                                }`}
+                                                className={`px-3 py-2 rounded-xl text-[14px] no-underline hover:bg-paper-muted ${isChildActive(pathname, child.href)
+                                                    ? "text-ink-800 font-medium"
+                                                    : "text-text-secondary"
+                                                    }`}
                                             >
                                                 {child.label}
                                             </Link>
@@ -309,7 +327,7 @@ export default function Navbar() {
         : `${navItem} text-text-secondary hover:text-ink-800 hover:bg-white/80`;
 
     const navClass = (item: NavItem) => {
-        if (isActive(pathname, item.href)) return navActive;
+        if (isItemActive(pathname, item)) return navActive;
         return openMenu === item.label ? navOpen : navIdle;
     };
 
@@ -377,27 +395,24 @@ export default function Navbar() {
         <>
             {/* Full-screen backdrop blur overlay */}
             <div
-                className={`hidden md:block fixed inset-0 z-40 bg-black/25 backdrop-blur-md transition-all duration-300 ${
-                    isBlurred
-                        ? "opacity-100 pointer-events-auto visible"
-                        : "opacity-0 pointer-events-none invisible"
-                }`}
+                className={`hidden md:block fixed inset-0 z-40 bg-black/25 backdrop-blur-md transition-all duration-300 ${isBlurred
+                    ? "opacity-100 pointer-events-auto visible"
+                    : "opacity-0 pointer-events-none invisible"
+                    }`}
                 onClick={dismiss}
                 aria-hidden="true"
             />
 
             <header
-                className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-[clamp(20px,5vw,64px)] pointer-events-none transition-[padding,transform] duration-300 ${
-                    scrolled ? "py-4" : "py-5"
-                } ${concealed ? "-translate-y-[calc(100%+2.5rem)]" : "translate-y-0"}`}
+                className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-[clamp(20px,5vw,64px)] pointer-events-none transition-[padding,transform] duration-300 ${scrolled ? "py-4" : "py-5"
+                    } ${concealed ? "-translate-y-[calc(100%+2.5rem)]" : "translate-y-0"}`}
             >
                 <div
                     aria-hidden="true"
-                    className={`pointer-events-none absolute inset-x-0 -top-px -bottom-8 -z-10 backdrop-blur-lg transition-opacity duration-200 [mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] ${
-                        dark
-                            ? "bg-[linear-gradient(to_bottom,rgba(7,11,24,0.94)_0%,rgba(7,11,24,0.62)_42%,rgba(7,11,24,0)_100%)]"
-                            : "bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.7)_42%,rgba(255,255,255,0)_100%)]"
-                    } ${scrolled ? "opacity-100" : "opacity-0"}`}
+                    className={`pointer-events-none absolute inset-x-0 -top-px -bottom-8 -z-10 backdrop-blur-lg transition-opacity duration-200 [mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] ${dark
+                        ? "bg-[linear-gradient(to_bottom,rgba(7,11,24,0.94)_0%,rgba(7,11,24,0.62)_42%,rgba(7,11,24,0)_100%)]"
+                        : "bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.7)_42%,rgba(255,255,255,0)_100%)]"
+                        } ${scrolled ? "opacity-100" : "opacity-0"}`}
                 />
 
                 {/* Brand logo */}
@@ -416,9 +431,8 @@ export default function Navbar() {
                         />
                     </div>
                     <span
-                        className={`font-semibold text-xl tracking-tight transition-colors ${
-                            dark ? "text-white group-hover:text-[#4de8ff]" : "text-ink-800 group-hover:text-link"
-                        }`}
+                        className={`font-semibold text-xl tracking-tight transition-colors ${dark ? "text-white group-hover:text-[#4de8ff]" : "text-ink-800 group-hover:text-link"
+                            }`}
                     >
                         Sysgrate
                     </span>
@@ -426,11 +440,10 @@ export default function Navbar() {
 
                 {/* Desktop Navigation Pill Bar */}
                 <nav
-                    className={`hidden md:flex relative items-center gap-1 p-1.5 rounded-full backdrop-blur-md border pointer-events-auto ${
-                        dark
-                            ? "bg-[#0c1428]/80 border-white/15 shadow-[0_0_28px_rgba(77,232,255,0.12)]"
-                            : "bg-white/75 shadow-pill border-white/40"
-                    }`}
+                    className={`hidden md:flex relative items-center gap-1 p-1.5 rounded-full backdrop-blur-md border pointer-events-auto ${dark
+                        ? "bg-[#0c1428]/80 border-white/15 shadow-[0_0_28px_rgba(77,232,255,0.12)]"
+                        : "bg-white/75 shadow-pill border-white/40"
+                        }`}
                     aria-label="Main Navigation"
                     onMouseEnter={() => {
                         if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -454,9 +467,8 @@ export default function Navbar() {
                             {item.label}
                             {item.menu && (
                                 <ChevronDown
-                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                                        openMenu === item.label ? "rotate-180" : ""
-                                    }`}
+                                    className={`w-3.5 h-3.5 transition-transform duration-200 ${openMenu === item.label ? "rotate-180" : ""
+                                        }`}
                                     aria-hidden="true"
                                 />
                             )}
@@ -470,17 +482,15 @@ export default function Navbar() {
                 <div className="flex items-center gap-3 pointer-events-auto">
                     <a
                         href="/contact"
-                        className={`inline-flex items-center justify-center h-11 pl-5 pr-1.5 rounded-full transition-all group ${
-                            dark
-                                ? "border border-[#4de8ff]/50 bg-[#4de8ff]/10 text-white shadow-[0_0_22px_rgba(77,232,255,0.18)] hover:bg-[#4de8ff]/20"
-                                : "bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:shadow-md"
-                        }`}
+                        className={`inline-flex items-center justify-center h-11 pl-5 pr-1.5 rounded-full transition-all group ${dark
+                            ? "border border-[#4de8ff]/50 bg-[#4de8ff]/10 text-white shadow-[0_0_22px_rgba(77,232,255,0.18)] hover:bg-[#4de8ff]/20"
+                            : "bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:shadow-md"
+                            }`}
                     >
                         <span className="font-medium text-sm">Get Started</span>
                         <span
-                            className={`w-7.5 h-7.5 rounded-full inline-grid place-items-center ml-2 text-sm font-semibold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
-                                dark ? "bg-[#4de8ff] text-[#071018]" : "bg-paper-muted"
-                            }`}
+                            className={`w-7.5 h-7.5 rounded-full inline-grid place-items-center ml-2 text-sm font-semibold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${dark ? "bg-[#4de8ff] text-[#071018]" : "bg-paper-muted"
+                                }`}
                         >
                             ↗
                         </span>

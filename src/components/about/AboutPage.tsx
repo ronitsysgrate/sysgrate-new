@@ -18,8 +18,6 @@ import {
     type LucideIcon,
 } from "lucide-react";
 
-const CHANNELS = ["Voice", "Email", "Chat", "Social"];
-
 const OFFICES = ["Singapore", "India", "Malaysia", "UAE"];
 
 const PRACTICES: {
@@ -404,29 +402,15 @@ export default function AboutPage() {
                         </div>
                     </div>
 
-                    <div className="sg-animate-rise sg-delay-2 relative rounded-panel border border-hairline bg-paper-card p-7 sm:p-9 shadow-chip overflow-hidden">
-                        <div className="pointer-events-none absolute -top-16 -right-10 w-56 h-56 rounded-full bg-gradient-to-br from-[#E79AC0]/30 via-[#E4D8F3]/40 to-transparent blur-2xl" />
-                        <p className="relative text-xs font-medium tracking-[0.08em] uppercase text-text-secondary m-0">
-                            Every channel in between
-                        </p>
-                        <ul className="relative mt-4 m-0 p-0 list-none">
-                            {CHANNELS.map((channel, index) => (
-                                <li
-                                    key={channel}
-                                    className="flex items-baseline justify-between gap-4 border-b border-hairline py-4 last:border-b-0"
-                                >
-                                    <span className="text-[clamp(26px,3vw,40px)] font-normal tracking-[-0.03em] text-ink-800 leading-none">
-                                        {channel}
-                                    </span>
-                                    <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono">
-                                        0{index + 1}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                        <p className="relative text-sm text-text-secondary m-0 mt-2">
-                            Powered by AI. Delivered end to end.
-                        </p>
+                    <div className="sg-animate-rise sg-delay-2 relative w-full h-[350px] sm:h-[372px] lg:h-[424px] rounded-panel border border-hairline bg-paper-card shadow-chip overflow-hidden">
+                        <Image
+                            src="/practice-areas/employee-experience.jpg"
+                            alt="A Sysgrate specialist on a video call with a distributed team"
+                            fill
+                            priority
+                            sizes="(min-width: 1024px) 40vw, 100vw"
+                            className="object-cover"
+                        />
                     </div>
                 </div>
             </section>
