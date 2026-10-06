@@ -1,14 +1,19 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
     Award,
     Building2,
     Handshake,
     Headset,
+    HeartHandshake,
     Layers,
+    MessageSquareQuote,
+    Microscope,
     Sparkles,
+    Target,
     Users,
     type LucideIcon,
 } from "lucide-react";
@@ -22,42 +27,40 @@ const PRACTICES: {
     title: string;
     detail: string;
     icon: LucideIcon;
-    tint: string;
-    accent: string;
-    featured?: boolean;
+    image: string;
+    alt: string;
 }[] = [
     {
         index: "01",
         title: "Customer Experience",
         detail: "Contact centre, conversational AI, omnichannel",
         icon: Headset,
-        tint: "bg-[#F4EEF8]",
-        accent: "#7B5AA6",
+        image: "/practice-areas/customer-experience.jpg",
+        alt: "Contact centre agents working across an AI-assisted platform",
     },
     {
         index: "02",
         title: "Digital Workplace",
         detail: "UCaaS, Zoom, Microsoft Teams, SBC",
         icon: Users,
-        tint: "bg-[#EEEDF8]",
-        accent: "#3E3A97",
+        image: "/practice-areas/employee-experience.jpg",
+        alt: "Teams collaborating across voice, chat, and video",
     },
     {
         index: "03",
         title: "Modern Workplace",
         detail: "AV integration, boardrooms, smart spaces",
         icon: Building2,
-        tint: "bg-[#FAF0F5]",
-        accent: "#9A6EAC",
+        image: "/practice-areas/modern-workplace.jpg",
+        alt: "A boardroom set up for hybrid meetings",
     },
     {
         index: "04",
         title: "Artificial Intelligence",
         detail: "Agents, analytics, automation, Nexus",
         icon: Sparkles,
-        tint: "bg-white/15",
-        accent: "#ffffff",
-        featured: true,
+        image: "/practice-areas/artificial-intelligence.jpg",
+        alt: "A specialist working with an AI-assisted workspace",
     },
 ];
 
@@ -111,11 +114,11 @@ const STATEMENTS = [
     },
 ];
 
-const VALUES = [
-    "Outcomes before deliverables",
-    "Honest advice, even when it’s hard to give",
-    "Specialist depth over generalist breadth",
-    "People — our team and our clients’ teams — always first",
+const VALUES: { title: string; icon: LucideIcon }[] = [
+    { title: "Outcomes before deliverables", icon: Target },
+    { title: "Honest advice, even when it’s hard to give", icon: MessageSquareQuote },
+    { title: "Specialist depth over generalist breadth", icon: Microscope },
+    { title: "People — our team and our clients’ teams — always first", icon: HeartHandshake },
 ];
 
 /**
@@ -175,6 +178,165 @@ function PrimaryLink({ href, children }: { href: string; children: ReactNode }) 
         <Link href={href} className={className}>
             {inner}
         </Link>
+    );
+}
+
+const SLIDE_MS = 7000;
+
+function PracticeSlideshow() {
+    const [active, setActive] = useState(0);
+    const [inView, setInView] = useState(false);
+    const [autoplay, setAutoplay] = useState(true);
+    const rootRef = useRef<HTMLDivElement>(null);
+    const practice = PRACTICES[active];
+    const Icon = practice.icon;
+    const playing = autoplay && inView;
+
+    useEffect(() => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            setAutoplay(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        const node = rootRef.current;
+        if (!node) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => setInView(entry.isIntersecting),
+            { threshold: 0.35 },
+        );
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!playing) return;
+        const timer = window.setInterval(() => {
+            setActive((current) => (current + 1) % PRACTICES.length);
+        }, SLIDE_MS);
+        return () => window.clearInterval(timer);
+    }, [playing, active]);
+
+    const show = (index: number) => {
+        setActive((index + PRACTICES.length) % PRACTICES.length);
+    };
+
+    const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        let next = active;
+        if (event.key === "ArrowRight") next = (active + 1) % PRACTICES.length;
+        else if (event.key === "ArrowLeft") next = (active + PRACTICES.length - 1) % PRACTICES.length;
+        else if (event.key === "Home") next = 0;
+        else if (event.key === "End") next = PRACTICES.length - 1;
+        else return;
+        event.preventDefault();
+        show(next);
+        document.getElementById(`practice-tab-${next}`)?.focus();
+    };
+
+    return (
+        <div
+            ref={rootRef}
+            className="relative mt-10 overflow-hidden rounded-panel bg-ink-800 aspect-[3/4] sm:aspect-[16/10] lg:aspect-[2/1] min-h-[440px]"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Four practice areas"
+            onKeyDown={onKeyDown}
+        >
+            {PRACTICES.map((item, index) => (
+                <div
+                    key={item.title}
+                    aria-hidden={index !== active}
+                    className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+                        index === active ? "opacity-100" : "opacity-0"
+                    }`}
+                >
+                    <Image
+                        src={item.image}
+                        alt={index === active ? item.alt : ""}
+                        fill
+                        priority={index === 0}
+                        sizes="(min-width: 1440px) 1312px, 100vw"
+                        className="object-cover"
+                    />
+                </div>
+            ))}
+
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                    background:
+                        "radial-gradient(ellipse 72% 62% at 50% 46%, rgba(18,14,36,0.72) 0%, rgba(18,14,36,0.34) 52%, rgba(18,14,36,0.58) 100%)",
+                }}
+            />
+
+            <div className="absolute inset-0 z-10 flex items-center justify-center px-6 pb-16 text-center">
+                <div
+                    id="practice-slide"
+                    role="tabpanel"
+                    aria-labelledby={`practice-tab-${active}`}
+                    key={practice.title}
+                    className="max-w-[760px] text-white motion-safe:animate-[sg-rise_0.5s_cubic-bezier(0.22,0.61,0.36,1)_both]"
+                >
+                    <span className="mx-auto w-12 h-12 rounded-2xl bg-white/15 border border-white/25 backdrop-blur-md inline-flex items-center justify-center">
+                        <Icon size={20} strokeWidth={2} className="text-white" aria-hidden />
+                    </span>
+                    <p className="m-0 mt-5 text-xs font-semibold tracking-[0.18em] text-white/75 font-mono">
+                        {practice.index}
+                    </p>
+                    <h3 className="m-0 mt-3 text-[clamp(32px,4.4vw,64px)] font-normal leading-[1.05] tracking-[-0.03em]">
+                        {practice.title}
+                    </h3>
+                    <p className="m-0 mx-auto mt-4 max-w-[520px] text-[clamp(16px,1.5vw,20px)] leading-relaxed text-white/88">
+                        {practice.detail}
+                    </p>
+                </div>
+            </div>
+
+            <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-3 px-4 pb-5 sm:px-6 sm:pb-6">
+                <div
+                    role="tablist"
+                    aria-label="Practice areas"
+                    className="flex max-w-full flex-wrap items-center justify-center gap-1.5 sm:gap-2"
+                >
+                    {PRACTICES.map((item, index) => {
+                        const selected = index === active;
+                        return (
+                            <button
+                                key={item.title}
+                                id={`practice-tab-${index}`}
+                                type="button"
+                                role="tab"
+                                aria-selected={selected}
+                                aria-controls="practice-slide"
+                                tabIndex={selected ? 0 : -1}
+                                onClick={() => show(index)}
+                                className={`relative overflow-hidden rounded-full px-3.5 py-2 text-xs sm:text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                                    selected
+                                        ? "bg-white text-ink-800"
+                                        : "border border-white/30 bg-white/15 text-white hover:bg-white/25"
+                                }`}
+                            >
+                                <span className="sm:hidden">{item.index}</span>
+                                <span className="hidden sm:inline">{item.title}</span>
+                                {selected ? (
+                                    <span
+                                        className="absolute left-3 right-3 bottom-1 h-0.5 overflow-hidden rounded-full bg-ink-800/15"
+                                        aria-hidden
+                                    >
+                                        <span
+                                            key={`${item.title}-${playing}`}
+                                            className="block h-full origin-left bg-ink-800/70 motion-safe:animate-[sg-progress_7s_linear_forwards]"
+                                            style={{ animationPlayState: playing ? "running" : "paused" }}
+                                        />
+                                    </span>
+                                ) : null}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+        </div>
     );
 }
 
@@ -323,62 +485,7 @@ export default function AboutPage() {
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
-                    {PRACTICES.map((practice, index) => {
-                        const Icon = practice.icon;
-                        if (practice.featured) {
-                            return (
-                                <article
-                                    key={practice.title}
-                                    data-reveal="rise"
-                                    data-delay={index > 0 ? String(index) : undefined}
-                                    className="relative overflow-hidden rounded-card p-7 sm:p-8 text-white h-full"
-                                    style={{ background: "var(--accent-gradient)" }}
-                                >
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-xs font-semibold tracking-wider text-white/70 font-mono">
-                                            {practice.index}
-                                        </span>
-                                        <span className="w-11 h-11 rounded-2xl bg-white/15 inline-flex items-center justify-center">
-                                            <Icon size={20} strokeWidth={2} className="text-white" />
-                                        </span>
-                                    </div>
-                                    <h3 className="text-[22px] font-medium m-0 mt-8 leading-snug">
-                                        {practice.title}
-                                    </h3>
-                                    <p className="text-[16px] leading-relaxed text-white/85 m-0 mt-2">
-                                        {practice.detail}
-                                    </p>
-                                </article>
-                            );
-                        }
-                        return (
-                            <article
-                                key={practice.title}
-                                data-reveal="rise"
-                                data-delay={index > 0 ? String(index) : undefined}
-                                className="group rounded-card border border-hairline bg-paper p-7 sm:p-8 shadow-sm h-full transition-shadow duration-300 hover:-translate-y-1.5 hover:shadow-card hover:border-[#9A6EAC]/35"
-                            >
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono">
-                                        {practice.index}
-                                    </span>
-                                    <span
-                                        className={`w-11 h-11 rounded-2xl inline-flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${practice.tint}`}
-                                    >
-                                        <Icon size={20} strokeWidth={2} style={{ color: practice.accent }} />
-                                    </span>
-                                </div>
-                                <h3 className="text-[22px] font-medium text-ink-800 m-0 mt-8 leading-snug">
-                                    {practice.title}
-                                </h3>
-                                <p className="text-[16px] leading-relaxed text-text-secondary m-0 mt-2">
-                                    {practice.detail}
-                                </p>
-                            </article>
-                        );
-                    })}
-                </div>
+                <PracticeSlideshow />
             </section>
 
             <section id="why" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
@@ -499,26 +606,76 @@ export default function AboutPage() {
                     ))}
                 </ol>
 
-                <div data-reveal="rise" className="mt-12">
-                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary">
-                        Our values
-                    </span>
-                    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {VALUES.map((value, index) => (
-                            <article
-                                key={value}
-                                data-reveal="rise"
-                                data-delay={index > 0 ? String(index) : undefined}
-                                className="rounded-card bg-paper-muted border border-hairline/80 px-6 py-5 flex gap-4 items-start"
-                            >
-                                <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono pt-0.5">
-                                    0{index + 1}
-                                </span>
-                                <p className="text-[16px] font-medium text-ink-800 leading-snug m-0">
-                                    {value}
-                                </p>
-                            </article>
-                        ))}
+                <div
+                    data-reveal="rise"
+                    className="relative isolate mt-[clamp(48px,7vw,88px)] overflow-hidden rounded-panel bg-surface-inverse px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16 text-white"
+                >
+                    <div
+                        aria-hidden
+                        className="sg-drift pointer-events-none absolute -top-32 -left-24 -z-10 w-[min(520px,80vw)] aspect-square rounded-full bg-[#E79AC0]/35 blur-3xl"
+                    />
+                    <div
+                        aria-hidden
+                        className="sg-drift-slow pointer-events-none absolute -bottom-40 -right-20 -z-10 w-[min(560px,85vw)] aspect-square rounded-full bg-[#3E3A97]/70 blur-3xl"
+                    />
+                    <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07] [background-image:radial-gradient(#fff_1px,transparent_1px)] [background-size:22px_22px]"
+                    />
+
+                    <div className="flex flex-col items-center text-center gap-4 max-w-170 mx-auto">
+                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs font-medium tracking-[0.08em] uppercase text-white/85">
+                            <Sparkles size={14} strokeWidth={2} aria-hidden />
+                            Our values
+                        </span>
+                        <h2 className="m-0 text-[clamp(28px,3.6vw,52px)] font-normal leading-[1.1] tracking-[-0.03em]">
+                            The principles behind{" "}
+                            <span className="bg-[linear-gradient(90deg,#F4B9D6_0%,#C9A8E4_55%,#A9A6F2_100%)] bg-clip-text text-transparent font-medium">
+                                every engagement
+                            </span>
+                            .
+                        </h2>
+                    </div>
+
+                    <div className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+                        {VALUES.map((value, index) => {
+                            const Icon = value.icon;
+                            return (
+                                <article
+                                    key={value.title}
+                                    data-reveal="rise"
+                                    data-delay={index > 0 ? String(index) : undefined}
+                                    className="h-full"
+                                >
+                                    <div className="sg-values-card group relative h-full overflow-hidden rounded-card border border-white/15 bg-white/[0.06] backdrop-blur-md p-6 sm:p-7 flex flex-col transition-[transform,background-color,border-color,box-shadow] duration-500 ease-out hover:-translate-y-2 hover:bg-white/[0.11] hover:border-white/35 hover:shadow-[0_24px_60px_rgba(8,6,30,0.45)]">
+                                        <span
+                                            aria-hidden
+                                            className="pointer-events-none absolute right-5 top-3 select-none text-[88px] font-medium leading-none tracking-[-0.06em] text-white/[0.06] transition-colors duration-500 group-hover:text-white/[0.12]"
+                                        >
+                                            0{index + 1}
+                                        </span>
+                                        <span
+                                            className="sg-values-icon relative w-13 h-13 rounded-2xl inline-flex items-center justify-center text-white shadow-[0_10px_28px_rgba(231,154,192,0.35)] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6"
+                                            style={{ background: "var(--accent-gradient)" }}
+                                        >
+                                            <Icon size={22} strokeWidth={2} aria-hidden />
+                                        </span>
+                                        <p className="relative m-0 mt-8 text-[11px] font-semibold tracking-[0.16em] uppercase text-white/55 font-mono">
+                                            Value 0{index + 1}
+                                        </p>
+                                        <h3 className="relative m-0 mt-2 text-[clamp(19px,1.6vw,22px)] font-medium leading-snug text-white">
+                                            {value.title}
+                                        </h3>
+                                        <span
+                                            aria-hidden
+                                            className="mt-auto pt-8 block"
+                                        >
+                                            <span className="block h-0.5 w-10 rounded-full bg-[linear-gradient(90deg,#E79AC0_0%,#9A6EAC_52%,#A9A6F2_100%)] transition-[width] duration-500 ease-out group-hover:w-full" />
+                                        </span>
+                                    </div>
+                                </article>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

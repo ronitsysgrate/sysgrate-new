@@ -413,6 +413,36 @@ body {
     transform: scaleY(1);
 }
 
+@keyframes sg-drift {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(6%, -8%, 0) scale(1.12);
+    }
+}
+
+@keyframes sg-icon-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(231, 154, 192, 0.45);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(231, 154, 192, 0);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .sg-drift {
+        animation: sg-drift 14s ease-in-out infinite;
+    }
+    .sg-drift-slow {
+        animation: sg-drift 20s ease-in-out infinite reverse;
+    }
+    .sg-values-card:hover .sg-values-icon {
+        animation: sg-icon-pulse 1.4s ease-out infinite;
+    }
+}
+
 @keyframes sg-marquee {
     from {
         transform: translateX(0);
