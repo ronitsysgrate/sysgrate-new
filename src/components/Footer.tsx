@@ -86,6 +86,14 @@ function MailIcon(props: SVGProps<SVGSVGElement>) {
     );
 }
 
+function PhoneIcon(props: SVGProps<SVGSVGElement>) {
+    return (
+        <svg {...iconProps} {...props}>
+            <path d="M8.5 4.5h-2A1.5 1.5 0 0 0 5 6v1.2c0 6.2 5.1 11.3 11.3 11.3H17.5A1.5 1.5 0 0 0 19 17v-2l-3.2-1.2-1.3 1.3a9 9 0 0 1-4.1-4.1l1.3-1.3L8.5 4.5Z" />
+        </svg>
+    );
+}
+
 const SOCIAL: { label: string; href: string; Icon: SocialIcon }[] = [
     { label: "X", href: "https://x.com/sysgrate", Icon: XIcon },
     { label: "Instagram", href: "https://www.instagram.com/sysgrate", Icon: InstagramIcon },
@@ -144,7 +152,7 @@ export default function Footer() {
             <div className="sg-container relative z-10 pt-8 pb-24 sm:pt-12 sm:pb-32">
                 <div className="rounded-[28px] border border-white/10 bg-[#26205A] px-6 py-8 shadow-[0_24px_60px_-28px_rgba(8,6,28,0.55)] sm:rounded-[32px] sm:px-10 sm:py-10 lg:px-12">
                     <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-                        <div className="max-w-[34rem] lg:max-w-[280px]">
+                        <div className="max-w-[34rem] lg:max-w-[360px]">
                             <Link href="/" className="inline-flex items-center gap-2.5 no-underline group">
                                 <Image
                                     src="/sysgrate-mark.png"
@@ -158,7 +166,7 @@ export default function Footer() {
                             <p className="m-0 mt-4 text-[14px] leading-[1.6] text-white/65">
                                 Sysgrate helps enterprises design and run AI&#8209;native customer and workplace experiences — end to end.
                             </p>
-                            <ul className="m-0 mt-5 flex list-none items-center gap-4 p-0">
+                            <ul className="m-0 mt-5 flex list-none flex-wrap items-center gap-x-4 gap-y-3 p-0">
                                 {SOCIAL.map(({ label, href, Icon }) => (
                                     <li key={label}>
                                         <a
@@ -173,6 +181,15 @@ export default function Footer() {
                                         </a>
                                     </li>
                                 ))}
+                                <li>
+                                    <a
+                                        href="tel:+6583467679"
+                                        aria-label="Call +65 8346 7679"
+                                        className="inline-flex items-center gap-2 text-[14px] leading-none text-white/75 no-underline transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white"
+                                    >
+                                        <PhoneIcon className="h-[18px] w-[18px]" />
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 

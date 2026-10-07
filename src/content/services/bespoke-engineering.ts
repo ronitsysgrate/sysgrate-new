@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, process, service, solve, stories, talk } from "./links";
+import { close, process, service, solve, stories, talk, ai } from "./links";
 
 export const bespokeEngineering: Service = {
     slug: "bespoke-engineering",
@@ -263,7 +263,7 @@ export const bespokeEngineering: Service = {
         title: "Have something specific in mind?",
         body: "Whether you have a detailed specification or just an idea of what your business needs — our engineering team will scope the requirement, recommend the right approach, and give you a clear delivery plan before any development begins.",
         primaryCta: { label: "Tell us what you want to build", href: talk },
-        secondaryCta: { label: "Explore Nexus", href: "#nexus" },
+        secondaryCta: { label: "Explore AI Hub", href: ai },
         tertiaryCta: { label: "See client stories", href: stories },
     },
 };

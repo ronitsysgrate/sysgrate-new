@@ -5,6 +5,7 @@ export const solve = "/#solve";
 export const stories = "/case-studies";
 export const talk = "/#talk-to-us";
 export const engage = "/#engage";
+export const ai = "/ai";
 
 export function service(slug: string) {
     if (slug === "strategy-advisory") return "/services";
