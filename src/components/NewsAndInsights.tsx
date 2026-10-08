@@ -12,6 +12,7 @@ import {
   Calendar,
   LucideIcon,
 } from "lucide-react";
+import { connected } from "@/content/links";
 
 type InsightCategory = "All" | "Blogs" | "Whitepapers" | "Stories" | "News" | "Webinars";
 
@@ -133,8 +134,6 @@ const INSIGHTS: InsightItem[] = [
 
 export default function NewsAndInsights() {
   const [activeCategory, setActiveCategory] = useState<InsightCategory>("All");
-  const [subscribed, setSubscribed] = useState(false);
-  const [email, setEmail] = useState("");
 
   const filteredInsights =
     activeCategory === "All"
@@ -143,13 +142,6 @@ export default function NewsAndInsights() {
 
   const featured = filteredInsights.find((item) => item.featured) ?? filteredInsights[0];
   const secondary = filteredInsights.filter((item) => item.id !== featured?.id);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes("@")) return;
-    setSubscribed(true);
-    setEmail("");
-  };
 
   return (
     <section id="insights" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
@@ -337,7 +329,7 @@ export default function NewsAndInsights() {
       >
         <div className="flex flex-col gap-1.5 text-center md:text-left max-w-[560px]">
           <span className="text-xs font-semibold uppercase tracking-[0.06em] text-text-secondary">
-            Stay Ahead
+            Connect with our monthly LinkedIn Newsletter
           </span>
           <h4 className="text-lg sm:text-xl font-medium text-ink-800 m-0">
             Get our monthly enterprise technology brief.
@@ -347,35 +339,17 @@ export default function NewsAndInsights() {
           </p>
         </div>
 
-        {subscribed ? (
-          <div className="px-5 py-3 rounded-full bg-[#E4D8F3]/70 border border-[#7B5AA6]/30 text-surface-inverse text-xs font-medium flex items-center gap-2">
-            <span className="w-5 h-5 rounded-full bg-[#7B5AA6] text-white flex items-center justify-center text-[10px] font-bold">
-              ✓
-            </span>
-            <span>You&apos;re subscribed to the Sysgrate Insights Brief.</span>
-          </div>
-        ) : (
-          <form
-            onSubmit={handleSubscribe}
-            className="flex items-center gap-2 p-1.5 pl-4 bg-white/95 backdrop-blur-md border border-white/85 rounded-full shadow-chip focus-within:shadow-pill focus-within:border-[#7B5AA6]/40 w-full sm:w-auto max-w-[420px]"
-          >
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@company.com"
-              className="border-0 bg-transparent outline-none text-xs sm:text-sm text-ink-800 placeholder:text-ink-300 flex-1 min-w-0 py-1.5"
-              aria-label="Email for newsletter subscription"
-            />
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center h-9 px-4.5 rounded-full bg-surface-inverse text-white text-xs font-medium hover:bg-[#3E3A97] transition-all cursor-pointer shrink-0"
-            >
-              Subscribe
-            </button>
-          </form>
-        )}
+        <a
+          href={connected}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group shrink-0"
+        >
+          <span>Read Connected</span>
+          <span className="w-8 h-8 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-2 text-sm font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+            ↗
+          </span>
+        </a>
       </div>
     </section>
   );

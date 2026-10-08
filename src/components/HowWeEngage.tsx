@@ -1,6 +1,6 @@
 import React from "react";
 import { services } from "@/content/services";
-import { service as serviceHref } from "@/content/services/links";
+import { service as serviceHref } from "@/content/links";
 import { EngagementCard } from "@/components/services/EngagementCard";
 
 export default function HowWeEngage() {

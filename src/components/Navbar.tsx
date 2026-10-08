@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import { services } from "@/content/services";
-import { service as serviceHref } from "@/content/services/links";
+import { service as serviceHref } from "@/content/links";
 
 type NavChild = { href: string; label: string };
 

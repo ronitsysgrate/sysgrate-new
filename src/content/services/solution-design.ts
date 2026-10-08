@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, process, service, solve, stories, talk } from "./links";
+import { close, process, service, solve, stories, talk } from "../links";
 
 export const solutionDesign: Service = {
     slug: "solution-design-delivery",

@@ -35,7 +35,7 @@ export default function Home() {
             {/* News & Insights — Whitepapers, Blogs, Stories, Webinars & News */}
             <NewsAndInsights />
 
-            {/* Credentials — Certified. Experienced. Proven. */}
+            {/* Credentials — Partner awards */}
             <Credentials />
 
             {/* Talk to Us — Direct CTA: Book a Call or Fill Out a Form */}

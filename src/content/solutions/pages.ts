@@ -1,3 +1,5 @@
+import { ai, case_studies, client_stories, contact, platforms } from "../links";
+
 export type Stat = { value: string; label: string; source?: string };
 export type Offering = { title: string; body: string };
 export type Story = { sector?: string; title: string; body: string };
@@ -29,11 +31,12 @@ export type SolutionPage = {
     platforms: string[];
     stories: Story[];
     closeLinks: LinkItem[];
-    roomNote?: { title: string; body: string };
+    roomNote?: {
+        title: string;
+        body: string;
+        image: { src: string; alt: string };
+    };
 };
-
-const contact = "/contact";
-const stories = "/case-studies";
 
 export const SOLUTION_PAGES: SolutionPage[] = [
     {
@@ -97,7 +100,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         midCtas: [
             { label: "Talk to a CX specialist", href: contact },
-            { label: "See client stories", href: '/#case-studies' },
+            { label: "See client stories", href: case_studies },
         ],
         platformsEyebrow: "Platforms",
         platformsTitle: "Platform-agnostic. Best-in-class.",
@@ -120,8 +123,8 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         closeLinks: [
             { label: "Elevate your CX", href: contact },
-            { label: "See all client stories", href: "/#case-studies" },
-            { label: "Explore AI Hub", href: "#platforms" },
+            { label: "See all client stories", href: case_studies },
+            { label: "Explore AI Hub", href: ai },
         ],
     },
     {
@@ -183,7 +186,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         midCtas: [
             { label: "Talk to a UC specialist", href: contact },
-            { label: "View platform details", href: "#platforms" },
+            { label: "View platform details", href: platforms },
         ],
         platformsEyebrow: "Platforms we work with",
         platformsTitle: "Best-in-class platforms. Delivered by certified specialists.",
@@ -214,9 +217,9 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             },
         ],
         closeLinks: [
-            { label: "See the platform in action", href: "#platforms" },
-            { label: "See all client stories", href: "/#case-studies" },
-            { label: "Explore AI hub", href: "#platforms" },
+            { label: "See the platform in action", href: platforms },
+            { label: "See all client stories", href: case_studies},
+            { label: "Explore AI hub", href: ai },
         ],
     },
     {
@@ -242,6 +245,10 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         roomNote: {
             title: "Every room reflects how your business works",
             body: "A boardroom that impresses. A meeting room that connects every participant, in every location, without friction. A command centre where decisions happen faster. We build all three — and everything in between — with AV infrastructure that your teams will never notice because it just works.",
+            image: {
+                src: "/practice-areas/modern-workplace.jpg",
+                alt: "Boardroom presentation in an integrated meeting space",
+            },
         },
         solveEyebrow: "What we deliver",
         solveTitle: "From boardroom to building — we integrate it all.",
@@ -280,7 +287,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         midCtas: [
             { label: "Talk to an AV specialist", href: contact },
-            { label: "View our projects", href: "#client-stories" },
+            { label: "View our projects", href: client_stories },
         ],
         platformsEyebrow: "Platforms",
         platformsTitle: "Best-in-class hardware. Best-in-class integration.",
@@ -318,8 +325,8 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         ],
         closeLinks: [
             { label: "Discuss your AV requirement", href: contact },
-            { label: "See all client stories", href: "/#case-studies" },
-            { label: "Explore AI hub", href: "#platforms" },
+            { label: "See all client stories", href: case_studies },
+            { label: "Explore AI hub", href: platforms },
         ],
     },
 ];

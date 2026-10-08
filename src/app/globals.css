@@ -459,6 +459,60 @@ body {
     animation: sg-marquee 52s linear infinite;
 }
 
+.sg-marquee-seamless {
+    gap: 0;
+}
+
+.sg-marquee-group {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.sg-marquee-unit {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 12px;
+    flex-shrink: 0;
+}
+
+.sg-practice-track {
+    display: flex;
+    width: max-content;
+    animation: sg-marquee 44s linear infinite;
+    will-change: transform;
+}
+
+.sg-offering-rail:hover .sg-practice-track,
+.sg-offering-rail:focus-within .sg-practice-track {
+    animation-play-state: paused;
+}
+
+.sg-offering-unit {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+    padding-right: 18px;
+    flex-shrink: 0;
+}
+
+.sg-offering-card {
+    flex: 0 0 min(320px, 78vw);
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 32px;
+    box-shadow: var(--shadow-card);
+    transition:
+        transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.sg-offering-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lift);
+}
+
 .sg-marquee:hover .sg-marquee-track {
     animation-play-state: paused;
 }
@@ -575,6 +629,47 @@ body {
     animation: room-sign 4.8s ease-in-out infinite;
 }
 
+.sg-stat-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+.sg-stat-fill {
+    opacity: 0;
+}
+
+[data-reveal="rise"].is-in .sg-stat-line {
+    animation: sg-stat-draw 1.35s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s forwards;
+}
+
+[data-reveal="rise"].is-in .sg-stat-fill {
+    animation: sg-stat-fill 1.1s ease 0.35s forwards;
+}
+
+@keyframes sg-stat-draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes sg-stat-fill {
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-stat-line {
+        animation: none;
+        stroke-dashoffset: 0;
+    }
+
+    .sg-stat-fill {
+        animation: none;
+        opacity: 1;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .room-glow,
     .room-sign {
@@ -583,18 +678,23 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .sg-marquee-track {
+    .sg-marquee-track,
+    .sg-practice-track {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
-    }
-
-    .sg-marquee-track {
         flex-wrap: wrap;
         width: auto;
     }
 
     .sg-marquee-clone {
         display: none !important;
+    }
+
+    .sg-marquee-group,
+    .sg-marquee-unit,
+    .sg-offering-unit {
+        flex-wrap: wrap;
+        padding-right: 0;
     }
 }

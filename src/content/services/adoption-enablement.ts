@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, engage, process, service, solve, talk } from "./links";
+import { close, engage, process, service, solve, talk } from "../links";
 
 export const adoptionEnablement: Service = {
     slug: "adoption-enablement",

@@ -471,27 +471,28 @@ export default function InquiryModal({
                     </button>
                 </div>
 
-                <div data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-4">
-                    {submitted ? (
-                        <div className="flex flex-col gap-2 py-3">
-                            <h3 className="text-sm font-medium text-ink-800 m-0">
-                                {scheduleUrl ? "Opening the scheduler." : "Message sent, we'll get back to you."}
-                            </h3>
-                            <p className="text-xs text-text-secondary leading-relaxed m-0">
-                                {scheduleUrl
-                                    ? "Your answers are attached to the booking page so the specialist has them before the call."
-                                    : `Your email app should have opened with this message addressed to ${SALES_EMAIL}. Send it from there and the right specialist will pick it up.`}
-                            </p>
-                            <button
-                                type="button"
-                                onClick={onClose}
-                                className="mt-1 text-xs font-medium text-link hover:text-link-hover w-fit cursor-pointer"
-                            >
-                                Close
-                            </button>
-                        </div>
-                    ) : (
-                        <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
+                {submitted ? (
+                    <div className="flex flex-col gap-2 px-4 pb-4">
+                        <h3 className="text-sm font-medium text-ink-800 m-0">
+                            {scheduleUrl ? "Opening the scheduler." : "Message sent, we'll get back to you."}
+                        </h3>
+                        <p className="text-xs text-text-secondary leading-relaxed m-0">
+                            {scheduleUrl
+                                ? "Your answers are attached to the booking page so the specialist has them before the call."
+                                : `Your email app should have opened with this message addressed to ${SALES_EMAIL}. Send it from there and the right specialist will pick it up.`}
+                        </p>
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="mt-1 text-xs font-medium text-link hover:text-link-hover w-fit cursor-pointer"
+                        >
+                            Close
+                        </button>
+                    </div>
+                ) : (
+                    <form onSubmit={onSubmit} noValidate className="flex min-h-0 flex-1 flex-col">
+                        <div data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-3">
+                            <div className="flex flex-col gap-4">
                             {sections.map((section) => (
                                 <fieldset key={section.title} className="m-0 p-0 border-0 flex flex-col gap-2.5">
                                     <legend className="text-[10px] font-medium tracking-[0.08em] uppercase text-text-secondary/70 mb-0.5">
@@ -548,15 +549,18 @@ export default function InquiryModal({
                                     ))}
                                 </fieldset>
                             ))}
+                            </div>
+                        </div>
+                        <div className="shrink-0 border-t border-hairline px-4 py-3">
                             <button
                                 type="submit"
                                 className="inline-flex items-center justify-center h-9 px-5 rounded-full bg-surface-inverse text-white text-xs font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all w-fit cursor-pointer"
                             >
                                 {submitLabel}
                             </button>
-                        </form>
-                    )}
-                </div>
+                        </div>
+                    </form>
+                )}
             </div>
         </div>,
         document.body,
