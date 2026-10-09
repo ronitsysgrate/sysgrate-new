@@ -10,7 +10,8 @@ import InquiryModal from "@/components/inquiry/InquiryModal";
 import { CX_CONSULTATION_INQUIRY, CX_SPECIALIST_INQUIRY } from "@/components/inquiry/cxConsultation";
 import { UC_ASSESSMENT_INQUIRY } from "@/components/inquiry/ucAssessment";
 import { UcRepairGraphic } from "@/components/solutions/UcRepairGraphic";
-import { WORKPLACE_OFFERING_ICONS, WorkplaceRoom } from "@/components/solutions/WorkplaceRooms";
+import { WORKPLACE_OFFERING_ICONS } from "@/components/solutions/WorkplaceRooms";
+import { WorkplaceDeliver } from "@/components/solutions/WorkplaceDeliver";
 
 function CountValue({ value }: { value: string }) {
     const match = value.match(/^(\D*?)(\d+(?:\.\d+)?)(.*)$/);
@@ -279,10 +280,8 @@ function PlatformMarquee({ names, reverse }: { names: string[]; reverse?: boolea
 
 function OfferingMarquee({
     offerings,
-    showRoom,
 }: {
     offerings: SolutionPage["offerings"];
-    showRoom: boolean;
 }) {
     const viewportRef = useRef<HTMLDivElement>(null);
     const unitRef = useRef<HTMLDivElement>(null);
@@ -336,7 +335,6 @@ function OfferingMarquee({
                                         key={`${copy}-${loop}-${item.title}`}
                                         item={item}
                                         index={index}
-                                        showRoom={showRoom}
                                         clone={copy === 1}
                                     />
                                 ))}
@@ -361,29 +359,24 @@ const OFFERING_TONES = [
 function OfferingCard({
     item,
     index,
-    showRoom,
     clone,
 }: {
     item: SolutionPage["offerings"][number];
     index: number;
-    showRoom: boolean;
     clone: boolean;
 }) {
     const Icon = CX_OFFERING_ICONS[item.title] ?? UC_OFFERING_ICONS[item.title] ?? WORKPLACE_OFFERING_ICONS[item.title];
     const tone = OFFERING_TONES[index % OFFERING_TONES.length];
 
     return (
-        <article className={`sg-offering-card bg-linear-to-br ${tone} ${showRoom ? "overflow-hidden" : ""}`}>
-            {showRoom ? <WorkplaceRoom title={item.title} /> : null}
-            <div className={`flex flex-col flex-1 gap-3.5 ${showRoom ? "p-7" : "p-7"}`}>
+        <article className={`sg-offering-card bg-linear-to-br ${tone}`}>
+            <div className="flex flex-col flex-1 gap-3.5 p-7">
                 <span className="text-[11px] font-semibold tracking-[0.08em] uppercase text-ink-300">
                     {String(index + 1).padStart(2, "0")}
                 </span>
-                {!showRoom ? (
-                    <span className="w-11 h-11 rounded-2xl bg-white/80 border border-hairline inline-flex items-center justify-center text-link">
-                        <Icon size={18} strokeWidth={2} aria-hidden="true" />
-                    </span>
-                ) : null}
+                <span className="w-11 h-11 rounded-2xl bg-white/80 border border-hairline inline-flex items-center justify-center text-link">
+                    <Icon size={18} strokeWidth={2} aria-hidden="true" />
+                </span>
                 <h3 className="text-[18px] font-medium text-ink-800 m-0 leading-snug">{item.title}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed m-0 flex-1">{item.body}</p>
                 <Link href="/contact" className="text-sm font-medium text-link hover:text-link-hover" tabIndex={clone ? -1 : undefined}>
@@ -743,9 +736,13 @@ export function PracticePage({ page }: { page: SolutionPage }) {
                         <p className="text-[18px] leading-[1.6] text-text-secondary m-0">{page.deliverIntro}</p>
                     </div>
                 </div>
-                <div data-reveal="rise" data-delay="1" className="mt-10">
-                    <OfferingMarquee offerings={page.offerings} showRoom={page.slug === "modern-workplace"} />
-                </div>
+                {page.slug === "modern-workplace" ? (
+                    <WorkplaceDeliver offerings={page.offerings} />
+                ) : (
+                    <div data-reveal="rise" data-delay="1" className="mt-10">
+                        <OfferingMarquee offerings={page.offerings} />
+                    </div>
+                )}
                 <div className="sg-container flex flex-wrap gap-3 mt-8">
                     {page.midCtas.map((cta, index) => (
                         <Pill

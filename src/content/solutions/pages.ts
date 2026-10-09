@@ -1,7 +1,11 @@
-import { ai, case_studies, client_stories, contact, platforms } from "../links";
+import { ai, case_studies, client_stories, contact, platforms, stories } from "../links";
 
 export type Stat = { value: string; label: string; source?: string };
-export type Offering = { title: string; body: string };
+export type Offering = {
+    title: string;
+    body: string;
+    image?: { src: string; alt: string };
+};
 export type Story = { sector?: string; title: string; body: string };
 export type LinkItem = { label: string; href: string };
 
@@ -263,31 +267,55 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             {
                 title: "Boardrooms & Executive Suites",
                 body: "High-impact AV environments for leadership meetings, investor presentations, and client engagements — with premium displays, intelligent audio, and one-touch video conferencing built in from day one.",
+                image: {
+                    src: "/practice-areas/rooms/boardroom.jpg",
+                    alt: "Executive boardroom with integrated display and conferencing",
+                },
             },
             {
                 title: "Hybrid Meeting Rooms",
                 body: "Intelligently designed collaboration spaces where remote and in-room participants are equal — with pro-grade PTZ cameras, beam-forming microphones, and platform-agnostic one-touch join for Zoom, Teams, and beyond.",
+                image: {
+                    src: "/practice-areas/rooms/hybrid.jpg",
+                    alt: "Hybrid meeting room connecting in-room and remote participants",
+                },
             },
             {
                 title: "Video Walls & Large Format Displays",
                 body: "LED video walls, LCD display arrays, and large-format screens for lobbies, operations floors, trading rooms, and public-facing environments — designed for 24/7 reliability and maximum visual impact.",
+                image: {
+                    src: "/practice-areas/rooms/video-wall.jpg",
+                    alt: "Large-format LED video wall in a workplace environment",
+                },
             },
             {
                 title: "Command & Operations Centres",
                 body: "Mission-critical AV environments for NOCs, SOCs, and operations floors — with multi-source video switching, redundant display infrastructure, and control room automation built for continuous operation.",
+                image: {
+                    src: "/practice-areas/rooms/command.jpg",
+                    alt: "Operations centre with multi-source displays and control consoles",
+                },
             },
             {
                 title: "Digital Signage",
                 body: "Dynamic, content-managed digital signage for internal communications, wayfinding, lobby displays, and brand environments — cloud-managed, scalable, and integrated with your workplace platforms.",
+                image: {
+                    src: "/practice-areas/rooms/signage.jpg",
+                    alt: "Digital signage in a workplace lobby",
+                },
             },
             {
                 title: "Training Rooms & Auditoriums",
                 body: "Purpose-built AV for learning and large-format presentation environments — with interactive displays, lecture capture, distributed audio, and live streaming capability for hybrid and in-person audiences.",
+                image: {
+                    src: "/practice-areas/rooms/auditorium.jpg",
+                    alt: "Training auditorium with large-format presentation display",
+                },
             },
         ],
         midCtas: [
             { label: "Talk to an AV specialist", href: contact },
-            { label: "View our projects", href: client_stories },
+            { label: "View our projects", href: stories },
         ],
         platformsEyebrow: "Platforms",
         platformsTitle: "Best-in-class hardware. Best-in-class integration.",
@@ -326,7 +354,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         closeLinks: [
             { label: "Discuss your AV requirement", href: contact },
             { label: "See all client stories", href: case_studies },
-            { label: "Explore AI hub", href: platforms },
+            { label: "Explore AI hub", href: ai },
         ],
     },
 ];

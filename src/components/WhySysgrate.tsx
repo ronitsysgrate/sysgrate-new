@@ -120,9 +120,6 @@ export default function WhySysgrate() {
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
               Why Sysgrate
             </span>
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-paper-card border border-hairline text-xs font-semibold text-[#7B5AA6]">
-              Differentiator over large SIs
-            </span>
           </div>
 
           <h2 className="text-[clamp(26px,3.2vw,48px)] font-normal leading-[1.15] tracking-[-0.02em] text-ink-800 m-0">
