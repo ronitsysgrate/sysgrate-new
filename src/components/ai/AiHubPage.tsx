@@ -208,26 +208,6 @@ function LiveChat({
     );
 }
 
-function OrbitalCore() {
-    return (
-        <div className="ai-orbital" aria-hidden="true">
-            <div className="ai-ring" />
-            <div className="ai-ring ai-ring-b" />
-            <div className="ai-ring ai-ring-c" />
-            <div className="ai-spin">
-                <span className="ai-node" style={{ top: "6%", left: "48%" }} />
-                <span className="ai-node ai-node-violet" style={{ top: "68%", left: "88%" }} />
-            </div>
-            <div className="ai-spin ai-spin-slow">
-                <span className="ai-node" style={{ top: "18%", left: "8%" }} />
-                <span className="ai-node ai-node-violet" style={{ top: "78%", left: "22%" }} />
-                <span className="ai-node" style={{ top: "40%", left: "92%" }} />
-            </div>
-            <div className="ai-core" />
-        </div>
-    );
-}
-
 function SectionRail() {
     const [active, setActive] = useState<string | null>(null);
 
@@ -511,8 +491,6 @@ function StorySection({
 }
 
 export default function AiHubPage() {
-    const heroRef = useRef<HTMLElement>(null);
-
     useEffect(() => {
         const previous = document.body.style.background;
         document.body.style.background = "#070b18";
@@ -547,7 +525,6 @@ export default function AiHubPage() {
 
     useEffect(() => {
         const root = document.querySelector<HTMLElement>(".ai-world");
-        const hero = heroRef.current;
         if (!root) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -564,13 +541,6 @@ export default function AiHubPage() {
                 card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
                 card.style.setProperty("--my", `${event.clientY - rect.top}px`);
             }
-
-            if (!hero) return;
-            const rect = hero.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            hero.style.setProperty("--px", `${(x / rect.width - 0.5) * 18}px`);
-            hero.style.setProperty("--py", `${(y / rect.height - 0.5) * 14}px`);
         };
         const onLeave = () => {
             root.classList.remove("is-card");
@@ -600,7 +570,7 @@ export default function AiHubPage() {
                 <div className="ai-cursor" aria-hidden="true" />
                 <SectionRail />
 
-                <section ref={heroRef} className="ai-hero sg-container pt-[clamp(120px,16vw,168px)]">
+                <section className="ai-hero sg-container pt-[clamp(120px,16vw,168px)]">
                     <div className="relative grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] items-center gap-[clamp(28px,5vw,64px)]">
                         <div className="flex flex-col items-start gap-5">
                             <Reveal kind="ai-item" className="ai-eyebrow">
@@ -618,7 +588,6 @@ export default function AiHubPage() {
                             </div>
                         </div>
                         <div className="ai-hero-visual">
-                            <OrbitalCore />
                             <LiveChat title="Contact centre assistant" status="Live" exchanges={REPORTING_CHAT} />
                         </div>
                     </div>

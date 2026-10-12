@@ -277,6 +277,50 @@ body {
     }
 }
 
+@keyframes sg-signal-die {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    36% {
+        left: 40%;
+        opacity: 1;
+    }
+    50% {
+        left: 46%;
+        opacity: 0;
+    }
+    100% {
+        left: 46%;
+        opacity: 0;
+    }
+}
+
+@keyframes sg-signal-die-y {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    36% {
+        top: 40%;
+        opacity: 1;
+    }
+    50% {
+        top: 46%;
+        opacity: 0;
+    }
+    100% {
+        top: 46%;
+        opacity: 0;
+    }
+}
+
 @keyframes sg-packet {
     0% {
         left: 0;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { Activity, Bot, Brain, Cable, Compass, Headphones, PenTool, Phone, Sparkles, Video, type LucideIcon } from "lucide-react";
 import { CallbackForm } from "@/components/CallbackForm";
@@ -498,6 +498,207 @@ function IntegrationMap() {
     );
 }
 
+function slideOffset(raw: number) {
+    const last = PRODUCTS.length - 1;
+    if (raw >= last) return last;
+    const index = Math.floor(raw);
+    const frac = raw - index;
+    const start = 0.62;
+    if (frac < start) return index;
+    const t = (frac - start) / (1 - start);
+    const eased = t * t * (3 - 2 * t);
+    return index + eased;
+}
+
+function frameStyle(delta: number): CSSProperties {
+    if (delta <= -1) {
+        return { transform: "translate3d(-24%, 0, 0) scale(0.92)", opacity: 0, zIndex: 0, pointerEvents: "none" };
+    }
+    if (delta >= 1) {
+        return { transform: "translate3d(104%, 0, 0) scale(1.04)", opacity: 1, zIndex: 2, pointerEvents: "none" };
+    }
+    const leave = Math.max(0, -delta);
+    const enter = Math.max(0, delta);
+    const x = enter * 104 - leave * 24;
+    const scale = 1.04 * enter + (1 - leave * 0.08) * (1 - enter);
+    const opacity = leave === 0 ? 1 : 1 - Math.max(0, (leave - 0.28) / 0.72);
+    return {
+        transform: `translate3d(${x}%, 0, 0) scale(${scale})`,
+        opacity,
+        zIndex: enter > 0.01 ? 3 : 1,
+        pointerEvents: Math.abs(delta) > 0.55 ? "none" : "auto",
+        boxShadow: enter > 0.02 ? "-32px 0 48px rgba(20, 20, 20, 0.14)" : undefined,
+    };
+}
+
+function ProductCard({ item, delta = 0, pinned = false }: { item: Product; delta?: number; pinned?: boolean }) {
+    const Icon = item.icon;
+    const leave = Math.min(1, Math.max(0, -delta));
+    const enter = Math.min(1, Math.max(0, delta));
+    return (
+        <article
+            className={
+                pinned
+                    ? "grid h-full grid-rows-[148px_minmax(0,1fr)] lg:grid-rows-1 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]"
+                    : "grid grid-cols-1 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]"
+            }
+        >
+            <div className={`relative bg-paper-card overflow-hidden ${pinned ? "min-h-0" : "h-48 lg:min-h-[280px]"}`}>
+                <Image
+                    src={item.image.src}
+                    alt={item.image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 38vw, 100vw"
+                    className="object-cover"
+                    style={{
+                        transform: pinned
+                            ? `translate3d(${enter * -14}%, ${leave * 4}%, 0) scale(${1.12 + leave * 0.08})`
+                            : undefined,
+                    }}
+                />
+            </div>
+            <div
+                className={`p-6 sm:p-8 flex flex-col gap-3 ${pinned ? "min-h-0 overflow-y-auto" : ""}`}
+                style={
+                    pinned
+                        ? {
+                              transform: `translate3d(0, ${enter * 22 - leave * 18}px, 0)`,
+                              opacity: Math.max(0, 1 - leave * 2.4 - enter * 0.85),
+                          }
+                        : undefined
+                }
+            >
+                <span className="w-11 h-11 rounded-2xl bg-paper-muted border border-hairline inline-flex items-center justify-center text-link">
+                    <Icon size={18} strokeWidth={2} aria-hidden="true" />
+                </span>
+                <h3 className="text-[clamp(22px,2.4vw,32px)] font-medium text-ink-800 m-0 leading-tight">{item.title}</h3>
+                <p className="text-sm font-medium text-ink-800 m-0">{item.lede}</p>
+                <p className="text-sm text-text-secondary leading-relaxed m-0">{item.body}</p>
+                <ul className="m-0 mt-1 p-0 list-none grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2">
+                    {item.points.map((point) => (
+                        <li key={point} className="flex gap-3 text-sm leading-relaxed text-ink-800">
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-link shrink-0" />
+                            <span>{point}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </article>
+    );
+}
+
+function ProductSuite() {
+    const trackRef = useRef<HTMLDivElement>(null);
+    const [offset, setOffset] = useState(0);
+    const [reduced, setReduced] = useState(false);
+    const active = Math.min(PRODUCTS.length - 1, Math.max(0, Math.round(offset)));
+
+    useEffect(() => {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce) {
+            setReduced(true);
+            return;
+        }
+
+        let frame = 0;
+        const update = () => {
+            frame = 0;
+            const track = trackRef.current;
+            if (!track) return;
+            const rect = track.getBoundingClientRect();
+            const scrollable = Math.max(rect.height - window.innerHeight, 1);
+            const next = Math.min(1, Math.max(0, -rect.top / scrollable));
+            setOffset(slideOffset(next * (PRODUCTS.length - 1)));
+        };
+        const onScroll = () => {
+            if (!frame) frame = requestAnimationFrame(update);
+        };
+
+        update();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        return () => {
+            if (frame) cancelAnimationFrame(frame);
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
+        };
+    }, []);
+
+    const focus = (index: number) => {
+        const track = trackRef.current;
+        if (!track || reduced) {
+            setOffset(index);
+            return;
+        }
+        const rect = track.getBoundingClientRect();
+        const scrollable = Math.max(track.offsetHeight - window.innerHeight, 1);
+        const top = window.scrollY + rect.top + (index / (PRODUCTS.length - 1)) * scrollable;
+        window.scrollTo({ top, behavior: "smooth" });
+    };
+
+    const tabs = (
+        <div className="flex flex-col gap-4 mb-4">
+            <div className="flex items-end justify-between gap-4">
+                <div role="tablist" aria-label="Zoom products" className="flex flex-wrap gap-2">
+                    {PRODUCTS.map((item, index) => {
+                        const selected = index === active;
+                        return (
+                            <button
+                                key={item.title}
+                                type="button"
+                                role="tab"
+                                aria-selected={selected}
+                                onClick={() => focus(index)}
+                                className={`rounded-full border px-3.5 py-1.5 text-sm cursor-pointer transition-colors ${
+                                    selected ? "border-link bg-link text-white" : "border-hairline bg-paper text-ink-800 hover:border-link/40"
+                                }`}
+                            >
+                                {item.title.replace(/^Zoom\s/, "")}
+                            </button>
+                        );
+                    })}
+                </div>
+                <span className="hidden sm:block shrink-0 font-mono text-xs tracking-[0.08em] text-ink-300">
+                    {String(active + 1).padStart(2, "0")} / {String(PRODUCTS.length).padStart(2, "0")}
+                </span>
+            </div>
+            <div aria-hidden="true" className="h-0.5 rounded-full bg-hairline overflow-hidden">
+                <div
+                    className="h-full w-full origin-left bg-link"
+                    style={{ transform: `scaleX(${(offset + 1) / PRODUCTS.length})` }}
+                />
+            </div>
+        </div>
+    );
+
+    if (reduced) {
+        return (
+            <div className="mt-10 flex flex-col gap-5">
+                {PRODUCTS.map((item, index) => (
+                    <div key={item.title} className="overflow-hidden rounded-panel border border-hairline bg-paper shadow-chip">
+                        <ProductCard item={item} />
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
+    return (
+        <div ref={trackRef} className="relative mt-10 h-[280vh] sm:h-[340vh]">
+            <div className="sticky top-24 lg:top-28">
+                {tabs}
+                <div className="relative overflow-hidden rounded-panel border border-hairline bg-paper shadow-chip h-[min(520px,calc(100svh-11.5rem))]">
+                    {PRODUCTS.map((item, index) => (
+                        <div key={item.title} aria-hidden={index !== active} className="absolute inset-0 bg-paper" style={frameStyle(index - offset)}>
+                            <ProductCard item={item} delta={index - offset} pinned />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function Eyebrow({ children }: { children: string }) {
     return (
         <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
@@ -622,34 +823,7 @@ export function ZoomPage() {
                         Contact centre, AI virtual agents, enterprise phone, and workplace collaboration — a complete suite of products that share AI, analytics, and a common interface, reducing the complexity of running multiple platforms across your organisation.
                     </p>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-10">
-                    {PRODUCTS.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                            <article key={item.title} data-reveal="rise" className="rounded-card border border-hairline bg-paper overflow-hidden flex flex-col">
-                                <div className="relative h-44 bg-paper-card">
-                                    <Image src={item.image.src} alt={item.image.alt} fill sizes="(min-width: 1024px) 46vw, 100vw" className="object-cover" />
-                                </div>
-                                <div className="p-7 flex flex-col gap-3 flex-1">
-                                    <span className="w-11 h-11 rounded-2xl bg-paper-muted border border-hairline inline-flex items-center justify-center text-link">
-                                        <Icon size={18} strokeWidth={2} aria-hidden="true" />
-                                    </span>
-                                    <h3 className="text-[20px] font-medium text-ink-800 m-0 leading-snug">{item.title}</h3>
-                                    <p className="text-sm font-medium text-ink-800 m-0">{item.lede}</p>
-                                    <p className="text-sm text-text-secondary leading-relaxed m-0">{item.body}</p>
-                                    <ul className="m-0 mt-1 p-0 list-none flex flex-col gap-2">
-                                        {item.points.map((point) => (
-                                            <li key={point} className="flex gap-3 text-sm leading-relaxed text-ink-800">
-                                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-link shrink-0" />
-                                                <span>{point}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </article>
-                        );
-                    })}
-                </div>
+                <ProductSuite />
                 <div data-reveal="rise" className="mt-8">
                     <PillCta cta={{ label: "Book a Zoom platform demo", href: "/contact" }} />
                 </div>
