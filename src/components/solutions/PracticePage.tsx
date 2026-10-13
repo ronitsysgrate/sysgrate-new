@@ -75,13 +75,12 @@ function Pill({
 
 const SOLVE_ICONS: LucideIcon[] = [MessagesSquare, Waypoints, Compass, Layers];
 
-function PlatformChip({ name, clone }: { name: string; clone?: boolean }) {
-    const icon = platformIcon(name);
+function PlatformChip({ name, icon, clone }: { name: string; icon?: string; clone?: boolean }) {
     return (
         <div className={`shrink-0 inline-flex items-center gap-3 h-16 pl-3 pr-5 rounded-2xl bg-paper border border-hairline shadow-chip ${clone ? "sg-marquee-clone" : ""}`}>
             <span className="w-10 h-10 rounded-xl bg-paper-muted border border-hairline inline-flex items-center justify-center overflow-hidden shrink-0">
                 {icon ? (
-                    <Image src={icon} alt="" width={24} height={24} className="h-6 w-6 object-contain" />
+                    <Image src={`/logos/${icon}`} alt="" width={24} height={24} className="h-6 w-6 object-contain" />
                 ) : (
                     <span className="text-sm font-semibold text-link">{name.slice(0, 1)}</span>
                 )}
@@ -91,7 +90,13 @@ function PlatformChip({ name, clone }: { name: string; clone?: boolean }) {
     );
 }
 
-function PlatformMarquee({ names, reverse }: { names: string[]; reverse?: boolean }) {
+function PlatformMarquee({
+    items,
+    reverse,
+}: {
+    items: { name: string; icon?: string }[];
+    reverse?: boolean;
+}) {
     const viewportRef = useRef<HTMLDivElement>(null);
     const unitRef = useRef<HTMLDivElement>(null);
     const [count, setCount] = useState(3);
@@ -113,9 +118,9 @@ function PlatformMarquee({ names, reverse }: { names: string[]; reverse?: boolea
         const observer = new ResizeObserver(measure);
         observer.observe(viewport);
         return () => observer.disconnect();
-    }, [names]);
+    }, [items]);
 
-    if (names.length === 0) return null;
+    if (items.length === 0) return null;
 
     const loops = Array.from({ length: count }, (_, index) => index);
 
@@ -137,8 +142,12 @@ function PlatformMarquee({ names, reverse }: { names: string[]; reverse?: boolea
                                 ref={copy === 0 && loop === 0 ? unitRef : undefined}
                                 className="sg-marquee-unit"
                             >
-                                {names.map((name) => (
-                                    <PlatformChip key={`${copy}-${loop}-${name}`} name={name} />
+                                {items.map((item) => (
+                                    <PlatformChip
+                                        key={`${copy}-${loop}-${item.name}`}
+                                        name={item.name}
+                                        icon={item.icon}
+                                    />
                                 ))}
                             </div>
                         ))}
@@ -259,9 +268,13 @@ function OfferingCard({
 }
 
 function PlatformsBand({ page }: { page: SolutionPage }) {
-    const midpoint = Math.ceil(page.platforms.length / 2);
-    const firstRow = page.platforms.length > 5 ? page.platforms.slice(0, midpoint) : page.platforms;
-    const secondRow = page.platforms.length > 5 ? page.platforms.slice(midpoint) : [];
+    const items = page.platforms.map((name, index) => ({
+        name,
+        icon: page.platforms_images[index],
+    }));
+    const midpoint = Math.ceil(items.length / 2);
+    const firstRow = items.length > 5 ? items.slice(0, midpoint) : items;
+    const secondRow = items.length > 5 ? items.slice(midpoint) : [];
 
     return (
         <section id="platforms" className="pt-[clamp(64px,10vw,120px)] scroll-mt-32">
@@ -286,8 +299,8 @@ function PlatformsBand({ page }: { page: SolutionPage }) {
                 <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 z-10 bg-linear-to-r from-[#F5F2FC] to-transparent" />
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 z-10 bg-linear-to-l from-[#E6E0F4] to-transparent" />
                 <div className="flex flex-col gap-3 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
-                    <PlatformMarquee names={firstRow} />
-                    <PlatformMarquee names={secondRow} reverse />
+                    <PlatformMarquee items={firstRow} />
+                    <PlatformMarquee items={secondRow} reverse />
                 </div>
             </div>
 
@@ -296,20 +309,6 @@ function PlatformsBand({ page }: { page: SolutionPage }) {
             </div>
         </section>
     );
-}
-
-function platformIcon(name: string) {
-    const rules: [RegExp, string][] = [
-        [/amazon connect|aws|lex|bedrock/i, "/partners/aws-mark.svg"],
-        [/avaya/i, "/partners/avaya.png"],
-        [/zoom/i, "/partners/zoom.png"],
-        [/zendesk/i, "/partners/zendesk.webp"],
-        [/salesforce/i, "/partners/salesforce.svg"],
-        [/teams/i, "/partners/teams.png"],
-        [/poly/i, "/partners/poly.png"],
-        [/cisco|webex/i, "/partners/cisco.png"],
-    ];
-    return rules.find(([pattern]) => pattern.test(name))?.[1];
 }
 
 const CX_OFFERING_ICONS: Record<string, LucideIcon> = {

@@ -33,6 +33,7 @@ export type SolutionPage = {
     platformsTitle: string;
     platformsIntro: string;
     platforms: string[];
+    platforms_images: string[];
     stories: Story[];
     closeLinks: LinkItem[];
     roomNote?: {
@@ -70,7 +71,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             "Your customers move across channels without thinking—your contact centre needs to keep up.",
             "We help you create a seamless, omnichannel experience by connecting systems, streamlining workflows, and enabling faster resolutions.",
             "With deep experience across cloud and CX technologies, we guide you in choosing and implementing the right approach for your business.",
-            "Whether you’re transforming your contact centre or enhancing what you already have, we help you make it work—efficiently and at scale.",
+            "Whether you're transforming your contact centre or enhancing what you already have, we help you make it work—efficiently and at scale.",
         ],
         deliverEyebrow: "What we deliver in CX",
         deliverTitle: "Six capabilities. One connected experience.",
@@ -119,6 +120,16 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             "Salesforce Service Cloud",
             "SAP C4C",
             "AWS Lex & Bedrock",
+        ],
+        platforms_images: [
+            "aws-mark.svg",
+            "avaya.png",
+            "zoom.png",
+            "zendesk.webp",
+            "hubspot.png",
+            "salesforce.svg",
+            "sap.png",
+            "aws-mark.svg",
         ],
         stories: [
             { sector: "Automotive", title: "Cycle & Carriage — AWS Connect OBC migration", body: "Read" },
@@ -205,6 +216,16 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             "Poly Devices",
             "AudioCodes SBC",
             "Cisco Webex",
+        ],
+        platforms_images: [
+            "zoom.png",
+            "zoom.png",
+            "teams.png",
+            "ribbon.jpg",
+            "avaya.png",
+            "poly.png",
+            "audiocodes.png",
+            "cisco.png",
         ],
         stories: [
             {
@@ -336,6 +357,22 @@ export const SOLUTION_PAGES: SolutionPage[] = [
             "BrightSign",
             "Jabra",
             "Neat",
+        ],
+        platforms_images: [
+            "poly.png",
+            "crestron.png",
+            "barco.png",
+            "samsung.png",
+            "lg.jpg",
+            "zoom.png",
+            "teams.png",
+            "logitech.png",
+            "yealink.png",
+            "qsc.png",
+            "shure.png",
+            "brightsign.png",
+            "jabra.jpg",
+            "neat.png",
         ],
         stories: [
             {

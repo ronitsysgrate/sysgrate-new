@@ -33,9 +33,8 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
 ];
 
 const LEGAL = [
-    { label: "Privacy Policy", href: "mailto:sales@sysgrate.com?subject=Privacy%20Policy" },
-    { label: "Terms of Service", href: "mailto:sales@sysgrate.com?subject=Terms%20of%20Service" },
-    { label: "Cookies Settings", href: "mailto:sales@sysgrate.com?subject=Cookies%20Settings" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms and Conditions", href: "/terms" },
 ];
 
 type SocialIcon = (props: SVGProps<SVGSVGElement>) => ReactNode;
@@ -58,12 +57,10 @@ function XIcon(props: SVGProps<SVGSVGElement>) {
     );
 }
 
-function InstagramIcon(props: SVGProps<SVGSVGElement>) {
+function FacebookIcon(props: SVGProps<SVGSVGElement>) {
     return (
         <svg {...iconProps} {...props}>
-            <rect x="4" y="4" width="16" height="16" rx="4" />
-            <circle cx="12" cy="12" r="3.5" />
-            <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
+            <path d="M14 8.5h2.2V6h-2.2C11.8 6 10 7.8 10 10v1.5H8v2.5h2V19h2.6v-5H15l.6-2.5h-2.9V10c0-.8.7-1.5 1.3-1.5Z" />
         </svg>
     );
 }
@@ -96,7 +93,11 @@ function PhoneIcon(props: SVGProps<SVGSVGElement>) {
 
 const SOCIAL: { label: string; href: string; Icon: SocialIcon }[] = [
     { label: "X", href: "https://x.com/sysgrate", Icon: XIcon },
-    { label: "Instagram", href: "https://www.instagram.com/sysgrate", Icon: InstagramIcon },
+    {
+        label: "Facebook",
+        href: "https://www.facebook.com/people/Sysgrate-Technologies/100089606004653/",
+        Icon: FacebookIcon,
+    },
     {
         label: "LinkedIn",
         href: "https://www.linkedin.com/company/sysgrate-technologies",
@@ -142,14 +143,7 @@ export default function Footer() {
                 aria-hidden="true"
                 className="pointer-events-none absolute bottom-[-120px] left-[-8%] h-[320px] w-[420px] rounded-full bg-[#3E3A97]/45 blur-3xl"
             />
-            <p
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 bottom-0 z-0 m-0 translate-y-[34%] text-center text-[clamp(108px,22vw,280px)] font-semibold leading-none tracking-[-0.06em] text-[#5c56b8] select-none"
-            >
-                Sysgrate
-            </p>
-
-            <div className="sg-container relative z-10 pt-8 pb-24 sm:pt-12 sm:pb-32">
+            <div className="sg-container relative z-10 pt-8 sm:pt-12">
                 <div className="rounded-[28px] border border-white/10 bg-[#26205A] px-6 py-8 shadow-[0_24px_60px_-28px_rgba(8,6,28,0.55)] sm:rounded-[32px] sm:px-10 sm:py-10 lg:px-12">
                     <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
                         <div className="max-w-[34rem] lg:max-w-[360px]">
@@ -223,6 +217,13 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
+
+            <p
+                aria-hidden="true"
+                className="pointer-events-none relative z-0 m-0 px-[var(--gutter-page)] pb-3 text-center text-[min(16vw,240px)] font-semibold leading-[1.15] tracking-[-0.06em] text-[#5c56b8] select-none"
+            >
+                Sysgrate
+            </p>
         </footer>
     );
 }
