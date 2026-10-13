@@ -102,7 +102,7 @@ export function EngagementCard({
                         active ? "text-white/80" : "text-text-secondary/70 group-hover:text-link"
                     }`}
                 >
-                    {active ? "Current service" : "Learn engagement"}
+                    {active ? "Current service" : "Learn more"}
                 </span>
                 <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 ${

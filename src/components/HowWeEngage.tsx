@@ -1,6 +1,6 @@
 import React from "react";
 import { services } from "@/content/services";
-import { service as serviceHref } from "@/content/links";
+import { service as serviceHref, solutions } from "@/content/links";
 import { EngagementCard } from "@/components/services/EngagementCard";
 
 export default function HowWeEngage() {
@@ -42,6 +42,7 @@ export default function HowWeEngage() {
           accentColor="#3E3A97"
           bgTint="#EFEFF9"
           icon="user"
+          href={solutions}
         />
       </div>
 

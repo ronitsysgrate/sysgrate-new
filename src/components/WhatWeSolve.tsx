@@ -25,8 +25,8 @@ const PRACTICE_AREAS: PracticeArea[] = [
     title: "Smarter contact centres. Happier customers. Powered by AI.",
     description:
       "We implement and manage cloud contact centre platforms — Amazon Connect, Avaya, and Zoom Contact Center — integrated with AI virtual agents, omnichannel engagement, and real-time analytics to reduce costs and raise CSAT.",
-    primaryCta: { label: "See CX solutions", href: solutions },
-    secondaryCta: { label: "Book a CX consultation", href: contact },
+    primaryCta: { label: "Explore CX Solutions", href: solutions },
+    secondaryCta: { label: "Book a Consultation", href: contact },
     imageSrc: "/practice-areas/customer-experience.jpg",
     imageAlt: "Contact centre agents working across an AI-assisted platform",
   },
@@ -36,7 +36,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
     title: "Your teams connected. Every call, meeting, and message — seamless.",
     description:
       "We deploy and integrate enterprise collaboration technology — Zoom Phone, Microsoft Teams Direct Routing, and Ribbon SBC — so your workforce stays productive whether they're in the office, on-site, or working remotely.",
-    primaryCta: { label: "See collaboration solutions", href: employee_experience },
+    primaryCta: { label: "Explore collaboration solutions", href: employee_experience },
     secondaryCta: { label: "Book a consultation", href: contact },
     imageSrc: "/practice-areas/employee-experience.jpg",
     imageAlt: "Team collaborating across voice, chat, and video in one workspace",
@@ -55,11 +55,11 @@ const PRACTICE_AREAS: PracticeArea[] = [
 ];
 
 const AI_PRACTICE = {
-  tag: "Artificial Intelligence",
+  tag: "AI Hub",
   title: "AI built into your business — not bolted on top of it.",
   description:
     "From intelligent virtual assistants and AI chatbots to voice bots, conversational analytics, and agentic AI workflows — we design and deploy AI solutions that integrate with your existing platforms and deliver outcomes your business can measure from day one.",
-  primaryCta: { label: "Explore AI solutions", href: ai },
+  primaryCta: { label: "Explore AI Hub", href: ai },
   secondaryCta: { label: "Book an AI readiness assessment", href: contact },
   imageSrc: "/practice-areas/artificial-intelligence.jpg",
   imageAlt: "Conversational AI assistant handling a customer interaction",
@@ -147,46 +147,44 @@ export default function WhatWeSolve() {
         </div>
       </div>
 
-      {/* Artificial Intelligence — standalone gradient stripe */}
-      <div
-        className="mt-[clamp(64px,10vw,120px)] rounded-panel p-8 md:p-10 overflow-hidden relative"
-        style={{ background: "var(--accent-gradient)" }}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] items-center gap-[clamp(28px,5vw,56px)] relative z-1">
-          <div className="flex flex-col items-start gap-4 text-white">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/20 text-white text-xs font-medium tracking-[0.06em] uppercase">
-              {AI_PRACTICE.tag}
-            </span>
-            <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-white m-0 leading-tight">
-              {AI_PRACTICE.title}
-            </h3>
-            <p className="text-[18px] leading-[1.55] text-white/90 m-0">
-              {AI_PRACTICE.description}
-            </p>
-            <div className="flex items-center flex-wrap gap-5 mt-1">
-              <a
-                href={AI_PRACTICE.primaryCta.href}
-                className="text-sm font-medium text-white/90 hover:text-white transition-colors"
-              >
-                {AI_PRACTICE.primaryCta.label} →
-              </a>
-              <button
-                onClick={() => setAssessmentOpen(true)}
-                className="inline-flex items-center justify-center h-13 px-6.5 rounded-full bg-white text-ink-800 shadow-pill hover:bg-paper-muted hover:-translate-y-0.5 transition-all font-medium text-sm cursor-pointer"
-              >
-                <span>{AI_PRACTICE.secondaryCta.label}</span>
-              </button>
-            </div>
-          </div>
+      <div className="mt-[clamp(64px,10vw,120px)] grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] items-center gap-[clamp(28px,5vw,56px)]">
+        <div className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip md:order-first order-last">
+          <Image
+            src={AI_PRACTICE.imageSrc}
+            alt={AI_PRACTICE.imageAlt}
+            fill
+            sizes="(min-width: 768px) 42vw, 100vw"
+            className="object-cover"
+          />
+        </div>
 
-          <div className="relative z-1 w-full aspect-4/3 rounded-panel overflow-hidden bg-white/15 border border-white/25 backdrop-blur-md">
-            <Image
-              src={AI_PRACTICE.imageSrc}
-              alt={AI_PRACTICE.imageAlt}
-              fill
-              sizes="(min-width: 768px) 42vw, 100vw"
-              className="object-cover"
-            />
+        <div className="flex flex-col items-start gap-4">
+          <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
+            {AI_PRACTICE.tag}
+          </span>
+          <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-ink-800 m-0 leading-tight">
+            {AI_PRACTICE.title}
+          </h3>
+          <p className="text-[18px] leading-[1.55] text-text-secondary m-0">
+            {AI_PRACTICE.description}
+          </p>
+          <div className="flex items-center flex-wrap gap-5 mt-1">
+            <a
+              href={AI_PRACTICE.primaryCta.href}
+              className="text-sm font-medium text-link hover:text-link-hover transition-colors"
+            >
+              {AI_PRACTICE.primaryCta.label} →
+            </a>
+            <button
+              type="button"
+              onClick={() => setAssessmentOpen(true)}
+              className="inline-flex items-center justify-center h-13 pl-6.5 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-[0_18px_40px_rgba(38,32,90,0.20)] hover:shadow-[0_22px_48px_rgba(38,32,90,0.28)] hover:-translate-y-0.5 transition-all group cursor-pointer"
+            >
+              <span>{AI_PRACTICE.secondaryCta.label}</span>
+              <span className="w-9.5 h-9.5 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-1.5 text-base font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                ↗
+              </span>
+            </button>
           </div>
         </div>
       </div>

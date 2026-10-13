@@ -220,7 +220,7 @@ export default function NewsAndInsights() {
                     href="#whitepaper"
                     className="inline-flex items-center gap-2 text-sm font-semibold text-link group-hover:text-link-hover transition-colors"
                   >
-                    <span>Read whitepaper</span>
+                    <span>Read more</span>
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </a>
 
