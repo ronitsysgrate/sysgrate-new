@@ -149,7 +149,7 @@ export default function Footer() {
                         <div className="max-w-[34rem] lg:max-w-[360px]">
                             <Link href="/" className="inline-flex items-center gap-2.5 no-underline group">
                                 <Image
-                                    src="/sysgrate-mark.png"
+                                    src="/logos/sysgrate-mark.png"
                                     alt=""
                                     width={32}
                                     height={32}

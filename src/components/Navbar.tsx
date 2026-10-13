@@ -422,7 +422,7 @@ export default function Navbar() {
                 >
                     <div className="relative w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-105 duration-200">
                         <Image
-                            src="/sysgrate-mark.png"
+                            src="/logos/sysgrate-mark.png"
                             alt="Sysgrate Logo Mark"
                             width={32}
                             height={32}
