@@ -1,7 +1,6 @@
 import type { InquiryContent } from "@/components/inquiry/types";
 
 export const CONTACT_MESSAGE_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Tell us what you're solving",
     description:
         "Specialists across CX, Digital Workplace, Modern Workplace, and AI will get back to you within one business day.",

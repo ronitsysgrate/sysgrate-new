@@ -1,7 +1,6 @@
 import type { InquiryContent } from "@/components/inquiry/types";
 
 export const MIGRATION_GUIDE_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Download migration guide",
     description: "Share your details and we'll send the migration guide to your work email.",
     submitLabel: "Get the guide",

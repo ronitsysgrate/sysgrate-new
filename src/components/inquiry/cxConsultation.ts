@@ -1,7 +1,6 @@
 import type { InquiryContent } from "@/components/inquiry/types";
 
 export const CX_CONSULTATION_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Book a free CX consultation",
     description:
         "A few questions first, then you'll pick a time with a CX specialist.",
@@ -38,7 +37,6 @@ export const CX_CONSULTATION_INQUIRY: InquiryContent = {
 };
 
 export const CX_SPECIALIST_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Talk to a CX specialist",
     description: "Tell us what you need. A CX specialist will reply within one business day.",
     submitLabel: "Send message",

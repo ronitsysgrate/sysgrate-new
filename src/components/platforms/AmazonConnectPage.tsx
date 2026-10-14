@@ -25,7 +25,6 @@ import type { InquiryContent } from "@/components/inquiry/types";
 import { PillCta } from "@/components/services/PillCta";
 
 const AI_OVERVIEW_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Download AI capability overview",
     description: "Share your details and we'll send the AI capability overview to your work email.",
     submitLabel: "Get the overview",

@@ -1,7 +1,6 @@
 import type { InquiryContent } from "@/components/inquiry/types";
 
 export const AI_READINESS_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Book an AI readiness assessment",
     description:
         "Tell us about your stack and where you want to go. A specialist will follow up within one business day.",

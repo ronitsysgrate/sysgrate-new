@@ -1,7 +1,6 @@
 import type { InquiryContent } from "@/components/inquiry/types";
 
 export const DELIVERY_METHODOLOGY_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Download our delivery methodology",
     description: "Share your details and we'll send the delivery methodology to your work email.",
     submitLabel: "Get the methodology",

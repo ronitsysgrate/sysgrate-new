@@ -16,7 +16,6 @@ function numberPattern() {
 
 function downloadInquiry(title: string, subject: string): InquiryContent {
     return {
-        eyebrow: "",
         title,
         description: `Share your details and we'll send the ${title.toLowerCase()} to your work email.`,
         submitLabel: "Get the download",

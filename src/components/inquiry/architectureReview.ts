@@ -1,7 +1,6 @@
 import type { InquiryContent } from "@/components/inquiry/types";
 
 export const ARCHITECTURE_REVIEW_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Schedule an architecture review",
     description:
         "Tell us what you want reviewed. A specialist will follow up within one business day.",
