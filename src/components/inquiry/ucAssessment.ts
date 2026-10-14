@@ -1,7 +1,6 @@
 import type { InquiryContent } from "@/components/inquiry/types";
 
 export const UC_ASSESSMENT_INQUIRY: InquiryContent = {
-    eyebrow: "",
     title: "Request free UC assessment",
     description:
         "Tell us about your current setup. A UC specialist will follow up within one business day.",
