@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, process, service, solve, stories, talk } from "../links";
+import { close, contact, platforms, service, solve, stories, talk } from "../links";
 
 export const strategyAdvisory: Service = {
     slug: "strategy-advisory",
@@ -18,8 +18,8 @@ export const strategyAdvisory: Service = {
     },
     accentColor: "#9A6EAC",
     bgTint: "#F5F0FA",
-    primaryCta: { label: "Book a free discovery call", href: close },
-    secondaryCta: { label: "Download AI readiness guide", href: close },
+    primaryCta: { label: "Book a free discovery call", href: contact },
+    secondaryCta: { label: "Download AI readiness guide", href: '' },
     problem: {
         eyebrow: "What we solve",
         title: "Stop technology failures before they start",
@@ -50,7 +50,7 @@ export const strategyAdvisory: Service = {
             number: "01",
             title: "CX & UC Technology Roadmaps",
             lede: "A clear path from where you are to where your business needs to be.",
-            body: "We build structured 12–36 month technology roadmaps for enterprise CX, UCaaS, and modern workplace environments — aligned to your business objectives, your budget cycle, and the platform capabilities available to you today and in the near term. A Sysgrate roadmap is not a wish list. It is a sequenced, prioritised plan with defined milestones, dependencies, and ownership — the kind that actually gets executed.",
+            body: "We build structured 12-36 month technology roadmaps for enterprise CX, UCaaS, and modern workplace environments — aligned to your business objectives, your budget cycle, and the platform capabilities available to you today and in the near term. A Sysgrate roadmap is not a wish list. It is a sequenced, prioritised plan with defined milestones, dependencies, and ownership — the kind that actually gets executed.",
             includedLabel: "What's included",
             included: [
                 "Current-state technology and process assessment across CX, UC, and the workplace",
@@ -61,7 +61,7 @@ export const strategyAdvisory: Service = {
                 "Executive-ready roadmap presentation for board and leadership sign-off",
             ],
             primaryCta: { label: "Book a roadmap session", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
         {
             id: "ai-readiness",
@@ -80,7 +80,7 @@ export const strategyAdvisory: Service = {
                 "Business case with ROI projections for the top three prioritised use cases",
             ],
             primaryCta: { label: "Book an AI readiness assessment", href: close },
-            secondaryCta: { label: "Download the AI readiness guide", href: close },
+            secondaryCta: { label: "Download the AI readiness guide", href: '' },
         },
         {
             id: "vendor-selection",
@@ -98,7 +98,7 @@ export const strategyAdvisory: Service = {
                 "Final recommendation report with rationale, risks, and implementation considerations",
             ],
             primaryCta: { label: "Talk to an independent advisor", href: close },
-            secondaryCta: { label: "Explore our platforms", href: solve },
+            secondaryCta: { label: "Explore our platforms", href: platforms },
         },
         {
             id: "business-case",
@@ -116,7 +116,7 @@ export const strategyAdvisory: Service = {
                 "Executive presentation deck and supporting financial model",
             ],
             primaryCta: { label: "Start your business case", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
         {
             id: "current-state-audit",
@@ -134,7 +134,7 @@ export const strategyAdvisory: Service = {
                 "Quick-win identification — changes that can be made immediately without significant investment",
             ],
             primaryCta: { label: "Book a current-state audit", href: close },
-            secondaryCta: { label: "Download our audit methodology", href: close },
+            secondaryCta: { label: "Download our audit methodology", href: '' },
         },
         {
             id: "transformation-strategy",

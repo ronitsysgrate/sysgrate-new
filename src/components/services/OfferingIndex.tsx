@@ -20,6 +20,8 @@ import {
 import type { Offering, Service } from "@/content/services/types";
 import InquiryModal from "@/components/inquiry/InquiryModal";
 import { MIGRATION_GUIDE_INQUIRY } from "@/components/inquiry/migrationGuide";
+import { servicePrimaryInquiry } from "@/components/inquiry/servicePrimary";
+import type { InquiryContent } from "@/components/inquiry/types";
 import { PillCta } from "./PillCta";
 
 const VISUAL_ICONS: LucideIcon[] = [
@@ -75,6 +77,7 @@ export function OfferingIndex({ service }: { service: Service }) {
     const [paused, setPaused] = useState(false);
     const [inView, setInView] = useState(false);
     const [guideOpen, setGuideOpen] = useState(false);
+    const [primaryInquiry, setPrimaryInquiry] = useState<InquiryContent | null>(null);
     const count = service.offerings.length;
     const offering = service.offerings[active] ?? service.offerings[0];
 
@@ -173,7 +176,7 @@ export function OfferingIndex({ service }: { service: Service }) {
                     onAnimationEnd={() => go(active + 1)}
                     style={{
                         background: service.accentColor,
-                        animationPlayState: paused || !inView ? "paused" : "running",
+                        animationPlayState: paused || !inView || primaryInquiry ? "paused" : "running",
                     }}
                 />
             </div>
@@ -217,7 +220,17 @@ export function OfferingIndex({ service }: { service: Service }) {
                             </ul>
                         </div>
                         <div className="flex flex-col sm:flex-row items-start gap-3 pt-2">
-                            <PillCta cta={offering.primaryCta} />
+                            <PillCta
+                                cta={offering.primaryCta}
+                                onClick={() =>
+                                    setPrimaryInquiry(
+                                        servicePrimaryInquiry(
+                                            offering.primaryCta.label,
+                                            `${service.title} — ${offering.title}`,
+                                        ),
+                                    )
+                                }
+                            />
                             {offering.secondaryCta ? (
                                 <PillCta
                                     cta={offering.secondaryCta}
@@ -275,6 +288,12 @@ export function OfferingIndex({ service }: { service: Service }) {
                     </div>
                 ) : null}
             </div>
+            <InquiryModal
+                open={primaryInquiry !== null}
+                onClose={() => setPrimaryInquiry(null)}
+                {...(primaryInquiry ??
+                    servicePrimaryInquiry(offering.primaryCta.label, service.title))}
+            />
             <InquiryModal
                 open={guideOpen}
                 onClose={() => setGuideOpen(false)}

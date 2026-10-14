@@ -16,6 +16,7 @@ export type InquiryTextareaField = {
     label: string;
     type: "textarea";
     placeholder?: string;
+    optional?: boolean;
 };
 
 export type InquirySelectField = {
@@ -35,7 +36,6 @@ export type InquirySection = {
 };
 
 export type InquiryContent = {
-    eyebrow: string;
     title: string;
     description: string;
     submitLabel: string;

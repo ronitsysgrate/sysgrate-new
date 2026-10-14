@@ -1,5 +1,6 @@
 import type { Service } from "@/content/services/types";
 import { PillCta } from "./PillCta";
+import { PrimaryInquiryCta } from "./PrimaryInquiryCta";
 
 export function ServiceClose({ service }: { service: Service }) {
     const { close } = service;
@@ -20,7 +21,7 @@ export function ServiceClose({ service }: { service: Service }) {
                     {close.body}
                 </p>
                 <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3 mt-2 flex-wrap">
-                    <PillCta cta={close.primaryCta} />
+                    <PrimaryInquiryCta cta={close.primaryCta} context={service.title} />
                     {close.secondaryCta ? (
                         <PillCta cta={close.secondaryCta} variant="secondary" />
                     ) : null}

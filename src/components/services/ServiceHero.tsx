@@ -6,6 +6,7 @@ import type { Service } from "@/content/services/types";
 import InquiryModal from "@/components/inquiry/InquiryModal";
 import { DELIVERY_METHODOLOGY_INQUIRY } from "@/components/inquiry/deliveryMethodology";
 import { PillCta } from "./PillCta";
+import { PrimaryInquiryCta } from "./PrimaryInquiryCta";
 
 function Headline({ text, highlight }: { text: string; highlight: string }) {
     const index = text.indexOf(highlight);
@@ -39,7 +40,7 @@ export function ServiceHero({ service }: { service: Service }) {
                         {service.summary}
                     </p>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-1">
-                        <PillCta cta={service.primaryCta} />
+                        <PrimaryInquiryCta cta={service.primaryCta} context={service.title} />
                         <PillCta
                             cta={service.secondaryCta}
                             variant="secondary"

@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, engage, process, service, solve, talk } from "../links";
+import { close, engage, service, stories, talk, workplace } from "../links";
 
 export const adoptionEnablement: Service = {
     slug: "adoption-enablement",
@@ -61,7 +61,7 @@ export const adoptionEnablement: Service = {
                 "Runbook development — customized admin runbooks built specifically for your deployed configuration",
             ],
             primaryCta: { label: "Plan admin training", href: close },
-            secondaryCta: { label: "Talk to a specialist", href: close },
+            secondaryCta: { label: "Talk to a specialist", href: talk },
         },
         {
             id: "agent-training",
@@ -79,7 +79,7 @@ export const adoptionEnablement: Service = {
                 "Workforce management training — schedule adherence, shift bidding, and intraday management tools",
             ],
             primaryCta: { label: "Plan agent training", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
         {
             id: "end-user",
@@ -97,7 +97,7 @@ export const adoptionEnablement: Service = {
                 "Feature adoption campaigns — targeted enablement for new platform features as they're released",
             ],
             primaryCta: { label: "Plan end-user enablement", href: close },
-            secondaryCta: { label: "Explore Digital Workplace solutions", href: solve },
+            secondaryCta: { label: "Explore Digital Workplace solutions", href: workplace },
         },
         {
             id: "change-management",
@@ -115,7 +115,7 @@ export const adoptionEnablement: Service = {
                 "Resistance management — a structured approach to identifying and resolving adoption blockers at the team and individual level",
             ],
             primaryCta: { label: "Build your change plan", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
         {
             id: "certification",
@@ -133,7 +133,7 @@ export const adoptionEnablement: Service = {
                 "Post-certification CPD — continuing development plan to maintain certification currency as platforms evolve",
             ],
             primaryCta: { label: "Plan your certification programme", href: close },
-            secondaryCta: { label: "Talk to a specialist", href: close },
+            secondaryCta: { label: "Talk to a specialist", href: talk },
         },
         {
             id: "custom-training",
@@ -151,7 +151,7 @@ export const adoptionEnablement: Service = {
                 "Content maintenance — training material updates delivered when your platform configuration changes significantly",
             ],
             primaryCta: { label: "Develop your training content", href: close },
-            secondaryCta: { label: "Download training methodology", href: close },
+            secondaryCta: { label: "Download training methodology", href: '' },
         },
     ],
     process: {

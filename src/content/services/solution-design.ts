@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, process, service, solve, stories, talk } from "../links";
+import { close, service, solutions, stories, talk, workplace } from "../links";
 
 export const solutionDesign: Service = {
     slug: "solution-design-delivery",
@@ -19,7 +19,7 @@ export const solutionDesign: Service = {
     accentColor: "#4A3E92",
     bgTint: "#F6F3FB",
     primaryCta: { label: "Talk to a delivery specialist", href: close },
-    secondaryCta: { label: "Download our delivery methodology", href: close },
+    secondaryCta: { label: "Download our delivery methodology", href: '' },
     problem: {
         eyebrow: "What we solve",
         title: "Where strategy becomes successful delivery",
@@ -62,7 +62,7 @@ export const solutionDesign: Service = {
                 "Zero-downtime cutover planning — phased migration from legacy platform with parallel-run validation",
             ],
             primaryCta: { label: "Talk to a contact centre delivery specialist", href: close },
-            secondaryCta: { label: "Explore CX solutions", href: solve },
+            secondaryCta: { label: "Explore CX solutions", href: solutions },
         },
         {
             id: "ucaas-telephony",
@@ -81,7 +81,7 @@ export const solutionDesign: Service = {
                 "CRM integration — Zoom Phone connected to HubSpot, Salesforce, or SAP C4C with automated call logging",
             ],
             primaryCta: { label: "Talk to a UC delivery specialist", href: close },
-            secondaryCta: { label: "Explore Digital Workplace solutions", href: solve },
+            secondaryCta: { label: "Explore Digital Workplace solutions", href: workplace },
         },
         {
             id: "av-workplace",
@@ -100,7 +100,7 @@ export const solutionDesign: Service = {
                 "Full commissioning, testing, and handover — punch-list sign-off and user familiarisation included",
             ],
             primaryCta: { label: "Talk to an AV delivery specialist", href: close },
-            secondaryCta: { label: "Explore Modern Workplace solutions", href: solve },
+            secondaryCta: { label: "Explore Modern Workplace solutions", href: workplace },
         },
         {
             id: "crm-helpdesk",
@@ -119,7 +119,7 @@ export const solutionDesign: Service = {
                 "Data migration — existing ticket, contact, and deal data migrated cleanly from legacy CRM or helpdesk",
             ],
             primaryCta: { label: "Talk to a CRM delivery specialist", href: close },
-            secondaryCta: { label: "Explore CX solutions", href: solve },
+            secondaryCta: { label: "Explore CX solutions", href: solutions },
         },
         {
             id: "legacy-migration",
@@ -138,7 +138,7 @@ export const solutionDesign: Service = {
                 "Hypercare support — dedicated Sysgrate engineers on-site or on-call for the first 2 weeks post-cutover",
             ],
             primaryCta: { label: "Book a migration assessment", href: close },
-            secondaryCta: { label: "Download migration guide", href: close },
+            secondaryCta: { label: "Download migration guide", href: '' },
         },
         {
             id: "solution-architecture",
@@ -156,7 +156,7 @@ export const solutionDesign: Service = {
                 "Technical specification documentation — detailed enough to build from, clear enough for non-technical stakeholder review",
             ],
             primaryCta: { label: "Talk to a solution architect", href: close },
-            secondaryCta: { label: "See how we deliver", href: process },
+            secondaryCta: { label: "See how we deliver", href: stories },
         },
     ],
     process: {

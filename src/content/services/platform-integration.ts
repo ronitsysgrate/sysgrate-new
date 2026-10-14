@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, process, service, solve, stories, talk } from "../links";
+import { aws, close, platforms, service, stories, talk, zoom } from "../links";
 
 export const platformIntegration: Service = {
     slug: "platform-systems-integration",
@@ -19,7 +19,7 @@ export const platformIntegration: Service = {
     accentColor: "#4A3E92",
     bgTint: "#F6F3FB",
     primaryCta: { label: "Discuss your integration requirements", href: close },
-    secondaryCta: { label: "Download integration capability deck", href: close },
+    secondaryCta: { label: "Download integration capability deck", href: '' },
     problem: {
         eyebrow: "What we solve",
         title: "Connect every platform. Empower every interaction.",
@@ -61,7 +61,7 @@ export const platformIntegration: Service = {
                 "Custom field mapping — contact centre data mapped to your specific CRM object and field structure",
             ],
             primaryCta: { label: "Discuss your CRM integration", href: close },
-            secondaryCta: { label: "See platform details", href: solve },
+            secondaryCta: { label: "See platform details", href: platforms },
         },
         {
             id: "itsm",
@@ -79,7 +79,7 @@ export const platformIntegration: Service = {
                 "Jira ↔ Zendesk sync — engineering and support ticket status linked with bi-directional comment sync",
             ],
             primaryCta: { label: "Discuss your ITSM integration", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
         {
             id: "custom-middleware",
@@ -115,7 +115,7 @@ export const platformIntegration: Service = {
                 "Real-time sync — interaction data available in CRM within seconds of call completion",
             ],
             primaryCta: { label: "Discuss your Zoom integration", href: close },
-            secondaryCta: { label: "Explore Zoom platform details", href: solve },
+            secondaryCta: { label: "Explore Zoom platform details", href: zoom },
         },
         {
             id: "amazon-connect",
@@ -133,7 +133,7 @@ export const platformIntegration: Service = {
                 "Amazon Connect ↔ Microsoft Teams — expert finder and escalation routing between contact centre and UC environments",
             ],
             primaryCta: { label: "Discuss your Amazon Connect integration", href: close },
-            secondaryCta: { label: "Explore AWS platform details", href: solve },
+            secondaryCta: { label: "Explore AWS platform details", href: aws },
         },
         {
             id: "analytics-reporting",
@@ -151,7 +151,7 @@ export const platformIntegration: Service = {
                 "Scheduled and real-time reporting — automated report delivery to stakeholders without manual compilation",
             ],
             primaryCta: { label: "Discuss your analytics integration", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
     ],
     process: {

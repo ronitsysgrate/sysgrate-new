@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, process, service, solve, stories, talk, ai } from "../links";
+import { close, service, stories, talk, ai, aws, platforms } from "../links";
 
 export const bespokeEngineering: Service = {
     slug: "bespoke-engineering",
@@ -19,7 +19,7 @@ export const bespokeEngineering: Service = {
     accentColor: "#4A3E92",
     bgTint: "#F6F3FB",
     primaryCta: { label: "Tell us what you want to build", href: close },
-    secondaryCta: { label: "Explore AI Hub", href: "#nexus" },
+    secondaryCta: { label: "Explore AI Hub", href: ai },
     problem: {
         eyebrow: "What we solve",
         title: "Out-of-the-box is a starting point.",
@@ -61,7 +61,7 @@ export const bespokeEngineering: Service = {
                 "Role-based views — different desktop configurations for agents, supervisors, and quality analysts",
             ],
             primaryCta: { label: "Tell us what you need", href: close },
-            secondaryCta: { label: "See how we build", href: process },
+            secondaryCta: { label: "See how we build", href: stories },
         },
         {
             id: "voice-bots",
@@ -79,7 +79,7 @@ export const bespokeEngineering: Service = {
                 "Performance monitoring — containment rate, escalation triggers, and intent confidence tracked post-deployment",
             ],
             primaryCta: { label: "Build your voice bot", href: close },
-            secondaryCta: { label: "See AWS platform details", href: solve },
+            secondaryCta: { label: "See AWS platform details", href: aws },
         },
         {
             id: "chatbots",
@@ -97,7 +97,7 @@ export const bespokeEngineering: Service = {
                 "Human handover with context — escalation to Zoom CC, Amazon Connect, or Zendesk with conversation history preserved",
             ],
             primaryCta: { label: "Build your chatbot", href: close },
-            secondaryCta: { label: "Explore AI capabilities", href: solve },
+            secondaryCta: { label: "Explore AI capabilities", href: ai },
         },
         {
             id: "analytics",
@@ -115,7 +115,7 @@ export const bespokeEngineering: Service = {
                 "Custom metric design — KPIs specific to your business defined, calculated, and tracked from a single source",
             ],
             primaryCta: { label: "Build your analytics solution", href: close },
-            secondaryCta: { label: "Explore AI capabilities", href: solve },
+            secondaryCta: { label: "Explore AI capabilities", href: ai },
         },
         {
             id: "nexus",
@@ -187,7 +187,7 @@ export const bespokeEngineering: Service = {
                 "Platform-agnostic extensions — browser extensions, embedded widgets, and overlay applications for any platform",
             ],
             primaryCta: { label: "Tell us what you need", href: close },
-            secondaryCta: { label: "Explore our platforms", href: solve },
+            secondaryCta: { label: "Explore our platforms", href: platforms },
         },
         {
             id: "speech-analytics",
@@ -205,7 +205,7 @@ export const bespokeEngineering: Service = {
                 "Real-time alert triggers — supervisor alerts fired when specific phrases, sentiment thresholds, or compliance risks are detected live",
             ],
             primaryCta: { label: "Build your analytics solution", href: close },
-            secondaryCta: { label: "Explore AI capabilities", href: solve },
+            secondaryCta: { label: "Explore AI capabilities", href: ai },
         },
     ],
     process: {

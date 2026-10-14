@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, offerings, service, solve, stories, talk } from "../links";
+import { ai, close, contact, offerings, service, stories, talk, workplace } from "../links";
 
 export const experienceAsAService: Service = {
     slug: "experience-as-a-service",
@@ -80,7 +80,7 @@ export const experienceAsAService: Service = {
                 "Monthly performance reporting — adoption metrics, call quality trends, and usage analytics reviewed",
             ],
             primaryCta: { label: "Explore EXaaS", href: close },
-            secondaryCta: { label: "Explore Digital Workplace solutions", href: solve },
+            secondaryCta: { label: "Explore Digital Workplace solutions", href: workplace },
         },
         {
             id: "ai-retainer",
@@ -98,7 +98,7 @@ export const experienceAsAService: Service = {
                 "Responsible AI governance review — model performance, explainability, and compliance checked quarterly",
             ],
             primaryCta: { label: "Explore the AI retainer", href: close },
-            secondaryCta: { label: "Explore AI capabilities", href: solve },
+            secondaryCta: { label: "Explore AI capabilities", href: ai },
         },
         {
             id: "roadmap-execution",
@@ -116,7 +116,7 @@ export const experienceAsAService: Service = {
                 "Roadmap reporting — progress against the 12-month roadmap reviewed quarterly",
             ],
             primaryCta: { label: "Explore roadmap execution", href: close },
-            secondaryCta: { label: "Talk to a specialist", href: close },
+            secondaryCta: { label: "Talk to a specialist", href: contact },
         },
         {
             id: "licence-management",
@@ -151,8 +151,8 @@ export const experienceAsAService: Service = {
                 "Business alignment sessions — quarterly reviews ensuring the delivery roadmap stays aligned to evolving priorities",
                 "Renewal and expansion guidance — proactive identification of where additional capability would add value",
             ],
-            primaryCta: { label: "Explore Experience as a Service", href: close },
-            secondaryCta: { label: "Talk to a specialist", href: close },
+            primaryCta: { label: "Talk to a specialist", href: close },
+            secondaryCta: { label: "Explore Experience as a Service", href: service("strategy-advisory") },
         },
     ],
     comparison: {

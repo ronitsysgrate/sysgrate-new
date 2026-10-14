@@ -67,7 +67,7 @@ function validate(sections: InquiryContent["sections"], values: Values): Errors 
                 continue;
             }
             if (field.type === "textarea") {
-                if (!String(values[field.id] ?? "").trim()) {
+                if (!field.optional && !String(values[field.id] ?? "").trim()) {
                     errors[field.id] = `Please fill in “${field.label}”.`;
                 }
                 continue;
@@ -345,7 +345,6 @@ function SelectField({
 export default function InquiryModal({
     open,
     onClose,
-    eyebrow,
     title,
     description,
     submitLabel,
@@ -422,7 +421,11 @@ export default function InquiryModal({
             const body = sections
                 .flatMap((section) => [
                     section.title,
-                    ...section.fields.map((field) => `${field.label}: ${displayValue(field, values)}`),
+                    ...section.fields.flatMap((field) => {
+                        const value = displayValue(field, values);
+                        if (!value && field.type === "textarea" && field.optional) return [];
+                        return [`${field.label}: ${value}`];
+                    }),
                     "",
                 ])
                 .join("\n");
@@ -450,12 +453,6 @@ export default function InquiryModal({
             >
                 <div className="flex shrink-0 items-start justify-between gap-3 px-4 pt-4 pb-2">
                     <div className="flex flex-col gap-1">
-                        {
-                            eyebrow?.length > 0 &&
-                            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-paper-muted text-[10px] font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
-                                {eyebrow}
-                            </span>
-                        }
                         <h2 id={titleId} className="text-lg font-medium text-ink-800 m-0 leading-tight">
                             {title}
                         </h2>

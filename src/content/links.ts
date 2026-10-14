@@ -1,4 +1,5 @@
 export const ai = "/ai";
+export const aws = "/platforms/amazon-connect";
 export const case_studies = "/#case-studies";
 export const client_stories = "/#client-stories";
 export const close = "#close";
@@ -14,6 +15,7 @@ export const solve = "/#solve";
 export const stories = "/case-studies";
 export const talk = "/#talk-to-us";
 export const workplace = "/solutions/modern-workplace";
+export const zoom = "/platforms/zoom";
 
 export function service(slug: string) {
     if (slug === "strategy-advisory") return "/services";

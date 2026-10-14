@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, process, service, solve, talk } from "../links";
+import { close, contact, service, solutions, stories, talk, workplace } from "../links";
 
 export const managedOperations: Service = {
     slug: "managed-operations",
@@ -61,7 +61,7 @@ export const managedOperations: Service = {
                 "Monthly health reports — platform performance, incident trend analysis, and recommended optimisations",
             ],
             primaryCta: { label: "Discuss monitoring requirements", href: close },
-            secondaryCta: { label: "Get a managed services quote", href: close },
+            secondaryCta: { label: "Get a managed services quote", href: contact },
         },
         {
             id: "sla-support",
@@ -87,7 +87,7 @@ export const managedOperations: Service = {
                 ],
             },
             primaryCta: { label: "Get a managed services quote", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
         {
             id: "cc-ops",
@@ -105,7 +105,7 @@ export const managedOperations: Service = {
                 "Proactive optimisation recommendations — quarterly reviews with specific, actionable improvement proposals",
             ],
             primaryCta: { label: "Discuss contact centre managed ops", href: close },
-            secondaryCta: { label: "Explore CX solutions", href: solve },
+            secondaryCta: { label: "Explore CX solutions", href: solutions },
         },
         {
             id: "uc-telephony",
@@ -123,7 +123,7 @@ export const managedOperations: Service = {
                 "Zoom Revenue Accelerator management — AI model maintenance, dashboard updates, and coaching report configuration",
             ],
             primaryCta: { label: "Discuss UC managed operations", href: close },
-            secondaryCta: { label: "Explore Digital Workplace solutions", href: solve },
+            secondaryCta: { label: "Explore Digital Workplace solutions", href: solutions },
         },
         {
             id: "av-monitoring",
@@ -141,7 +141,7 @@ export const managedOperations: Service = {
                 "Room utilisation reporting — occupancy data and meeting room usage analytics delivered monthly",
             ],
             primaryCta: { label: "Discuss AV managed operations", href: close },
-            secondaryCta: { label: "Explore Modern Workplace solutions", href: solve },
+            secondaryCta: { label: "Explore Modern Workplace solutions", href: workplace },
         },
         {
             id: "qbr",
@@ -159,7 +159,7 @@ export const managedOperations: Service = {
                 "Forward planning — upcoming changes, capacity requirements, and technology events planned for next quarter",
             ],
             primaryCta: { label: "Get a managed services quote", href: close },
-            secondaryCta: { label: "See how we work", href: process },
+            secondaryCta: { label: "See how we work", href: stories },
         },
     ],
     process: {
