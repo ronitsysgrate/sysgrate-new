@@ -8,17 +8,17 @@ interface Partner {
 }
 
 const PARTNERS: Partner[] = [
-  { name: "AWS", src: "/partners/aws.png" },
-  { name: "Avaya", src: "/partners/avaya.png" },
-  { name: "Azure", src: "/partners/azure.png" },
-  { name: "Cisco", src: "/partners/cisco.png" },
-  { name: "Genesys", src: "/partners/genesys.webp" },
-  { name: "Lambda", src: "/partners/lambda.svg" },
-  { name: "Poly", src: "/partners/poly.png" },
-  { name: "Salesforce", src: "/partners/salesforce.svg" },
-  { name: "Teams", src: "/partners/teams.png" },
-  { name: "Zendesk", src: "/partners/zendesk.webp" },
-  { name: "Zoom", src: "/partners/zoom.png" },
+  { name: "AWS", src: "/logos/aws.png" },
+  { name: "Avaya", src: "/logos/avaya.png" },
+  { name: "Azure", src: "/logos/azure.png" },
+  { name: "Cisco", src: "/logos/cisco.png" },
+  { name: "Genesys", src: "/logos/genesys.webp" },
+  { name: "Lambda", src: "/logos/lambda.svg" },
+  { name: "Poly", src: "/logos/poly.png" },
+  { name: "Salesforce", src: "/logos/salesforce.svg" },
+  { name: "Teams", src: "/logos/teams.png" },
+  { name: "Zendesk", src: "/logos/zendesk.webp" },
+  { name: "Zoom", src: "/logos/zoom.png" },
 ];
 
 // Duplicated once so the CSS scroll (translateX -50%) loops seamlessly.
