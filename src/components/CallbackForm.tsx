@@ -22,7 +22,7 @@ export function CallbackForm() {
     }
 
     return (
-        <form onSubmit={onSubmit} className="flex flex-col sm:flex-row items-stretch gap-2 max-w-[560px]">
+        <form onSubmit={onSubmit} className="flex flex-col sm:flex-row items-stretch gap-2 max-w-140">
             <input
                 type="email"
                 required
@@ -30,7 +30,7 @@ export function CallbackForm() {
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="Your email address"
                 aria-label="Your email address"
-                className="h-12 flex-1 rounded-full border border-hairline bg-paper px-5 text-sm text-ink-800 outline-none placeholder:text-ink-300 focus-visible:border-link focus-visible:shadow-[var(--ring-focus)]"
+                className="h-12 flex-1 rounded-full border border-hairline bg-paper px-5 text-sm text-ink-800 outline-none placeholder:text-ink-300 focus-visible:border-link focus-visible:shadow-(--ring-focus)"
             />
             <button
                 type="submit"

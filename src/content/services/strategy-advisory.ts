@@ -1,5 +1,5 @@
 import type { Service } from "./types";
-import { close, contact, platforms, service, solve, stories, talk } from "../links";
+import { close, contact, platforms, process, service, solve, stories, talk } from "../links";
 
 export const strategyAdvisory: Service = {
     slug: "strategy-advisory",
@@ -61,7 +61,7 @@ export const strategyAdvisory: Service = {
                 "Executive-ready roadmap presentation for board and leadership sign-off",
             ],
             primaryCta: { label: "Book a roadmap session", href: close },
-            secondaryCta: { label: "See how we work", href: stories },
+            secondaryCta: { label: "See how we work", href: process },
         },
         {
             id: "ai-readiness",
@@ -116,7 +116,7 @@ export const strategyAdvisory: Service = {
                 "Executive presentation deck and supporting financial model",
             ],
             primaryCta: { label: "Start your business case", href: close },
-            secondaryCta: { label: "See how we work", href: stories },
+            secondaryCta: { label: "See how we work", href: process },
         },
         {
             id: "current-state-audit",

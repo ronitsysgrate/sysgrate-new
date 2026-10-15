@@ -53,7 +53,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         summary:
             "We design, implement, and manage AI-powered cloud contact centre solutions that reduce costs, improve CSAT, and deliver seamless customer experiences — across every channel, in every market.",
         primaryCta: { label: "Book a free CX consultation", href: contact },
-        secondaryCta: { label: "Download capability deck", href: contact },
+        secondaryCta: { label: "Download capability deck", href: "" },
         image: {
             src: "/practice-areas/customer-experience.jpg",
             alt: "Contact centre agents working across an AI-assisted platform",
@@ -151,7 +151,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         summary:
             "Fragmented communication slows your business down. We connect your teams, tools, and workflows—so work moves faster, everywhere.",
         primaryCta: { label: "Request free UC assessment", href: contact },
-        secondaryCta: { label: "Download capability deck", href: contact },
+        secondaryCta: { label: "Download capability deck", href: "" },
         image: {
             src: "/practice-areas/employee-experience.jpg",
             alt: "Team collaborating across voice, chat, and video",
@@ -255,7 +255,7 @@ export const SOLUTION_PAGES: SolutionPage[] = [
         summary:
             "Complicated setups, unreliable AV, and constant IT support requests disrupt productivity and frustrate teams. We build intuitive, fully integrated meeting spaces with unified communications, conferencing systems, and smart controls—so every meeting starts on time and runs smoothly.",
         primaryCta: { label: "Evaluate your AV", href: contact },
-        secondaryCta: { label: "Download capability deck", href: contact },
+        secondaryCta: { label: "Download capability deck", href: "" },
         image: {
             src: "/practice-areas/modern-workplace.jpg",
             alt: "Integrated meeting room with conferencing and smart controls",

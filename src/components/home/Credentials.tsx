@@ -1,6 +1,7 @@
 import React from "react";
 import { Cloud, Headset, Phone, type LucideIcon } from "lucide-react";
 import PartnerEcosystem from "./PartnerEcosystem";
+import RevealItem from "@/components/RevealItem";
 
 interface Award {
   id: string;
@@ -48,7 +49,7 @@ const AWARDS: Award[] = [
 export default function Credentials() {
   return (
     <section id="credentials" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
-      <div className="max-w-[720px] flex flex-col gap-4">
+      <RevealItem className="max-w-180 flex flex-col gap-4">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
           Accreditations
         </span>
@@ -58,20 +59,20 @@ export default function Credentials() {
           <span className="sg-highlight font-medium">Industry&apos;s Best</span>.
         </h2>
 
-        <p className="text-[18px] leading-[1.55] text-text-secondary m-0 max-w-[640px]">
+        <p className="text-[18px] leading-[1.55] text-text-secondary m-0 max-w-160">
           Partner recognition with the platforms behind our contact centre, customer service, and collaboration work.
         </p>
-      </div>
+      </RevealItem>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
         {AWARDS.map((award) => {
           const Icon = award.icon;
           return (
-            <div
+            <RevealItem
               key={award.id}
               className="group relative bg-paper rounded-card border border-hairline p-7 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card hover:border-[#9A6EAC]/35 overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-[#E4D8F3]/30 via-transparent to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute top-0 right-0 w-28 h-28 bg-linear-to-bl from-[#E4D8F3]/30 via-transparent to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="flex items-center justify-between mb-5">
                 <span className="text-xs font-semibold tracking-wider text-ink-300 font-mono">
@@ -90,7 +91,7 @@ export default function Credentials() {
               <p className="text-sm text-text-secondary leading-relaxed mt-3.5 mb-0">
                 {award.detail}
               </p>
-            </div>
+            </RevealItem>
           );
         })}
       </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { services } from "@/content/services";
 import { service as serviceHref, solutions } from "@/content/links";
 import { EngagementCard } from "@/components/services/EngagementCard";
+import RevealItem from "@/components/RevealItem";
 
 export default function HowWeEngage() {
   return (
@@ -23,27 +24,30 @@ export default function HowWeEngage() {
 
       {/* 8 Engagement Models Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
-        {services.map((service) => (
-          <EngagementCard
-            key={service.slug}
-            number={service.number}
-            title={service.title}
-            description={service.cardDescription}
-            accentColor={service.accentColor}
-            bgTint={service.bgTint}
-            icon={service.icon}
-            href={serviceHref(service.slug)}
-          />
+        {services.map((service, i) => (
+          <RevealItem key={service.slug} delay={(i % 4) * 90} className="*:h-full">
+            <EngagementCard
+              number={service.number}
+              title={service.title}
+              description={service.cardDescription}
+              accentColor={service.accentColor}
+              bgTint={service.bgTint}
+              icon={service.icon}
+              href={serviceHref(service.slug)}
+            />
+          </RevealItem>
         ))}
-        <EngagementCard
-          number="08"
-          title="Embedded Expertise"
-          description="The right expertise, embedded in your team — exactly when you need it."
-          accentColor="#3E3A97"
-          bgTint="#EFEFF9"
-          icon="user"
-          href={solutions}
-        />
+        <RevealItem delay={(services.length % 4) * 90} className="*:h-full">
+          <EngagementCard
+            number="08"
+            title="Embedded Expertise"
+            description="The right expertise, embedded in your team — exactly when you need it."
+            accentColor="#3E3A97"
+            bgTint="#EFEFF9"
+            icon="user"
+            href={solutions}
+          />
+        </RevealItem>
       </div>
 
       {/* Advisory Bottom Banner */}

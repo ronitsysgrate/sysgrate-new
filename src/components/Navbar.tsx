@@ -409,7 +409,7 @@ export default function Navbar() {
             >
                 <div
                     aria-hidden="true"
-                    className={`pointer-events-none absolute inset-x-0 -top-px -bottom-8 -z-10 backdrop-blur-lg transition-opacity duration-200 [mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] ${dark
+                    className={`pointer-events-none absolute inset-x-0 -top-px -bottom-8 -z-10 backdrop-blur-lg transition-opacity duration-200 mask-[linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_28%,transparent_100%)] ${dark
                         ? "bg-[linear-gradient(to_bottom,rgba(7,11,24,0.94)_0%,rgba(7,11,24,0.62)_42%,rgba(7,11,24,0)_100%)]"
                         : "bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.7)_42%,rgba(255,255,255,0)_100%)]"
                         } ${scrolled ? "opacity-100" : "opacity-0"}`}

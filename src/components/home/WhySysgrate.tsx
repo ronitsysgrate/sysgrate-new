@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import InquiryModal from "@/components/inquiry/InquiryModal";
 import { ARCHITECTURE_REVIEW_INQUIRY } from "@/components/inquiry/architectureReview";
+import RevealItem from "@/components/RevealItem";
 
 interface Differentiator {
   number: string;
@@ -114,8 +115,8 @@ export default function WhySysgrate() {
   return (
     <section id="why-sysgrate" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
       {/* Section Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
-        <div className="max-w-[760px] flex flex-col gap-4">
+      <RevealItem className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-2">
+        <div className="max-w-190 flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
               Why Sysgrate
@@ -127,7 +128,7 @@ export default function WhySysgrate() {
             <span className="sg-highlight font-medium">not just accounts</span>.
           </h2>
 
-          <p className="text-[18px] leading-[1.55] text-text-secondary m-0 max-w-[680px]">
+          <p className="text-[18px] leading-[1.55] text-text-secondary m-0 max-w-170">
             We combine consulting, engineering, and ongoing enablement to help organisations realise value—not just complete implementations.
           </p>
         </div>
@@ -141,26 +142,26 @@ export default function WhySysgrate() {
           >
             <span>{showDrawbacks ? "Hide" : "Show"} Large SI Contrast</span>
             <span
-              className={`w-2 h-2 rounded-full transition-colors ${
-                showDrawbacks ? "bg-[#7B5AA6]" : "bg-ink-300"
-              }`}
+              className={`w-2 h-2 rounded-full transition-colors ${showDrawbacks ? "bg-link-hover" : "bg-ink-300"
+                }`}
             />
           </button>
         </div>
-      </div>
+      </RevealItem>
 
       {/* 6 Differentiator Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-        {DIFFERENTIATORS.map((item) => {
+        {DIFFERENTIATORS.map((item, i) => {
           const Icon = item.icon;
           return (
-            <div
+            <RevealItem
               key={item.number}
-              className="group relative bg-paper rounded-card border border-hairline p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card hover:border-[#9A6EAC]/35 overflow-hidden"
+              delay={(i % 3) * 90}
+              className="*:h-full"
             >
               {/* Subtle ambient accent glow */}
               <div
-                className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-[#E4D8F3]/30 via-transparent to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute top-0 right-0 w-28 h-28 bg-linear-to-bl from-[#E4D8F3]/30 via-transparent to-transparent rounded-bl-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               />
 
               <div>
@@ -210,39 +211,41 @@ export default function WhySysgrate() {
                   </div>
                 </div>
               )}
-            </div>
+            </RevealItem>
           );
         })}
       </div>
 
       {/* Proof-point callout banner */}
-      <div
-        className="mt-10 rounded-panel p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-hairline/80 relative overflow-hidden"
-        style={{ background: "var(--panel-gradient)" }}
-      >
-        <div className="flex flex-col gap-1 text-center md:text-left">
-          <span className="text-xs font-semibold uppercase tracking-[0.06em] text-text-secondary">
-            The Sysgrate Commitment
-          </span>
-          <h4 className="text-lg sm:text-xl font-medium text-ink-800 m-0">
-            One team. One SLA. Direct engineer access on day one.
-          </h4>
-          <p className="text-sm text-text-secondary m-0">
-            Learn how our unified delivery model outperforms multi-tier system integrator contracts.
-          </p>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setReviewOpen(true)}
-          className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group shrink-0 cursor-pointer"
+      <RevealItem className="mt-10">
+        <div
+          className="rounded-panel p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-hairline/80 relative overflow-hidden"
+          style={{ background: "var(--panel-gradient)" }}
         >
-          <span>Schedule an Architecture Review</span>
-          <span className="w-8 h-8 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-2 text-sm font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-            ↗
-          </span>
-        </button>
-      </div>
+          <div className="flex flex-col gap-1 text-center md:text-left">
+            <span className="text-xs font-semibold uppercase tracking-[0.06em] text-text-secondary">
+              The Sysgrate Commitment
+            </span>
+            <h4 className="text-lg sm:text-xl font-medium text-ink-800 m-0">
+              One team. One SLA. Direct engineer access on day one.
+            </h4>
+            <p className="text-sm text-text-secondary m-0">
+              Learn how our unified delivery model outperforms multi-tier system integrator contracts.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setReviewOpen(true)}
+            className="inline-flex items-center justify-center h-12 pl-6 pr-2 rounded-full bg-surface-inverse text-white text-sm font-medium shadow-pill hover:shadow-card hover:-translate-y-0.5 transition-all group shrink-0 cursor-pointer"
+          >
+            <span>Schedule an Architecture Review</span>
+            <span className="w-8 h-8 rounded-full bg-white text-ink-800 inline-flex items-center justify-center ml-2 text-sm font-semibold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+              ↗
+            </span>
+          </button>
+        </div>
+      </RevealItem>
 
       <InquiryModal
         open={reviewOpen}

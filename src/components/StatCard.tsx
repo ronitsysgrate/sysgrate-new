@@ -90,7 +90,7 @@ export function StatCard({ value, label, source }: { value: string; label: strin
     return (
         <article
             data-reveal="rise"
-            className="relative overflow-hidden rounded-card border border-hairline min-h-[176px] flex flex-col"
+            className="relative overflow-hidden rounded-card border border-hairline min-h-44 flex flex-col"
             style={{ background: `linear-gradient(180deg, #ffffff 0%, ${tone.wash} 100%)` }}
         >
             <div className="relative z-10 p-6 pb-16">

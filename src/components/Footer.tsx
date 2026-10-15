@@ -1,15 +1,32 @@
 import type { ReactNode, SVGProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { services } from "@/content/services";
+import { service as serviceHref } from "@/content/links";
 
-const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
+type FooterColumn = {
+    title: string;
+    links: { label: string; href: string }[];
+    split?: boolean;
+};
+
+const COLUMNS: FooterColumn[] = [
     {
         title: "Solutions",
         links: [
             { label: "Customer Experience", href: "/solutions" },
             { label: "Employee Experience", href: "/solutions/employee-experience" },
             { label: "Modern Workplace", href: "/solutions/modern-workplace" },
-            { label: "Services", href: "/services" },
+        ],
+    },
+    {
+        title: "Services",
+        split: true,
+        links: [
+            ...services.map((item) => ({
+                label: item.title,
+                href: serviceHref(item.slug),
+            })),
         ],
     },
     {
@@ -107,9 +124,8 @@ const SOCIAL: { label: string; href: string; Icon: SocialIcon }[] = [
 ];
 
 function FooterLink({ href, children, underline = false }: { href: string; children: ReactNode; underline?: boolean }) {
-    const className = `text-[14px] leading-snug text-white/65 transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white ${
-        underline ? "underline underline-offset-[3px] decoration-white/30 hover:decoration-white" : "no-underline"
-    }`;
+    const className = `text-[14px] leading-snug text-white/65 transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white ${underline ? "underline underline-offset-[3px] decoration-white/30 hover:decoration-white" : "no-underline"
+        }`;
 
     if (href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("http")) {
         return (
@@ -137,16 +153,16 @@ export default function Footer() {
         <footer className="relative mt-auto overflow-hidden bg-[#1c1848] text-white">
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-24 right-[-10%] h-[420px] w-[520px] rounded-full bg-[#9A6EAC]/30 blur-3xl"
+                className="pointer-events-none absolute -top-24 right-[-10%] h-105 w-130 rounded-full bg-[#9A6EAC]/30 blur-3xl"
             />
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute bottom-[-120px] left-[-8%] h-[320px] w-[420px] rounded-full bg-[#3E3A97]/45 blur-3xl"
+                className="pointer-events-none absolute -bottom-30 left-[-8%] h-80 w-105 rounded-full bg-[#3E3A97]/45 blur-3xl"
             />
             <div className="sg-container relative z-10 pt-8 sm:pt-12">
-                <div className="rounded-[28px] border border-white/10 bg-[#26205A] px-6 py-8 shadow-[0_24px_60px_-28px_rgba(8,6,28,0.55)] sm:rounded-[32px] sm:px-10 sm:py-10 lg:px-12">
-                    <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-                        <div className="max-w-[34rem] lg:max-w-[360px]">
+                <div className="rounded-[28px] border border-white/10 bg-surface-inverse px-6 py-8 shadow-[0_24px_60px_-28px_rgba(8,6,28,0.55)] sm:rounded-[32px] sm:px-10 sm:py-10 lg:px-12">
+                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
+                        <div className="max-w-136 lg:max-w-90">
                             <Link href="/" className="inline-flex items-center gap-2.5 no-underline group">
                                 <Image
                                     src="/logos/sysgrate-mark.png"
@@ -171,7 +187,7 @@ export default function Footer() {
                                                 : {})}
                                             className="inline-flex text-white/75 transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white"
                                         >
-                                            <Icon className="h-[18px] w-[18px]" />
+                                            <Icon className="h-4.5 w-4.5" />
                                         </a>
                                     </li>
                                 ))}
@@ -181,17 +197,28 @@ export default function Footer() {
                                         aria-label="Call +65 8346 7679"
                                         className="inline-flex items-center gap-2 text-[14px] leading-none text-white/75 no-underline transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white"
                                     >
-                                        <PhoneIcon className="h-[18px] w-[18px]" />
+                                        <PhoneIcon className="h-4.5 w-4.5" />
                                     </a>
                                 </li>
                             </ul>
                         </div>
 
-                        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 sm:gap-x-14">
+                        <nav
+                            aria-label="Footer"
+                            className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-5 sm:gap-x-8 lg:gap-x-10"
+                        >
                             {COLUMNS.map((column) => (
-                                <div key={column.title}>
+                                <div key={column.title} className={column.split ? "col-span-2" : undefined}>
                                     <p className="m-0 text-[14px] font-semibold text-white">{column.title}</p>
-                                    <ul className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
+                                    <ul
+                                        className={`m-0 mt-4 list-none p-0 ${column.split ? "grid grid-flow-col gap-x-6 gap-y-2.5 sm:gap-x-8" : "flex flex-col gap-2.5"
+                                            }`}
+                                        style={
+                                            column.split
+                                                ? { gridTemplateRows: `repeat(${Math.ceil(column.links.length / 2)}, auto)` }
+                                                : undefined
+                                        }
+                                    >
                                         {column.links.map((item) => (
                                             <li key={item.label}>
                                                 <FooterLink href={item.href}>{item.label}</FooterLink>
@@ -220,7 +247,7 @@ export default function Footer() {
 
             <p
                 aria-hidden="true"
-                className="pointer-events-none relative z-0 m-0 px-[var(--gutter-page)] pb-3 text-center text-[min(16vw,240px)] font-semibold leading-[1.15] tracking-[-0.06em] text-[#5c56b8] select-none"
+                className="pointer-events-none relative z-0 m-0 px-(--gutter-page) pb-3 text-center text-[min(16vw,240px)] font-semibold leading-[1.15] tracking-[-0.06em] text-[#5c56b8] select-none"
             >
                 Sysgrate
             </p>
