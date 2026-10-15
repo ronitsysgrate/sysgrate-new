@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import InquiryModal from "@/components/inquiry/InquiryModal";
 import { AI_READINESS_INQUIRY } from "@/components/inquiry/aiReadiness";
@@ -68,12 +68,44 @@ const AI_PRACTICE = {
 export default function WhatWeSolve() {
   const [activeId, setActiveId] = useState(PRACTICE_AREAS[0].id);
   const [assessmentOpen, setAssessmentOpen] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const active =
     PRACTICE_AREAS.find((p) => p.id === activeId) ?? PRACTICE_AREAS[0];
 
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const reveal = () => {
+      const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+      root.querySelectorAll<HTMLElement>("[data-reveal]").forEach((node) => {
+        if (node.classList.contains("is-in")) return;
+        if (reduce) {
+          node.classList.add("is-in");
+          return;
+        }
+        const rect = node.getBoundingClientRect();
+        if (rect.top < viewHeight * 0.9 && rect.bottom > 48) {
+          node.classList.add("is-in");
+        }
+      });
+    };
+
+    reveal();
+    window.addEventListener("scroll", reveal, { passive: true });
+    window.addEventListener("scrollend", reveal);
+    window.addEventListener("resize", reveal);
+    return () => {
+      window.removeEventListener("scroll", reveal);
+      window.removeEventListener("scrollend", reveal);
+      window.removeEventListener("resize", reveal);
+    };
+  }, [activeId]);
+
   return (
-    <section id="solve" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
-      <div className="max-w-170 flex flex-col gap-4">
+    <section ref={sectionRef} id="solve" className="sg-container pt-[clamp(64px,10vw,120px)] relative">
+      <div data-reveal="rise" className="max-w-170 flex flex-col gap-4">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
           What We Solve
         </span>
@@ -83,7 +115,7 @@ export default function WhatWeSolve() {
       </div>
 
       {/* Tab switcher: Customer Experience / Employee Experience / Modern Workplace */}
-      <div className="flex flex-wrap gap-2 mt-8" role="tablist" aria-label="Practice areas">
+      <div data-reveal="rise" data-delay="1" className="flex flex-wrap gap-2 mt-8" role="tablist" aria-label="Practice areas">
         {PRACTICE_AREAS.map((area) => {
           const isActive = area.id === activeId;
           return (
@@ -106,10 +138,10 @@ export default function WhatWeSolve() {
       </div>
 
       <div
-        className="mt-6 grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] items-center gap-[clamp(28px,5vw,56px)] sg-animate-rise"
+        className="mt-6 grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] items-center gap-[clamp(28px,5vw,56px)]"
         key={active.id}
       >
-        <div className="flex flex-col items-start gap-4">
+        <div data-reveal="rise" className="flex flex-col items-start gap-4">
           <h3 className="text-[clamp(20px,2.2vw,30px)] font-medium text-ink-800 m-0 leading-tight">
             {active.title}
           </h3>
@@ -136,7 +168,7 @@ export default function WhatWeSolve() {
         </div>
 
         {/* Image slot */}
-        <div className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip">
+        <div data-reveal="rise" data-delay="1" className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip">
           <Image
             src={active.imageSrc}
             alt={active.imageAlt}
@@ -148,7 +180,7 @@ export default function WhatWeSolve() {
       </div>
 
       <div className="mt-[clamp(64px,10vw,120px)] grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] items-center gap-[clamp(28px,5vw,56px)]">
-        <div className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip md:order-first order-last">
+        <div data-reveal="rise" className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip md:order-first order-last">
           <Image
             src={AI_PRACTICE.imageSrc}
             alt={AI_PRACTICE.imageAlt}
@@ -158,7 +190,7 @@ export default function WhatWeSolve() {
           />
         </div>
 
-        <div className="flex flex-col items-start gap-4">
+        <div data-reveal="rise" data-delay="1" className="flex flex-col items-start gap-4">
           <span className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-paper shadow-chip text-xs font-medium tracking-[0.06em] uppercase text-text-secondary w-fit">
             {AI_PRACTICE.tag}
           </span>
