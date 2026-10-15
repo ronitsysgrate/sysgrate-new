@@ -1,5 +1,6 @@
 import React from "react";
 import { Cloud, Headset, Phone, type LucideIcon } from "lucide-react";
+import PartnerEcosystem from "./PartnerEcosystem";
 
 interface Award {
   id: string;
@@ -93,6 +94,7 @@ export default function Credentials() {
           );
         })}
       </div>
+      <PartnerEcosystem />
     </section>
   );
 }

@@ -2,13 +2,18 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
+import Image, { StaticImageData } from "next/image";
+import slide1 from "@public/home/slides/slide-01.png";
+import slide2 from "@public/home/slides/slide-02.png";
+import slide3 from "@public/home/slides/slide-03.png";
 
 interface SlideOption {
     id: number;
     tag: string;
     title: React.ReactNode;
     description: string;
-    tint: string;
+    image: StaticImageData;
+    imageAlt: string;
 }
 
 const SLIDES: SlideOption[] = [
@@ -17,56 +22,45 @@ const SLIDES: SlideOption[] = [
         tag: "01",
         title: (
             <>
-                We are the AI and experience{" "}
-                <span className="sg-highlight font-medium">technology backbone</span>{" "}
-                behind the best-run enterprises.
+                Disconnected platforms?{" "}
+                Meet the <span className="sg-highlight font-medium">ICT integrator</span>{" "}
+                that makes them work as one
             </>
         ),
         description:
-            "Specialist system integrator for cloud contact centre, unified communications, and modern workplace technology.",
-        tint: "linear-gradient(145deg, #F7F2FD 0%, #E7DDF7 100%)",
+            "Sysgrate connects your cloud contact centre, unified communications and workplace technology into one system your teams actually use, with the same engineers scoping and delivering.",
+        image: slide1,
+        imageAlt: "Cloud contact centre, unified communications and workplace tech connected as one system",
     },
     {
         id: 2,
         tag: "02",
         title: (
             <>
-                <span className="sg-highlight font-medium">Experience-led.</span>{" "}
-                <span className="sg-highlight font-medium">AI-powered.</span> Built to
-                perform.
+                Stop juggling Multiple vendors.{" "}
+                Get one<span className="sg-highlight font-medium">unified solution</span>{" "}
+                provider and<span className="sg-highlight font-medium">one SLA</span>
             </>
         ),
         description:
-            "We design, deploy, and manage cloud contact centres, enterprise collaboration platforms, and intelligent workplace solutions for businesses.",
-        tint: "linear-gradient(145deg, #FDF2F8 0%, #EDD9EC 100%)",
+            "From strategy and integration to managed operations, one Sysgrate team stays accountable for your CX, collaboration and workplace outcomes long after go-live.",
+        image: slide2,
+        imageAlt: "One team accountable from strategy to managed operations",
     },
     {
         id: 3,
         tag: "03",
         title: (
             <>
-                What if your cloud contact centre, collaboration platform, and workspaces
-                technology all worked in{" "}
-                <span className="sg-highlight font-medium">sync</span> — powered by{" "}
-                <span className="sg-highlight font-medium">AI</span>?
+                AI that resolves{" "}
+                <span className="sg-highlight font-medium">customer problems,</span>{" "}
+                not just deflects them.
             </>
         ),
         description:
-            "We design, integrate, and manage AI-native solutions across CX, unified communications, and modern workplace — for enterprises worldwide.",
-        tint: "linear-gradient(145deg, #F2F4FE 0%, #DAD9F7 100%)",
-    },
-    {
-        id: 4,
-        tag: "04",
-        title: (
-            <>
-                We build AI-native contact center, collaboration &amp; workplace
-                experiences — and turn them into your{" "}
-                <span className="sg-highlight font-medium">competitive edge</span>.
-            </>
-        ),
-        description: "Designed, integrated, and managed for enterprises worldwide.",
-        tint: "linear-gradient(145deg, #F4F7FC 0%, #DFE6F5 100%)",
+            "Voice bots, natural-language reporting and agent assist, built on the platforms you already run and measurable from day one.",
+        image: slide3,
+        imageAlt: "AI voice bot and agent assist resolving a customer query",
     },
 ];
 
@@ -295,7 +289,7 @@ export default function HeroCarousel() {
                         {/* Card deck — shuffles in step with the copy */}
                         <div className="flex justify-center w-full">
                             <div
-                                className="relative w-full max-w-105 h-100 sg-deck"
+                                className="relative w-full max-w-125 aspect-5/4 sg-deck"
                                 aria-live="polite"
                             >
                                 {SLIDES.map((slide, i) => {
@@ -306,14 +300,19 @@ export default function HeroCarousel() {
                                     return (
                                         <article
                                             key={slide.id}
-                                            className="sg-deck-card absolute inset-0 rounded-panel border border-white/90 shadow-float overflow-hidden p-8 md:p-10 flex flex-col justify-between"
-                                            style={{
-                                                ...deckStyle(offset, SLIDES.length),
-                                                backgroundImage: slide.tint,
-                                            }}
+                                            className="sg-deck-card absolute inset-0 rounded-panel border border-white/90 shadow-float overflow-hidden"
+                                            style={{ ...deckStyle(offset, SLIDES.length) }}
                                             aria-hidden={!isFront}
                                             inert={!isFront}
                                         >
+                                            <Image
+                                                src={slide.image}
+                                                alt={slide.imageAlt}
+                                                fill
+                                                sizes="(min-width: 768px) 500px, 90vw"
+                                                className="object-cover"
+                                                priority={i === 0}
+                                            />
                                         </article>
                                     );
                                 })}

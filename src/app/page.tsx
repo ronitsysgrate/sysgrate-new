@@ -1,15 +1,15 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import HeroCarousel from "@/components/HeroCarousel";
-import PartnerLogoStrip from "@/components/PartnerLogoStrip";
-import WhatWeSolve from "@/components/WhatWeSolve";
-import HowWeEngage from "@/components/HowWeEngage";
-import WhySysgrate from "@/components/WhySysgrate";
-import Credentials from "@/components/Credentials";
-import CaseStudies from "@/components/CaseStudies";
-import NewsAndInsights from "@/components/NewsAndInsights";
-import TalkToUs from "@/components/TalkToUs";
-import Faq from "@/components/Faq";
+import HeroCarousel from "@/components/home/HeroCarousel";
+import PartnerLogoStrip from "@/components/home/PartnerLogoStrip";
+import WhatWeSolve from "@/components/home/WhatWeSolve";
+import HowWeEngage from "@/components/home/HowWeEngage";
+import WhySysgrate from "@/components/home/WhySysgrate";
+import Credentials from "@/components/home/Credentials";
+import CaseStudies from "@/components/home/CaseStudies";
+import NewsAndInsights from "@/components/home/NewsAndInsights";
+import TalkToUs from "@/components/home/TalkToUs";
+import Faq from "@/components/home/Faq";
 
 export default function Home() {
     return (

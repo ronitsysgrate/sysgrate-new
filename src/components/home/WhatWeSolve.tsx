@@ -1,10 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import InquiryModal from "@/components/inquiry/InquiryModal";
 import { AI_READINESS_INQUIRY } from "@/components/inquiry/aiReadiness";
 import { ai, contact, employee_experience, solutions, workplace } from "@/content/links";
+import cx_experience_image from "@public/home/cx_experience.png";
+import employee_experience_image from "@public/home/employee_experience.png";
+import workplace_image from "@public/home/modern_workspace.png";
+import ai_image from "@public/home/ai_hub.png";
 
 interface PracticeArea {
   id: string;
@@ -14,7 +18,7 @@ interface PracticeArea {
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
   /** Swap in the real asset — path is a placeholder. */
-  imageSrc: string;
+  imageSrc: StaticImageData;
   imageAlt: string;
 }
 
@@ -27,7 +31,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
       "We implement and manage cloud contact centre platforms — Amazon Connect, Avaya, and Zoom Contact Center — integrated with AI virtual agents, omnichannel engagement, and real-time analytics to reduce costs and raise CSAT.",
     primaryCta: { label: "Explore CX Solutions", href: solutions },
     secondaryCta: { label: "Book a Consultation", href: contact },
-    imageSrc: "/practice-areas/customer-experience.jpg",
+    imageSrc: cx_experience_image,
     imageAlt: "Contact centre agents working across an AI-assisted platform",
   },
   {
@@ -38,7 +42,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
       "We deploy and integrate enterprise collaboration technology — Zoom Phone, Microsoft Teams Direct Routing, and Ribbon SBC — so your workforce stays productive whether they're in the office, on-site, or working remotely.",
     primaryCta: { label: "Explore collaboration solutions", href: employee_experience },
     secondaryCta: { label: "Book a consultation", href: contact },
-    imageSrc: "/practice-areas/employee-experience.jpg",
+    imageSrc: employee_experience_image,
     imageAlt: "Team collaborating across voice, chat, and video in one workspace",
   },
   {
@@ -49,7 +53,7 @@ const PRACTICE_AREAS: PracticeArea[] = [
       "From AI-enabled boardrooms and hybrid meeting spaces to video walls and command centres — we integrate smart AV technology that transforms how your teams collaborate in the physical world.",
     primaryCta: { label: "Explore workplace solutions", href: workplace },
     secondaryCta: { label: "Book a consultation", href: contact },
-    imageSrc: "/practice-areas/modern-workplace.jpg",
+    imageSrc: workplace_image,
     imageAlt: "AI-enabled boardroom with a video wall and hybrid meeting setup",
   },
 ];
@@ -61,7 +65,7 @@ const AI_PRACTICE = {
     "From intelligent virtual assistants and AI chatbots to voice bots, conversational analytics, and agentic AI workflows — we design and deploy AI solutions that integrate with your existing platforms and deliver outcomes your business can measure from day one.",
   primaryCta: { label: "Explore AI Hub", href: ai },
   secondaryCta: { label: "Book an AI readiness assessment", href: contact },
-  imageSrc: "/practice-areas/artificial-intelligence.jpg",
+  imageSrc: ai_image,
   imageAlt: "Conversational AI assistant handling a customer interaction",
 };
 
@@ -124,11 +128,10 @@ export default function WhatWeSolve() {
               type="button"
               role="tab"
               aria-selected={isActive}
-              className={`inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium cursor-pointer transition-all ${
-                isActive
-                  ? "bg-surface-inverse border border-surface-inverse text-white"
-                  : "bg-paper border border-hairline text-text-secondary hover:text-ink-800 hover:border-ink-200"
-              }`}
+              className={`inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium cursor-pointer transition-all ${isActive
+                ? "bg-surface-inverse border border-surface-inverse text-white"
+                : "bg-paper border border-hairline text-text-secondary hover:text-ink-800 hover:border-ink-200"
+                }`}
               onClick={() => setActiveId(area.id)}
             >
               {area.tabLabel}
@@ -168,7 +171,7 @@ export default function WhatWeSolve() {
         </div>
 
         {/* Image slot */}
-        <div data-reveal="rise" data-delay="1" className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip">
+        <div data-reveal="rise" data-delay="1" className="relative w-full aspect-5/4 rounded-panel overflow-hidden bg-paper-card shadow-chip">
           <Image
             src={active.imageSrc}
             alt={active.imageAlt}
@@ -180,12 +183,12 @@ export default function WhatWeSolve() {
       </div>
 
       <div className="mt-[clamp(64px,10vw,120px)] grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] items-center gap-[clamp(28px,5vw,56px)]">
-        <div data-reveal="rise" className="relative w-full aspect-4/3 rounded-panel overflow-hidden bg-paper-card shadow-chip md:order-first order-last">
+        <div data-reveal="rise" className="relative w-full aspect-5/4 rounded-panel overflow-hidden bg-paper-card shadow-chip md:order-first order-last">
           <Image
             src={AI_PRACTICE.imageSrc}
             alt={AI_PRACTICE.imageAlt}
             fill
-            sizes="(min-width: 768px) 42vw, 100vw"
+            sizes="(min-width: 768px) 46vw, 100vw"
             className="object-cover"
           />
         </div>
