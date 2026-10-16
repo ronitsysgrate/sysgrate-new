@@ -77,7 +77,8 @@ const NAV_LINKS: NavItem[] = [
             },
         },
     },
-    { href: "/ai", label: "AI Hub" },
+    { href: "/ai", label: "AI" },
+    { href: "/ai-hub", label: "AI Hub" },
     {
         href: "/about",
         label: "Resources",

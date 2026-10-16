@@ -606,7 +606,7 @@ export default function AiHubPage() {
                 </section>
 
                 <section className="sg-container pt-[clamp(64px,10vw,120px)]">
-                    <div className="max-w-[760px] flex flex-col gap-4">
+                    <div className="max-w-190 flex flex-col gap-4">
                         <Reveal as="h2" kind="ai-clip" className="ai-title">
                             AI in production — already driving real results.
                         </Reveal>
@@ -683,7 +683,7 @@ export default function AiHubPage() {
                 />
 
                 <section id="capabilities" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
-                    <div className="max-w-[760px] flex flex-col gap-4">
+                    <div className="max-w-190 flex flex-col gap-4">
                         <Reveal as="h2" kind="ai-clip" className="ai-title">
                             AI runs across all your operations
                         </Reveal>
@@ -718,7 +718,7 @@ export default function AiHubPage() {
                 </section>
 
                 <section id="methodology" className="sg-container pt-[clamp(64px,10vw,120px)] scroll-mt-32">
-                    <div className="max-w-[820px] flex flex-col gap-4">
+                    <div className="max-w-205 flex flex-col gap-4">
                         <Reveal className="ai-eyebrow">Our AI methodology</Reveal>
                         <Reveal as="p" className="ai-lead" index={1}>
                             We follow three simple rules — decide the goal first, build it to work from day one, and track results from the start. Our AI is easy to understand, easy to check, and keeps getting better — not something confusing over time.
