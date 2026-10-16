@@ -13,8 +13,8 @@ export const services: Service[] = [
     platformIntegration,
     managedOperations,
     bespokeEngineering,
-    experienceAsAService,
     adoptionEnablement,
+    experienceAsAService,
 ];
 
 export function getService(slug: string) {
