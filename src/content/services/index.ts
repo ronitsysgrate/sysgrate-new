@@ -12,8 +12,8 @@ export const services: Service[] = [
     solutionDesign,
     platformIntegration,
     managedOperations,
-    experienceAsAService,
     bespokeEngineering,
+    experienceAsAService,
     adoptionEnablement,
 ];
 
